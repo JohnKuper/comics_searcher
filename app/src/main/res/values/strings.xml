@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ReposViewer</string>
+    <string name="app_name">ComicsViewer</string>
+    <string name="search_hint">Enter keyword</string>
 </resources>

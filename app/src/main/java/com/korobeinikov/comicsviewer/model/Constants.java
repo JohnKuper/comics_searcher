@@ -6,5 +6,4 @@ package com.korobeinikov.comicsviewer.model;
  */
 public class Constants {
 
-    public static final String GITHUB_ENDPOINT = "https://api.github.com";
 }

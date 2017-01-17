@@ -3,7 +3,7 @@ package com.korobeinikov.comicsviewer.dagger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.korobeinikov.comicsviewer.BuildConfig;
-import com.korobeinikov.comicsviewer.network.MarvelAPI;
+import com.korobeinikov.comicsviewer.network.MarvelService;
 
 import javax.inject.Singleton;
 
@@ -46,8 +46,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public MarvelAPI provideGitHubService(Retrofit.Builder retrofitBuilder) {
+    public MarvelService provideMarvelServiceService(Retrofit.Builder retrofitBuilder) {
         retrofitBuilder.baseUrl(BuildConfig.MARVEL_ENDPOINT);
-        return retrofitBuilder.build().create(MarvelAPI.class);
+        return retrofitBuilder.build().create(MarvelService.class);
     }
 }

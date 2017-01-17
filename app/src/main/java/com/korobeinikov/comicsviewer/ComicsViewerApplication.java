@@ -13,12 +13,10 @@ import com.korobeinikov.comicsviewer.dagger.DaggerAppComponent;
 public class ComicsViewerApplication extends Application {
 
     private static AppComponent sAppComponent;
-    private static ComicsViewerApplication sApplication;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sApplication = this;
         sAppComponent = buildAppComponent();
     }
 

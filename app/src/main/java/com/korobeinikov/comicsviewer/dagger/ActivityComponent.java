@@ -1,6 +1,6 @@
 package com.korobeinikov.comicsviewer.dagger;
 
-import com.korobeinikov.comicsviewer.ui.MainActivity;
+import com.korobeinikov.comicsviewer.ui.SearchActivity;
 
 import dagger.Subcomponent;
 
@@ -13,5 +13,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent {
 
-    void inject(MainActivity mainActivity);
+    void inject(SearchActivity searchActivity);
 }

@@ -1,6 +1,7 @@
 package com.korobeinikov.comicsviewer.dagger;
 
-import com.korobeinikov.comicsviewer.mvp.LoginPresenter;
+import com.korobeinikov.comicsviewer.mvp.SearchPresenter;
+import com.korobeinikov.comicsviewer.network.MarvelService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +14,7 @@ import dagger.Provides;
 public class ActivityModule {
 
     @Provides
-    public LoginPresenter providerLoginPresenter() {
-        return new LoginPresenter();
+    public SearchPresenter providesSearchPresenter(MarvelService service) {
+        return new SearchPresenter(service);
     }
 }

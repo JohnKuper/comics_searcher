@@ -33,7 +33,9 @@ public class SearchPresenter implements SearchContract.Presenter<SearchContract.
             @Override
             public void onResponse(Call<ComicsResponse> call, Response<ComicsResponse> response) {
                 Log.d(TAG, "onResponse()");
-                mView.updateSearchList(response.body().data.results);
+                if (response.body() != null) {
+                    mView.updateSearchList(response.body().data.results);
+                }
             }
 
             @Override

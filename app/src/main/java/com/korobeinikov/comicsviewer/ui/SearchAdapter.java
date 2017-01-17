@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.korobeinikov.comicsviewer.R;
+import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +36,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchItemVH> {
 
     @Override
     public void onBindViewHolder(SearchItemVH holder, int position) {
-        holder.mTitle.setText(mResultsList.get(position).title);
-        holder.mAddToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_add));
+        MarvelData.Result result = mResultsList.get(position);
+        holder.tvTitle.setText(result.title);
+        holder.tvShortInfo.setText(getShortInfo(result));
+        holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_add));
+
+        MarvelData.Thumbnail thumbnail = result.thumbnail;
+        Picasso.with(mContext).load(addImageVariant(thumbnail.path, thumbnail.extension))
+                .into(holder.ivThumbnail);
     }
 
     @Override
@@ -47,5 +55,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchItemVH> {
         mResultsList.clear();
         mResultsList.addAll(resultsList);
         notifyDataSetChanged();
+    }
+
+    private String addImageVariant(String initialURL, String extension) {
+        return initialURL + "/" + ComicImageVariant.STANDARD_MEDIUM.toString().toLowerCase() + "." + extension;
+    }
+
+    private String getShortInfo(MarvelData.Result result) {
+        String price = String.valueOf(result.getFirstPrice().price);
+        return (mContext.getString(R.string.short_comic_info, result.format, price));
     }
 }

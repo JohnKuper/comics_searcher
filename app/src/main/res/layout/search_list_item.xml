@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/ivThumbnail"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
         android:layout_marginRight="16dp"
@@ -36,20 +36,20 @@
         android:layout_toRightOf="@id/ivThumbnail"
         android:ellipsize="end"
         android:lines="1"
-        android:paddingTop="16dp"
+        android:paddingTop="14dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        tools:text="Spider-Gwen Vol. 1 (Hardcover) sdfsd fsd f" />
+        tools:text="Spider-Gwen Vol. 1 (Hardcover)" />
 
     <TextView
-        android:id="@+id/tvModified"
+        android:id="@+id/tvShortInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvComicTitle"
         android:layout_toRightOf="@id/ivThumbnail"
-        android:paddingTop="4dp"
+        android:paddingTop="2dp"
         android:textSize="14sp"
-        tools:text="2016-10-16" />
+        tools:text="Hardcover / $34.99" />
 
     <View
         android:layout_width="match_parent"

@@ -18,13 +18,13 @@ import butterknife.ButterKnife;
 public class SearchItemVH extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ivThumbnail)
-    public ImageView mThumbnail;
+    public ImageView ivThumbnail;
     @BindView(R.id.tvComicTitle)
-    public TextView mTitle;
-    @BindView(R.id.tvModified)
-    public TextView mModified;
+    public TextView tvTitle;
+    @BindView(R.id.tvShortInfo)
+    public TextView tvShortInfo;
     @BindView(R.id.ibAddToFavourites)
-    public ImageButton mAddToFavourites;
+    public ImageButton ibToFavourites;
 
     public SearchItemVH(View itemView) {
         super(itemView);

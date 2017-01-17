@@ -14,11 +14,25 @@ public class MarvelData {
         public String title;
         public String description;
         public String modified;
+        public String format;
+        public int pageCount;
         public Thumbnail thumbnail;
+        public ArrayList<Price> prices;
+
+        public Price getFirstPrice() {
+            if (prices != null && !prices.isEmpty()) {
+                return prices.get(0);
+            }
+            return null;
+        }
     }
 
-    private static class Thumbnail {
+    public static class Thumbnail {
         public String path;
         public String extension;
+    }
+
+    public static class Price {
+        public double price;
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:orientation="vertical"
+                android:paddingLeft="16dp">
+
+    <ImageButton
+        android:id="@+id/ibAddToFavourites"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:background="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_add" />
+
+    <ImageView
+        android:id="@+id/ivThumbnail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="16dp"
+        tools:src="@android:drawable/sym_def_app_icon" />
+
+    <TextView
+        android:id="@+id/tvComicTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/ibAddToFavourites"
+        android:layout_toRightOf="@id/ivThumbnail"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingTop="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        tools:text="Spider-Gwen Vol. 1 (Hardcover) sdfsd fsd f" />
+
+    <TextView
+        android:id="@+id/tvModified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvComicTitle"
+        android:layout_toRightOf="@id/ivThumbnail"
+        android:paddingTop="4dp"
+        android:textSize="14sp"
+        tools:text="2016-10-16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/ivThumbnail"
+        android:background="@android:color/darker_gray" />
+
+</RelativeLayout>

@@ -1,10 +1,11 @@
 package com.korobeinikov.comicsviewer.network;
 
-import com.korobeinikov.comicsviewer.model.AuthorizationData;
+import com.korobeinikov.comicsviewer.model.ComicsResponse;
+import com.korobeinikov.comicsviewer.model.Constants;
 
 import retrofit2.Call;
-import retrofit2.http.Header;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -12,6 +13,6 @@ import retrofit2.http.POST;
  */
 public interface MarvelService {
 
-    @POST
-    Call<AuthorizationData> basicAuth(@Header("Authorization") String base64Credentials);
+    @GET("comics?apikey=" + Constants.PUBLIC_MARVEL_KEY)
+    Call<ComicsResponse> findComics(@Query("titleStartsWith") String title, @Query("ts") long timestamp, @Query("hash") String hash);
 }

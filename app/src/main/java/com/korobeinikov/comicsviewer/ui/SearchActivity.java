@@ -12,10 +12,11 @@ import android.view.MenuItem;
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.dagger.ActivityModule;
+import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.mvp.SearchContract;
 import com.korobeinikov.comicsviewer.mvp.SearchPresenter;
 import com.lapism.searchview.SearchView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,7 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements SearchContract.View {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -34,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @Inject
     SearchPresenter mPresenter;
+    private SearchAdapter mSearchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,12 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         setupSearchView();
         setupRecyclerView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.setView(this);
     }
 
     @Override
@@ -72,16 +80,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(createItemList());
-        mRecyclerView.setAdapter(recyclerAdapter);
-    }
-
-    private List<String> createItemList() {
-        List<String> itemList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            itemList.add("Item " + i);
-        }
-        return itemList;
+        mSearchAdapter = new SearchAdapter(this);
+        mRecyclerView.setAdapter(mSearchAdapter);
     }
 
     private void setupSearchView() {
@@ -94,7 +94,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                mPresenter.onSearchSubmit();
                 return true;
             }
 
@@ -103,5 +103,10 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void updateSearchList(List<MarvelData.Result> results) {
+        mSearchAdapter.setResults(results);
     }
 }

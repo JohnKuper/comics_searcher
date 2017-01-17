@@ -7,12 +7,12 @@ android {
 
     defaultConfig {
         applicationId "com.korobeinikov.reposviewer"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
 
-        buildConfigField 'String', 'MARVEL_ENDPOINT', '"https://gateway.marvel.com:443"'
+        buildConfigField 'String', 'MARVEL_ENDPOINT', '"https://gateway.marvel.com/v1/public/"'
     }
     buildTypes {
         release {

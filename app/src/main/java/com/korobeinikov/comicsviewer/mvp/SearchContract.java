@@ -12,9 +12,13 @@ public interface SearchContract {
 
     interface View extends BaseView {
         void updateSearchList(List<MarvelData.Result> results);
+
+        void openDetailedInformation(MarvelData.Result result);
     }
 
-    interface Presenter<T extends View> extends BasePresenter<T> {
+    interface Presenter extends BasePresenter<View> {
         void onSearchSubmit();
+
+        void onListItemClick(MarvelData.Result result);
     }
 }

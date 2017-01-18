@@ -4,6 +4,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
+import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.network.MD5HashHelper;
 import com.korobeinikov.comicsviewer.network.MarvelService;
 
@@ -15,7 +16,7 @@ import retrofit2.Response;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class SearchPresenter implements SearchContract.Presenter<SearchContract.View> {
+public class SearchPresenter implements SearchContract.Presenter {
 
     private static final String TAG = SearchPresenter.class.getSimpleName();
 
@@ -43,6 +44,11 @@ public class SearchPresenter implements SearchContract.Presenter<SearchContract.
                 Log.d(TAG, "onFailure()");
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(MarvelData.Result result) {
+        mView.openDetailedInformation(result);
     }
 
     @Override

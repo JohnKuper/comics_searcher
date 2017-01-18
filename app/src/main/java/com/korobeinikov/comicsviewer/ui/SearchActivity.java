@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AppCompatActivity implements SearchContract.View {
+public class SearchActivity extends AppCompatActivity implements SearchContract.View, SearchAdapter.ClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -52,6 +52,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     protected void onResume() {
         super.onResume();
         mPresenter.setView(this);
+        mPresenter.onSearchSubmit();
     }
 
     @Override
@@ -80,7 +81,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     private void setupRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mSearchAdapter = new SearchAdapter(this);
+        mSearchAdapter = new SearchAdapter(this, this);
         mRecyclerView.setAdapter(mSearchAdapter);
     }
 
@@ -106,7 +107,20 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
+    public void onListItemClick(MarvelData.Result result) {
+        mPresenter.onListItemClick(result);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Commands from Presenter
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
     public void updateSearchList(List<MarvelData.Result> results) {
         mSearchAdapter.setResults(results);
+    }
+
+    @Override
+    public void openDetailedInformation(MarvelData.Result result) {
+
     }
 }

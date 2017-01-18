@@ -17,6 +17,8 @@ import com.korobeinikov.comicsviewer.mvp.SearchContract;
 import com.korobeinikov.comicsviewer.mvp.SearchPresenter;
 import com.lapism.searchview.SearchView;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -81,7 +83,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     private void setupRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mSearchAdapter = new SearchAdapter(this, this);
+        mSearchAdapter = new SearchAdapter(this);
+        mSearchAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mSearchAdapter);
     }
 
@@ -121,6 +124,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     @Override
     public void openDetailedInformation(MarvelData.Result result) {
-
+        Bundle args = new Bundle();
+        args.putParcelable(ComicDetailDialogFragment.ARG_COMIC_DETAILS, Parcels.wrap(result));
+        ComicDetailDialogFragment dialogFragment = ComicDetailDialogFragment.newInstance(args);
+        dialogFragment.show(getSupportFragmentManager(), null);
     }
 }

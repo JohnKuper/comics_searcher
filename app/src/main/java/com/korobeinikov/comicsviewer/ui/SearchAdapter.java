@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.R;
-import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.util.StringHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -19,6 +19,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_MEDIUM;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -34,9 +36,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchItem
         void onListItemClick(MarvelData.Result result);
     }
 
-    public SearchAdapter(Context context, ClickListener listener) {
+    public SearchAdapter(Context context) {
         mContext = context;
-        mClickListener = listener;
         mResultsList = new ArrayList<>();
     }
 
@@ -50,26 +51,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchItem
     public void onBindViewHolder(SearchItemVH holder, int position) {
         MarvelData.Result result = mResultsList.get(position);
         holder.tvTitle.setText(result.title);
-        holder.tvShortInfo.setText(getShortInfo(result));
+        holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, result));
         holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_add));
 
-        MarvelData.Thumbnail thumbnail = result.thumbnail;
-        Picasso.with(mContext).load(addImageVariant(thumbnail.path, thumbnail.extension))
+        Picasso.with(mContext)
+                .load(StringHelper.getFullPathToImage(result.thumbnail, STANDARD_MEDIUM))
                 .into(holder.ivThumbnail);
     }
 
     @Override
     public int getItemCount() {
         return mResultsList.size();
-    }
-
-    private String getShortInfo(MarvelData.Result result) {
-        String price = String.valueOf(result.getFirstPrice().price);
-        return (mContext.getString(R.string.short_comic_info, result.format, price));
-    }
-
-    private String addImageVariant(String initialURL, String extension) {
-        return initialURL + "/" + ComicImageVariant.STANDARD_MEDIUM.toString().toLowerCase() + "." + extension;
     }
 
     public void setResults(List<MarvelData.Result> resultsList) {

@@ -5,5 +5,5 @@ package com.korobeinikov.comicsviewer.model;
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public enum ComicImageVariant {
-    STANDARD_MEDIUM
+    STANDARD_MEDIUM, STANDARD_LARGE
 }

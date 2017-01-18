@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.network;
+package com.korobeinikov.comicsviewer.util;
 
 import android.os.SystemClock;
 import android.util.Log;

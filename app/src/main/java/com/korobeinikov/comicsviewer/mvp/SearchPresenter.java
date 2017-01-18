@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.network.MD5HashHelper;
 import com.korobeinikov.comicsviewer.network.MarvelService;
+import com.korobeinikov.comicsviewer.util.MD5HashHelper;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,16 +1,21 @@
 package com.korobeinikov.comicsviewer.model;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
+@Parcel
 public class MarvelData {
 
     public ArrayList<Result> results;
 
+    @Parcel
     public static class Result {
+        public int id;
         public String title;
         public String description;
         public String modified;
@@ -27,11 +32,13 @@ public class MarvelData {
         }
     }
 
+    @Parcel
     public static class Thumbnail {
         public String path;
         public String extension;
     }
 
+    @Parcel
     public static class Price {
         public double price;
     }

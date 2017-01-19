@@ -14,5 +14,5 @@ import retrofit2.http.Query;
 public interface MarvelService {
 
     @GET("comics?apikey=" + Constants.PUBLIC_MARVEL_KEY)
-    Call<ComicsResponse> findComics(@Query("titleStartsWith") String title, @Query("ts") long timestamp, @Query("hash") String hash);
+    Call<ComicsResponse> findComics(@Query("titleStartsWith") String query, @Query("ts") long timestamp, @Query("hash") String hash);
 }

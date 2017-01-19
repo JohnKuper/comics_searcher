@@ -28,8 +28,8 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void onSearchSubmit() {
-        Call<ComicsResponse> comicsResponse = mMarvelService.findComics("Spider", SystemClock.elapsedRealtime(), MD5HashHelper.computeMarvelMD5hash());
+    public void onSearchSubmit(String query) {
+        Call<ComicsResponse> comicsResponse = mMarvelService.findComics(query, SystemClock.elapsedRealtime(), MD5HashHelper.computeMarvelMD5hash());
         comicsResponse.enqueue(new Callback<ComicsResponse>() {
             @Override
             public void onResponse(Call<ComicsResponse> call, Response<ComicsResponse> response) {

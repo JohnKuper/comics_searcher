@@ -42,23 +42,9 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
     @BindView(R.id.tvDescription)
     TextView mDescription;
 
-    private BottomSheetCallback mBottomSheetCallback = new BottomSheetCallback() {
-
-        @Override
-        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            if (newState == STATE_HIDDEN) {
-                dismiss();
-            }
-        }
-
-        @Override
-        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-        }
-    };
-
     private MarvelData.Result mResult;
 
-    public static ComicDetailDialogFragment newInstance(Bundle args) {
+    public static ComicDetailDialogFragment newInstance(@NonNull Bundle args) {
         ComicDetailDialogFragment fragment = new ComicDetailDialogFragment();
         fragment.setArguments(args);
         return fragment;
@@ -76,14 +62,29 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
         View contentView = View.inflate(getContext(), R.layout.fragment_comic_detail, null);
         dialog.setContentView(contentView);
         setupViews(contentView);
+        setBottomSheetCallback(contentView);
+    }
 
+    private void setBottomSheetCallback(View contentView) {
         View parentView = (View) contentView.getParent();
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) parentView.getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();
 
         if (behavior != null && behavior instanceof BottomSheetBehavior) {
             BottomSheetBehavior bottomSheetBehavior = (BottomSheetBehavior) behavior;
-            bottomSheetBehavior.setBottomSheetCallback(mBottomSheetCallback);
+            bottomSheetBehavior.setBottomSheetCallback(new BottomSheetCallback() {
+
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    if (newState == STATE_HIDDEN) {
+                        dismiss();
+                    }
+                }
+
+                @Override
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                }
+            });
         }
     }
 
@@ -92,6 +93,7 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
         Picasso.with(getContext())
                 .load(StringHelper.getFullPathToImage(mResult.thumbnail, ComicImageVariant.STANDARD_LARGE))
                 .into(mThumbnail);
+
         mTitle.setText(mResult.title);
         mDescription.setText(mResult.description);
         mShortInfo.setText(StringHelper.getShortInfo(getContext(), mResult));

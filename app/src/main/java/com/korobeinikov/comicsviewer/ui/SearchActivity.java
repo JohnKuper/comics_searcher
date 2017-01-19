@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
@@ -54,31 +51,13 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     protected void onResume() {
         super.onResume();
         mPresenter.setView(this);
-        mPresenter.onSearchSubmit();
+//        mPresenter.onSearchSubmit("Spider");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_search:
-                mSearchView.open(true);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void setupRecyclerView() {
@@ -89,16 +68,17 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     private void setupSearchView() {
-        mSearchView.setVersion(SearchView.VERSION_MENU_ITEM);
-        mSearchView.setTheme(SearchView.THEME_LIGHT);
+        mSearchView.setVersion(SearchView.VERSION_TOOLBAR);
         mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_MENU_ITEM);
+        mSearchView.setTheme(SearchView.THEME_LIGHT);
         mSearchView.setVoice(false);
-
         mSearchView.setHint(R.string.search_hint);
+
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mPresenter.onSearchSubmit();
+                mPresenter.onSearchSubmit(query);
+                mSearchView.close(true);
                 return true;
             }
 

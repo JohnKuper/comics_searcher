@@ -4,4 +4,6 @@
     <string name="search_hint">Enter keyword</string>
     <string name="short_comic_info">%1$s / &#36;%2$s</string>
     <string name="description_label">Description</string>
+    <string name="list_is_empty">List is empty</string>
+    <string name="use_more_general_keyword">Try to search or use more general keyword</string>
 </resources>

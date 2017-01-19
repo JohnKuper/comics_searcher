@@ -26,7 +26,10 @@ import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_MED
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchItemVH> {
+public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int VIEW_TYPE_EMPTY = 0;
+    private static final int VIEW_TYPE_LIST_ITEM = 1;
 
     private Context mContext;
     private List<MarvelData.Result> mResultsList;
@@ -42,26 +45,53 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchItem
     }
 
     @Override
-    public SearchItemVH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.search_list_item, parent, false);
-        return new SearchItemVH(view);
+    public int getItemViewType(int position) {
+        if (mResultsList.size() == 0) {
+            return VIEW_TYPE_EMPTY;
+        } else {
+            return VIEW_TYPE_LIST_ITEM;
+        }
     }
 
     @Override
-    public void onBindViewHolder(SearchItemVH holder, int position) {
-        MarvelData.Result result = mResultsList.get(position);
-        holder.tvTitle.setText(result.title);
-        holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, result));
-        holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_add));
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        RecyclerView.ViewHolder viewHolder = null;
+        switch (viewType) {
+            case VIEW_TYPE_EMPTY:
+                view = LayoutInflater.from(mContext).inflate(R.layout.search_empty_view, parent, false);
+                viewHolder = new EmptyVH(view);
+                break;
+            case VIEW_TYPE_LIST_ITEM:
+                view = LayoutInflater.from(mContext).inflate(R.layout.search_list_item, parent, false);
+                viewHolder = new SearchItemVH(view);
+                break;
+        }
+        return viewHolder;
+    }
 
-        Picasso.with(mContext)
-                .load(StringHelper.getFullPathToImage(result.thumbnail, STANDARD_MEDIUM))
-                .into(holder.ivThumbnail);
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        if (viewHolder instanceof SearchItemVH) {
+            SearchItemVH holder = (SearchItemVH) viewHolder;
+            MarvelData.Result result = mResultsList.get(position);
+            holder.tvTitle.setText(result.title);
+            holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, result));
+            holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_add));
+
+            Picasso.with(mContext)
+                    .load(StringHelper.getFullPathToImage(result.thumbnail, STANDARD_MEDIUM))
+                    .into(holder.ivThumbnail);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mResultsList.size();
+        if (mResultsList.size() == 0) {
+            return 1;
+        } else {
+            return mResultsList.size();
+        }
     }
 
     public void setResults(List<MarvelData.Result> resultsList) {
@@ -98,6 +128,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchItem
                     mClickListener.onListItemClick(mResultsList.get(getAdapterPosition()));
                     break;
             }
+        }
+    }
+
+    class EmptyVH extends RecyclerView.ViewHolder {
+
+        public EmptyVH(View itemView) {
+            super(itemView);
         }
     }
 }

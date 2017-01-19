@@ -17,7 +17,7 @@ public interface SearchContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void onSearchSubmit();
+        void onSearchSubmit(String query);
 
         void onListItemClick(MarvelData.Result result);
     }

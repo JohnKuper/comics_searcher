@@ -23,4 +23,12 @@ public final class StringHelper {
     public static String getFullPathToImage(MarvelData.Thumbnail thumbnail, ComicImageVariant variant) {
         return thumbnail.path + "/" + variant.toString().toLowerCase() + "." + thumbnail.extension;
     }
+
+    public static String getCorrectDescription(Context context, String description) {
+        return isEmpty(description) ? context.getString(R.string.no_description) : description;
+    }
+
+    public static boolean isEmpty(String string) {
+        return string == null || string.trim().length() == 0;
+    }
 }

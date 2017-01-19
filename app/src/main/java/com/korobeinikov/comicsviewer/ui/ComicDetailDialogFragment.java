@@ -24,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN;
+import static com.korobeinikov.comicsviewer.util.StringHelper.getCorrectDescription;
+import static com.korobeinikov.comicsviewer.util.StringHelper.getShortInfo;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -95,7 +97,7 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
                 .into(mThumbnail);
 
         mTitle.setText(mResult.title);
-        mDescription.setText(mResult.description);
-        mShortInfo.setText(StringHelper.getShortInfo(getContext(), mResult));
+        mDescription.setText(getCorrectDescription(getContext(), mResult.description));
+        mShortInfo.setText(getShortInfo(getContext(), mResult));
     }
 }

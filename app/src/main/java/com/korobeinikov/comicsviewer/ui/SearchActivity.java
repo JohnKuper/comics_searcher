@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
@@ -31,6 +33,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     SearchView mSearchView;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
 
     @Inject
     SearchPresenter mPresenter;
@@ -51,7 +55,6 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     protected void onResume() {
         super.onResume();
         mPresenter.setView(this);
-//        mPresenter.onSearchSubmit("Spider");
     }
 
     @Override
@@ -61,9 +64,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     private void setupRecyclerView() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSearchAdapter = new SearchAdapter(this);
         mSearchAdapter.setClickListener(this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mSearchAdapter);
     }
 
@@ -108,5 +111,11 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         args.putParcelable(ComicDetailDialogFragment.ARG_COMIC_DETAILS, Parcels.wrap(result));
         ComicDetailDialogFragment dialogFragment = ComicDetailDialogFragment.newInstance(args);
         dialogFragment.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void showProgress(boolean isShown) {
+        mProgressBar.setVisibility(isShown ? View.VISIBLE : View.GONE);
+        mRecyclerView.setVisibility(isShown ? View.GONE : View.VISIBLE);
     }
 }

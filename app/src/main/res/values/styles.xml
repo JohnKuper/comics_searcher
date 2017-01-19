@@ -9,6 +9,10 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="BlueAccent" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">#29B6F6</item>
+    </style>
+
     <style name="PrimaryText">
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">16sp</item>

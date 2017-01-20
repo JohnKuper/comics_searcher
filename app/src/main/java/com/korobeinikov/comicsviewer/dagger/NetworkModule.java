@@ -3,7 +3,7 @@ package com.korobeinikov.comicsviewer.dagger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.korobeinikov.comicsviewer.BuildConfig;
-import com.korobeinikov.comicsviewer.network.ComicRequester;
+import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.network.MarvelService;
 
 import javax.inject.Singleton;
@@ -55,7 +55,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public ComicRequester provideComicRequester(MarvelService service) {
-        return new ComicRequester(service);
+    public ComicsRequester provideComicRequester(MarvelService service) {
+        return new ComicsRequester(service);
     }
 }

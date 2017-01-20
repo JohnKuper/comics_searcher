@@ -19,12 +19,12 @@ import com.lapism.searchview.SearchView;
 
 import org.parceler.Parcels;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 
 public class SearchActivity extends AppCompatActivity implements SearchContract.View, SearchAdapter.ClickListener {
 
@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     Toolbar mToolbar;
     @BindView(R.id.searchView)
     SearchView mSearchView;
-    @BindView(R.id.recyclerView)
+    @BindView(recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -42,6 +42,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     @Inject
     SearchPresenter mPresenter;
     private SearchAdapter mSearchAdapter;
+
+    private static final int loadingThreshold = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,21 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         mSearchAdapter.setClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mSearchAdapter);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int visibleItemCount = recyclerView.getChildCount();
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+
+                int firstVisibleItemPosition;
+                firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+
+                if ((totalItemCount - visibleItemCount) <= (firstVisibleItemPosition + loadingThreshold)) {
+                    mPresenter.onListBottomReached();
+                }
+            }
+        });
     }
 
     private void setupSearchView() {
@@ -114,8 +131,13 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     // Commands from Presenter
     ///////////////////////////////////////////////////////////////////////////
     @Override
-    public void swapResults(List<MarvelData.Result> results) {
-        mSearchAdapter.setResults(results);
+    public void swapResults(MarvelData marvelData) {
+        mSearchAdapter.swapResults(marvelData);
+    }
+
+    @Override
+    public void addResults(MarvelData marvelData) {
+        mSearchAdapter.addResults(marvelData);
     }
 
     @Override

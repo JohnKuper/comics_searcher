@@ -30,12 +30,16 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_LIST_ITEM = 1;
+    private static final int VIEW_TYPE_LOADING_ITEM = 2;
 
     private Context mContext;
     private List<MarvelData.Result> mResultsList;
     private ClickListener mClickListener;
 
+    private boolean mDisplayLoadingRow = true;
+
     public interface ClickListener {
+
         void onListItemClick(MarvelData.Result result);
     }
 
@@ -48,8 +52,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemViewType(int position) {
         if (mResultsList.size() == 0) {
             return VIEW_TYPE_EMPTY;
-        } else {
+        } else if (!isLoadingRow(position)) {
             return VIEW_TYPE_LIST_ITEM;
+        } else {
+            return VIEW_TYPE_LOADING_ITEM;
         }
     }
 
@@ -57,14 +63,19 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         RecyclerView.ViewHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         switch (viewType) {
             case VIEW_TYPE_EMPTY:
-                view = LayoutInflater.from(mContext).inflate(R.layout.search_empty_view, parent, false);
+                view = inflater.inflate(R.layout.search_empty_view, parent, false);
                 viewHolder = new EmptyVH(view);
                 break;
             case VIEW_TYPE_LIST_ITEM:
-                view = LayoutInflater.from(mContext).inflate(R.layout.search_list_item, parent, false);
+                view = inflater.inflate(R.layout.search_list_item, parent, false);
                 viewHolder = new SearchItemVH(view);
+                break;
+            case VIEW_TYPE_LOADING_ITEM:
+                view = inflater.inflate(R.layout.list_item_loading, parent, false);
+                viewHolder = new LoadingVH(view);
                 break;
         }
         return viewHolder;
@@ -90,14 +101,37 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (mResultsList.size() == 0) {
             return 1;
         } else {
-            return mResultsList.size();
+            return mDisplayLoadingRow ? mResultsList.size() + 1 : mResultsList.size();
         }
     }
 
-    public void setResults(List<MarvelData.Result> resultsList) {
+    private boolean isLoadingRow(int position) {
+        return mDisplayLoadingRow && position == getLoadingRowPosition();
+    }
+
+    private int getLoadingRowPosition() {
+        return mDisplayLoadingRow ? getItemCount() - 1 : -1;
+    }
+
+    public void swapResults(MarvelData marvelData) {
         mResultsList.clear();
-        mResultsList.addAll(resultsList);
-        notifyDataSetChanged();
+        mResultsList.addAll(marvelData.results);
+        adjustLoadingItem(marvelData);
+    }
+
+    public void addResults(MarvelData marvelData) {
+        int prevSize = mResultsList.size();
+        ArrayList<MarvelData.Result> newResults = marvelData.results;
+        mResultsList.addAll(newResults);
+        notifyItemRangeInserted(prevSize, newResults.size());
+        adjustLoadingItem(marvelData);
+    }
+
+    private void adjustLoadingItem(MarvelData marvelData) {
+        if (!marvelData.hasMoreData()) {
+            mDisplayLoadingRow = false;
+            notifyDataSetChanged();
+        }
     }
 
     public void setClickListener(ClickListener clickListener) {
@@ -134,6 +168,13 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     class EmptyVH extends RecyclerView.ViewHolder {
 
         public EmptyVH(View itemView) {
+            super(itemView);
+        }
+    }
+
+    class LoadingVH extends RecyclerView.ViewHolder {
+
+        public LoadingVH(View itemView) {
             super(itemView);
         }
     }

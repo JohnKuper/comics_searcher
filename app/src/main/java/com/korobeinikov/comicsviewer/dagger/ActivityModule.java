@@ -1,7 +1,7 @@
 package com.korobeinikov.comicsviewer.dagger;
 
 import com.korobeinikov.comicsviewer.mvp.SearchPresenter;
-import com.korobeinikov.comicsviewer.network.ComicRequester;
+import com.korobeinikov.comicsviewer.network.ComicsRequester;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +15,7 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    public SearchPresenter providesSearchPresenter(ComicRequester requester) {
+    public SearchPresenter providesSearchPresenter(ComicsRequester requester) {
         return new SearchPresenter(requester);
     }
 }

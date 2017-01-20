@@ -2,7 +2,7 @@ package com.korobeinikov.comicsviewer.mvp;
 
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.network.ComicRequester;
+import com.korobeinikov.comicsviewer.network.ComicsRequester;
 
 import rx.Observable;
 import rx.Observer;
@@ -17,18 +17,19 @@ public class SearchPresenter implements SearchContract.Presenter {
     private static final String TAG = SearchPresenter.class.getSimpleName();
 
     private SearchContract.View mView;
-    private ComicRequester mComicRequester;
-    private Observable<ComicsResponse> mComicRequestCache;
+    private ComicsRequester mComicsRequester;
+    private Observable<ComicsResponse> mCachedRequest;
     private Subscription mSubscription;
+    private String mLastKeyword;
 
-    public SearchPresenter(ComicRequester requester) {
-        mComicRequester = requester;
+    public SearchPresenter(ComicsRequester requester) {
+        mComicsRequester = requester;
     }
 
     @Override
     public void onResume(SearchContract.View view) {
         mView = view;
-        if (mComicRequestCache != null) {
+        if (mCachedRequest != null) {
             startRequest();
         }
     }
@@ -41,20 +42,33 @@ public class SearchPresenter implements SearchContract.Presenter {
         }
     }
 
-    @Override
-    public void onSearchSubmit(String keyword) {
-        mComicRequestCache = mComicRequester.findComicsByKeyword(keyword).cache();
-        startRequest();
-    }
-
     private void startRequest() {
         mView.showProgress(true);
-        mSubscription = mComicRequestCache.subscribe(mComicsObserver);
+        mSubscription = mCachedRequest.subscribe(mComicsObserver);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Events from View
+    ///////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onSearchSubmit(String keyword) {
+        mLastKeyword = keyword;
+        mComicsRequester.clearState();
+        mCachedRequest = mComicsRequester.findComicsByKeyword(keyword).cache();
+        startRequest();
     }
 
     @Override
     public void onListItemClick(MarvelData.Result result) {
         mView.openDetailedInformation(result);
+    }
+
+    @Override
+    public void onListBottomReached() {
+        if (!mComicsRequester.isLoading() && mComicsRequester.hasMoreData()) {
+            mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword).cache();
+            mSubscription = mCachedRequest.subscribe(mComicsObserver);
+        }
     }
 
     private final Observer<ComicsResponse> mComicsObserver = new Observer<ComicsResponse>() {
@@ -70,7 +84,12 @@ public class SearchPresenter implements SearchContract.Presenter {
         @Override
         public void onNext(ComicsResponse response) {
             mView.showProgress(false);
-            mView.swapResults(response.data.results);
+            MarvelData marvelData = response.data;
+            if (marvelData.offset == 0) {
+                mView.swapResults(marvelData);
+            } else {
+                mView.addResults(marvelData);
+            }
         }
     };
 }

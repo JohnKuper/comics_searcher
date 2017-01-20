@@ -14,5 +14,6 @@ import rx.Observable;
 public interface MarvelService {
 
     @GET("comics?apikey=" + Constants.PUBLIC_MARVEL_KEY)
-    Observable<ComicsResponse> findComics(@Query("titleStartsWith") String query, @Query("ts") long timestamp, @Query("hash") String hash);
+    Observable<ComicsResponse> findComics(@Query("titleStartsWith") String query, @Query("ts") long timestamp,
+                                          @Query("hash") String hash, @Query("offset") int offset);
 }

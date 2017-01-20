@@ -11,6 +11,10 @@ import java.util.ArrayList;
 @Parcel
 public class MarvelData {
 
+    private static final int ITEMS_PER_PAGE = 20;
+
+    public int offset;
+    public int total;
     public ArrayList<Result> results;
 
     @Parcel
@@ -41,5 +45,13 @@ public class MarvelData {
     @Parcel
     public static class Price {
         public double price;
+    }
+
+    public int getNextOffset() {
+        return offset += ITEMS_PER_PAGE;
+    }
+
+    public boolean hasMoreData() {
+        return offset + ITEMS_PER_PAGE < total;
     }
 }

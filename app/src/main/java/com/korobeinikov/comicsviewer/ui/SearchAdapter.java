@@ -15,7 +15,6 @@ import com.korobeinikov.comicsviewer.util.StringHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +27,13 @@ import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_MED
  */
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_LIST_ITEM = 1;
     private static final int VIEW_TYPE_LOADING_ITEM = 2;
 
     private Context mContext;
-    private List<MarvelData.Result> mResultsList;
+    private ArrayList<MarvelData.Result> mResultsList;
     private ClickListener mClickListener;
 
     private boolean mDisplayLoadingRow = true;

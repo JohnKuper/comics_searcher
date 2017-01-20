@@ -5,8 +5,8 @@ package com.korobeinikov.comicsviewer.mvp;
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public interface BasePresenter<T> {
-    void onResume(T view);
+    void onAttachView(T view);
 
-    void onDestroy();
+    void onDetachView();
 }
 

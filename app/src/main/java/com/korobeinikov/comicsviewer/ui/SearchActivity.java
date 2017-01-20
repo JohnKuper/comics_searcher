@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.onResume(this);
+        mPresenter.onAttachView(this);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         if (isFinishing()) {
             sActivityComponent = null;
         }
-        mPresenter.onDestroy();
+        mPresenter.onDetachView();
     }
 
     private void injectSelf() {

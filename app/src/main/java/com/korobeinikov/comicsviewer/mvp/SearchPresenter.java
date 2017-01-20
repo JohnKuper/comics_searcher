@@ -14,7 +14,7 @@ import rx.Subscription;
  */
 public class SearchPresenter implements SearchContract.Presenter {
 
-    private static final String TAG = SearchPresenter.class.getSimpleName();
+    private static final String TAG = "SearchPresenter";
 
     private SearchContract.View mView;
     private ComicsRequester mComicsRequester;
@@ -27,7 +27,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void onResume(SearchContract.View view) {
+    public void onAttachView(SearchContract.View view) {
         mView = view;
         if (mCachedRequest != null) {
             startRequest();
@@ -35,7 +35,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDetachView() {
         mView = null;
         if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();

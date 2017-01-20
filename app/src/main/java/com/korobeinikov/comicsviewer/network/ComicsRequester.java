@@ -6,8 +6,6 @@ import com.korobeinikov.comicsviewer.model.ComicsResponse;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 import static com.korobeinikov.comicsviewer.util.MD5HashHelper.computeMarvelMD5hash;
@@ -32,25 +30,10 @@ public class ComicsRequester {
         int offset = mLastResponse == null ? 0 : mLastResponse.data.getNextOffset();
         return mMarvelService.findComics(keyword, timeStamp, computeMarvelMD5hash(timeStamp), offset)
                 .subscribeOn(Schedulers.io())
+                .doOnNext(response -> mLastResponse = response)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mIsLoading = true;
-                    }
-                })
-                .doOnCompleted(new Action0() {
-                    @Override
-                    public void call() {
-                        mIsLoading = false;
-                    }
-                })
-                .doOnNext(new Action1<ComicsResponse>() {
-                    @Override
-                    public void call(ComicsResponse response) {
-                        mLastResponse = response;
-                    }
-                });
+                .doOnSubscribe(() -> mIsLoading = true)
+                .doOnCompleted(() -> mIsLoading = false);
     }
 
     public void clearState() {

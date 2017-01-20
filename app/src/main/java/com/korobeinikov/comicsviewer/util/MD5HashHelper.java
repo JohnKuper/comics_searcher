@@ -15,7 +15,7 @@ import static com.korobeinikov.comicsviewer.model.Constants.PUBLIC_MARVEL_KEY;
  */
 public final class MD5HashHelper {
 
-    private static final String TAG = MD5HashHelper.class.getSimpleName();
+    private static final String TAG = "MD5HashHelper";
 
     private MD5HashHelper() {
     }

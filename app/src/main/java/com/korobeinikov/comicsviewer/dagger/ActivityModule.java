@@ -14,6 +14,7 @@ import dagger.Provides;
 public class ActivityModule {
 
     @Provides
+    @PerActivity
     public SearchPresenter providesSearchPresenter(ComicRequester requester) {
         return new SearchPresenter(requester);
     }

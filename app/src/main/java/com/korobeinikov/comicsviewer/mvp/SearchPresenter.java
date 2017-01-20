@@ -4,42 +4,52 @@ import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.network.ComicRequester;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
 
 /**
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class SearchPresenter implements SearchContract.Presenter, Callback<ComicsResponse> {
+public class SearchPresenter implements SearchContract.Presenter {
 
     private static final String TAG = SearchPresenter.class.getSimpleName();
 
     private SearchContract.View mView;
     private ComicRequester mComicRequester;
+    private Observable<ComicsResponse> mComicRequestCache;
+    private Subscription mSubscription;
 
     public SearchPresenter(ComicRequester requester) {
         mComicRequester = requester;
     }
 
     @Override
-    public void onSearchSubmit(String keyword) {
-        mView.showProgress(true);
-        mComicRequester.findComicsByKeyword(keyword, this);
-    }
-
-    @Override
-    public void onResponse(Call<ComicsResponse> call, Response<ComicsResponse> response) {
-        mView.showProgress(false);
-        if (response.body() != null && response.body().data != null) {
-            mView.updateSearchList(response.body().data.results);
+    public void onResume(SearchContract.View view) {
+        mView = view;
+        if (mComicRequestCache != null) {
+            startRequest();
         }
     }
 
     @Override
-    public void onFailure(Call<ComicsResponse> call, Throwable t) {
-        mView.showProgress(false);
+    public void onDestroy() {
+        mView = null;
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+    }
+
+    @Override
+    public void onSearchSubmit(String keyword) {
+        mComicRequestCache = mComicRequester.findComicsByKeyword(keyword).cache();
+        startRequest();
+    }
+
+    private void startRequest() {
+        mView.showProgress(true);
+        mSubscription = mComicRequestCache.subscribe(mComicsObserver);
     }
 
     @Override
@@ -47,13 +57,20 @@ public class SearchPresenter implements SearchContract.Presenter, Callback<Comic
         mView.openDetailedInformation(result);
     }
 
-    @Override
-    public void setView(SearchContract.View view) {
-        mView = view;
-    }
+    private final Observer<ComicsResponse> mComicsObserver = new Observer<ComicsResponse>() {
+        @Override
+        public void onCompleted() {
+        }
 
-    @Override
-    public void onDestroy() {
-        mView = null;
-    }
+        @Override
+        public void onError(Throwable e) {
+            mView.showProgress(false);
+        }
+
+        @Override
+        public void onNext(ComicsResponse response) {
+            mView.showProgress(false);
+            mView.swapResults(response.data.results);
+        }
+    };
 }

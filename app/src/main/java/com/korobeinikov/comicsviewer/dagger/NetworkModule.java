@@ -13,6 +13,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
@@ -42,17 +43,18 @@ public class NetworkModule {
     public Retrofit.Builder provideRetrofitBuilder(ObjectMapper mapper, OkHttpClient client) {
         return new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create(mapper))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client);
     }
 
     @Provides
-    @Singleton
     public MarvelService provideMarvelServiceService(Retrofit.Builder retrofitBuilder) {
         retrofitBuilder.baseUrl(BuildConfig.MARVEL_ENDPOINT);
         return retrofitBuilder.build().create(MarvelService.class);
     }
 
     @Provides
+    @Singleton
     public ComicRequester provideComicRequester(MarvelService service) {
         return new ComicRequester(service);
     }

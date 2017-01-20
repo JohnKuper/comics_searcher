@@ -11,7 +11,7 @@ import java.util.List;
 public interface SearchContract {
 
     interface View extends BaseView {
-        void updateSearchList(List<MarvelData.Result> results);
+        void swapResults(List<MarvelData.Result> results);
 
         void openDetailedInformation(MarvelData.Result result);
     }

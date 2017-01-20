@@ -1,6 +1,5 @@
 package com.korobeinikov.comicsviewer.util;
 
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.math.BigInteger;
@@ -21,16 +20,17 @@ public final class MD5HashHelper {
     private MD5HashHelper() {
     }
 
-    public static String computeMarvelMD5hash() {
-        String timestamp = String.valueOf(SystemClock.elapsedRealtime());
+    public static String computeMarvelMD5hash(long timeStamp) {
+        String timestamp = String.valueOf(timeStamp);
         return computeMD5hash(timestamp + PRIVATE_MARVEL_KEY + PUBLIC_MARVEL_KEY);
     }
 
-    public static String computeMD5hash(String from) {
+    private static String computeMD5hash(String from) {
         try {
             MessageDigest mg = MessageDigest.getInstance("MD5");
             mg.update(from.getBytes());
             byte[] digestBytes = mg.digest();
+
             BigInteger bigInt = new BigInteger(1, digestBytes);
             String hashText = bigInt.toString(16);
             while (hashText.length() < 32) {

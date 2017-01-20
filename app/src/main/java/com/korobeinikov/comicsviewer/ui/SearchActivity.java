@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
+import com.korobeinikov.comicsviewer.dagger.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.ActivityModule;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.SearchContract;
@@ -26,6 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchActivity extends AppCompatActivity implements SearchContract.View, SearchAdapter.ClickListener {
+
+    private static ActivityComponent sActivityComponent;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -45,7 +48,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ComicsViewerApplication.getAppComponent().plus(new ActivityModule()).inject(this);
+        injectSelf();
         setSupportActionBar(mToolbar);
         setupSearchView();
         setupRecyclerView();
@@ -54,13 +57,23 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.setView(this);
+        mPresenter.onResume(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (isFinishing()) {
+            sActivityComponent = null;
+        }
         mPresenter.onDestroy();
+    }
+
+    private void injectSelf() {
+        if (sActivityComponent == null) {
+            sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule());
+        }
+        sActivityComponent.inject(this);
     }
 
     private void setupRecyclerView() {
@@ -101,7 +114,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     // Commands from Presenter
     ///////////////////////////////////////////////////////////////////////////
     @Override
-    public void updateSearchList(List<MarvelData.Result> results) {
+    public void swapResults(List<MarvelData.Result> results) {
         mSearchAdapter.setResults(results);
     }
 

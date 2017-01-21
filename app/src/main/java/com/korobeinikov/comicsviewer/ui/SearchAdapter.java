@@ -27,7 +27,6 @@ import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_MED
  */
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_LIST_ITEM = 1;
     private static final int VIEW_TYPE_LOADING_ITEM = 2;
@@ -115,23 +114,21 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void swapResults(MarvelData marvelData) {
         mResultsList.clear();
-        mResultsList.addAll(marvelData.results);
-        adjustLoadingItem(marvelData);
+        updateResultsAndNotify(marvelData);
     }
 
     public void addResults(MarvelData marvelData) {
-        int prevSize = mResultsList.size();
-        ArrayList<MarvelData.Result> newResults = marvelData.results;
-        mResultsList.addAll(newResults);
-        notifyItemRangeInserted(prevSize, newResults.size());
+        updateResultsAndNotify(marvelData);
+    }
+
+    private void updateResultsAndNotify(MarvelData marvelData) {
+        mResultsList.addAll(marvelData.results);
         adjustLoadingItem(marvelData);
+        notifyDataSetChanged();
     }
 
     private void adjustLoadingItem(MarvelData marvelData) {
-        if (!marvelData.hasMoreData()) {
-            mDisplayLoadingRow = false;
-            notifyDataSetChanged();
-        }
+        mDisplayLoadingRow = marvelData.hasMoreData();
     }
 
     public void setClickListener(ClickListener clickListener) {

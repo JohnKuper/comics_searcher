@@ -30,10 +30,11 @@ public class ComicsRequester {
         int offset = mLastResponse == null ? 0 : mLastResponse.data.getNextOffset();
         return mMarvelService.findComics(keyword, timeStamp, computeMarvelMD5hash(timeStamp), offset)
                 .subscribeOn(Schedulers.io())
-                .doOnNext(response -> mLastResponse = response)
+                .retry(3)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(response -> mLastResponse = response)
                 .doOnSubscribe(() -> mIsLoading = true)
-                .doOnCompleted(() -> mIsLoading = false);
+                .doOnTerminate(() -> mIsLoading = false);
     }
 
     public void clearState() {

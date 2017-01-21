@@ -15,7 +15,7 @@ public class MarvelData {
 
     public int offset;
     public int total;
-    public ArrayList<Result> results;
+    public ArrayList<Result> results = new ArrayList<>();
 
     @Parcel
     public static class Result {
@@ -45,6 +45,23 @@ public class MarvelData {
     @Parcel
     public static class Price {
         public double price;
+    }
+
+    public void swapResults(MarvelData marvelData) {
+        results.clear();
+        merge(marvelData);
+    }
+
+    public void merge(MarvelData marvelData) {
+        offset = marvelData.offset;
+        total = marvelData.total;
+        results.addAll(marvelData.results);
+    }
+
+    public void clear() {
+        offset = 0;
+        total = 0;
+        results.clear();
     }
 
     public int getNextOffset() {

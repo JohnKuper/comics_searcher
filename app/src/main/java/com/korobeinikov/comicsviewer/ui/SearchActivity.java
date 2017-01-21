@@ -29,21 +29,21 @@ import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 public class SearchActivity extends AppCompatActivity implements SearchContract.View, SearchAdapter.ClickListener {
 
     private static ActivityComponent sActivityComponent;
+    private static final int LOADING_THRESHOLD = 5;
 
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    protected Toolbar mToolbar;
     @BindView(R.id.searchView)
-    SearchView mSearchView;
+    protected SearchView mSearchView;
     @BindView(recyclerView)
-    RecyclerView mRecyclerView;
+    protected RecyclerView mRecyclerView;
     @BindView(R.id.progressBar)
-    ProgressBar mProgressBar;
+    protected ProgressBar mProgressBar;
 
     @Inject
-    SearchPresenter mPresenter;
+    protected SearchPresenter mPresenter;
     private SearchAdapter mSearchAdapter;
 
-    private static final int loadingThreshold = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
                 int firstVisibleItemPosition;
                 firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
 
-                if ((totalItemCount - visibleItemCount) <= (firstVisibleItemPosition + loadingThreshold)) {
+                if ((totalItemCount - visibleItemCount) <= (firstVisibleItemPosition + LOADING_THRESHOLD)) {
                     mPresenter.onListBottomReached();
                 }
             }

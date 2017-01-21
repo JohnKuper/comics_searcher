@@ -20,16 +20,22 @@ public class SearchPresenter implements SearchContract.Presenter {
     private ComicsRequester mComicsRequester;
     private Observable<ComicsResponse> mCachedRequest;
     private Subscription mSubscription;
+
+    private MarvelData mFetchedMarvelData;
     private String mLastKeyword;
 
     public SearchPresenter(ComicsRequester requester) {
         mComicsRequester = requester;
+        mFetchedMarvelData = new MarvelData();
     }
 
     @Override
     public void onAttachView(SearchContract.View view) {
         mView = view;
-        if (mCachedRequest != null) {
+        if (mFetchedMarvelData.results.size() > 0) {
+            mView.swapResults(mFetchedMarvelData);
+        }
+        if (mComicsRequester.isLoading()) {
             startRequest();
         }
     }
@@ -53,6 +59,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void onSearchSubmit(String keyword) {
         mLastKeyword = keyword;
+        mFetchedMarvelData.clear();
         mComicsRequester.clearState();
         mCachedRequest = mComicsRequester.findComicsByKeyword(keyword).cache();
         startRequest();
@@ -84,11 +91,13 @@ public class SearchPresenter implements SearchContract.Presenter {
         @Override
         public void onNext(ComicsResponse response) {
             mView.showProgress(false);
-            MarvelData marvelData = response.data;
-            if (marvelData.offset == 0) {
-                mView.swapResults(marvelData);
+            MarvelData freshData = response.data;
+            if (response.data.offset == 0) {
+                mFetchedMarvelData.swapResults(freshData);
+                mView.swapResults(freshData);
             } else {
-                mView.addResults(marvelData);
+                mFetchedMarvelData.merge(freshData);
+                mView.addResults(freshData);
             }
         }
     };

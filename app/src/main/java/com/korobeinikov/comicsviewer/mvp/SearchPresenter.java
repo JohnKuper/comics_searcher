@@ -49,7 +49,9 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     private void startRequest() {
-        mView.showProgress(true);
+        if (mFetchedMarvelData.offset == 0) {
+            mView.showProgress(true);
+        }
         mSubscription = mCachedRequest.subscribe(mComicsObserver);
     }
 
@@ -60,8 +62,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     public void onSearchSubmit(String keyword) {
         mLastKeyword = keyword;
         mFetchedMarvelData.clear();
-        mComicsRequester.clearState();
-        mCachedRequest = mComicsRequester.findComicsByKeyword(keyword).cache();
+        mCachedRequest = mComicsRequester.findComicsByKeyword(keyword, 0).cache();
         startRequest();
     }
 
@@ -72,8 +73,8 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void onListBottomReached() {
-        if (!mComicsRequester.isLoading() && mComicsRequester.hasMoreData()) {
-            mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword).cache();
+        if (!mComicsRequester.isLoading() && mFetchedMarvelData.hasMoreData()) {
+            mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword, mFetchedMarvelData.getNextOffset()).cache();
             mSubscription = mCachedRequest.subscribe(mComicsObserver);
         }
     }

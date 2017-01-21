@@ -17,7 +17,6 @@ import static com.korobeinikov.comicsviewer.util.MD5HashHelper.computeMarvelMD5h
 public class ComicsRequester {
 
     private MarvelService mMarvelService;
-    private ComicsResponse mLastResponse;
 
     private boolean mIsLoading;
 
@@ -25,28 +24,18 @@ public class ComicsRequester {
         mMarvelService = marvelService;
     }
 
-    public Observable<ComicsResponse> findComicsByKeyword(String keyword) {
+    public Observable<ComicsResponse> findComicsByKeyword(String keyword, int offset) {
         long timeStamp = SystemClock.elapsedRealtime();
-        int offset = mLastResponse == null ? 0 : mLastResponse.data.getNextOffset();
         return mMarvelService.findComics(keyword, timeStamp, computeMarvelMD5hash(timeStamp), offset)
                 .subscribeOn(Schedulers.io())
                 .retry(3)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(response -> mLastResponse = response)
                 .doOnSubscribe(() -> mIsLoading = true)
                 .doOnTerminate(() -> mIsLoading = false);
-    }
-
-    public void clearState() {
-        mLastResponse = null;
-        mIsLoading = false;
     }
 
     public boolean isLoading() {
         return mIsLoading;
     }
 
-    public boolean hasMoreData() {
-        return mLastResponse != null && mLastResponse.data.hasMoreData();
-    }
 }

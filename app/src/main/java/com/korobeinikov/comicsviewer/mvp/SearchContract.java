@@ -9,7 +9,7 @@ import com.korobeinikov.comicsviewer.model.MarvelData;
 public interface SearchContract {
 
     interface View extends BaseView {
-        void swapResults(MarvelData marvelData);
+        void refreshResults(MarvelData marvelData);
 
         void addResults(MarvelData marvelData);
 

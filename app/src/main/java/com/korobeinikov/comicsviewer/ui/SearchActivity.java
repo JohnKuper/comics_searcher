@@ -51,6 +51,17 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         injectSelf();
+        initViews();
+    }
+
+    private void injectSelf() {
+        if (sActivityComponent == null) {
+            sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule());
+        }
+        sActivityComponent.inject(this);
+    }
+
+    private void initViews() {
         setSupportActionBar(mToolbar);
         setupSearchView();
         setupRecyclerView();
@@ -59,7 +70,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.onAttachView(this);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -68,14 +79,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         if (isFinishing()) {
             sActivityComponent = null;
         }
-        mPresenter.onDetachView();
-    }
-
-    private void injectSelf() {
-        if (sActivityComponent == null) {
-            sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule());
-        }
-        sActivityComponent.inject(this);
+        mPresenter.detachView();
     }
 
     private void setupRecyclerView() {
@@ -131,7 +135,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     // Commands from Presenter
     ///////////////////////////////////////////////////////////////////////////
     @Override
-    public void swapResults(MarvelData marvelData) {
+    public void refreshResults(MarvelData marvelData) {
         mSearchAdapter.swapResults(marvelData);
     }
 

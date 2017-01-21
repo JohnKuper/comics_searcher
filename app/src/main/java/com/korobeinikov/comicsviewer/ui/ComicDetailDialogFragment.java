@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.util.StringHelper;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -25,6 +24,7 @@ import butterknife.ButterKnife;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN;
 import static com.korobeinikov.comicsviewer.util.StringHelper.getCorrectDescription;
+import static com.korobeinikov.comicsviewer.util.StringHelper.getFullPathToImage;
 import static com.korobeinikov.comicsviewer.util.StringHelper.getShortInfo;
 
 /**
@@ -93,7 +93,7 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
     private void setupViews(View contentView) {
         ButterKnife.bind(this, contentView);
         Picasso.with(getContext())
-                .load(StringHelper.getFullPathToImage(mResult.thumbnail, ComicImageVariant.STANDARD_LARGE))
+                .load(getFullPathToImage(mResult.thumbnail, ComicImageVariant.STANDARD_LARGE))
                 .into(mThumbnail);
 
         mTitle.setText(mResult.title);

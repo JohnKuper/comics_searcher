@@ -1,5 +1,6 @@
 package com.korobeinikov.comicsviewer.dagger;
 
+import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.SearchPresenter;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 
@@ -14,8 +15,13 @@ import dagger.Provides;
 public class ActivityModule {
 
     @Provides
+    public MarvelData providesMarvelData() {
+        return new MarvelData();
+    }
+
+    @Provides
     @PerActivity
-    public SearchPresenter providesSearchPresenter(ComicsRequester requester) {
-        return new SearchPresenter(requester);
+    public SearchPresenter providesSearchPresenter(ComicsRequester requester, MarvelData marvelData) {
+        return new SearchPresenter(requester, marvelData);
     }
 }

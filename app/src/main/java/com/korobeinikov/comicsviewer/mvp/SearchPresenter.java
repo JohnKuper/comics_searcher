@@ -24,31 +24,31 @@ public class SearchPresenter implements SearchContract.Presenter {
     private MarvelData mFetchedMarvelData;
     private String mLastKeyword;
 
-    public SearchPresenter(ComicsRequester requester) {
+    public SearchPresenter(ComicsRequester requester, MarvelData marvelData) {
         mComicsRequester = requester;
-        mFetchedMarvelData = new MarvelData();
+        mFetchedMarvelData = marvelData;
     }
 
     @Override
-    public void onAttachView(SearchContract.View view) {
+    public void attachView(SearchContract.View view) {
         mView = view;
         if (mFetchedMarvelData.results.size() > 0) {
-            mView.swapResults(mFetchedMarvelData);
+            mView.refreshResults(mFetchedMarvelData);
         }
         if (mComicsRequester.isLoading()) {
-            startRequest();
+            subscribeForComics();
         }
     }
 
     @Override
-    public void onDetachView() {
+    public void detachView() {
         mView = null;
         if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
     }
 
-    private void startRequest() {
+    private void subscribeForComics() {
         if (mFetchedMarvelData.offset == 0) {
             mView.showProgress(true);
         }
@@ -63,7 +63,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         mLastKeyword = keyword;
         mFetchedMarvelData.clear();
         mCachedRequest = mComicsRequester.findComicsByKeyword(keyword, 0).cache();
-        startRequest();
+        subscribeForComics();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class SearchPresenter implements SearchContract.Presenter {
             MarvelData freshData = response.data;
             if (response.data.offset == 0) {
                 mFetchedMarvelData.swapResults(freshData);
-                mView.swapResults(freshData);
+                mView.refreshResults(freshData);
             } else {
                 mFetchedMarvelData.merge(freshData);
                 mView.addResults(freshData);

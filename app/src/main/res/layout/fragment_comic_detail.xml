@@ -52,28 +52,16 @@
         android:layout_marginTop="104dp">
 
         <ImageButton
-            android:id="@+id/ibGotoComic"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_goto"
-            android:visibility="gone" />
+            android:id="@+id/ibAddToFavourites"
+            style="@style/ComicDetailCircleButton"
+            android:src="@drawable/ic_plus_big_anim"
+            tools:visibility="visible" />
 
         <ImageButton
-            android:id="@+id/ibAddToFavourites"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            tools:src="@drawable/ic_plus_big"
-            tools:visibility="visible" />
+            android:id="@+id/ibGotoComic"
+            style="@style/ComicDetailCircleButton"
+            android:src="@drawable/ic_goto"
+            tools:visibility="gone" />
 
     </RelativeLayout>
 

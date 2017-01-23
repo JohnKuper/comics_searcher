@@ -87,7 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             MarvelData.Result result = mResultsList.get(position);
             holder.tvTitle.setText(result.title);
             holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, result));
-            holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_add));
+            holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_plus));
 
             Picasso.with(mContext)
                     .load(StringHelper.getFullPathToImage(result.thumbnail, STANDARD_MEDIUM))

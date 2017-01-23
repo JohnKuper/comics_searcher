@@ -10,7 +10,7 @@
     </style>
 
     <style name="BlueAccent" parent="ThemeOverlay.AppCompat.Light">
-        <item name="colorAccent">#29B6F6</item>
+        <item name="colorAccent">@color/blueAccent</item>
     </style>
 
     <style name="PrimaryText">
@@ -21,6 +21,17 @@
     <style name="SecondaryText">
         <item name="android:textColor">@color/colorSecondaryText</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ComicDetailCircleButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
 </resources>

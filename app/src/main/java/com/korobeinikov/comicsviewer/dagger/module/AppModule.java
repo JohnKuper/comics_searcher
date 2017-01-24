@@ -1,6 +1,8 @@
-package com.korobeinikov.comicsviewer.dagger;
+package com.korobeinikov.comicsviewer.dagger.module;
 
 import android.content.Context;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,6 +21,7 @@ public class AppModule {
     }
 
     @Provides
+    @Singleton
     public Context provideAppContext() {
         return mContext;
     }

@@ -2,9 +2,10 @@ package com.korobeinikov.comicsviewer;
 
 import android.app.Application;
 
-import com.korobeinikov.comicsviewer.dagger.AppComponent;
-import com.korobeinikov.comicsviewer.dagger.AppModule;
-import com.korobeinikov.comicsviewer.dagger.DaggerAppComponent;
+import com.korobeinikov.comicsviewer.dagger.component.AppComponent;
+import com.korobeinikov.comicsviewer.dagger.component.DaggerAppComponent;
+import com.korobeinikov.comicsviewer.dagger.module.AppModule;
+
 
 /**
  * Created by Dmitriy_Korobeinikov.

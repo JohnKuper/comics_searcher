@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.dagger;
+package com.korobeinikov.comicsviewer.dagger.module;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

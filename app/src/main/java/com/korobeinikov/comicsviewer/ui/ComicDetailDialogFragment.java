@@ -20,14 +20,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
+import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
+import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import java.util.Random;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +47,7 @@ import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
+public class ComicDetailDialogFragment extends BottomSheetDialogFragment implements ComicDetailView {
 
     public static final String ARG_COMIC_DETAILS = "ARG_COMIC_DETAILS";
 
@@ -60,6 +64,8 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
     @BindView(R.id.tvDescription)
     protected TextView mDescription;
 
+    @Inject
+    protected ComicDetailsPresenter mPresenter;
     private MarvelData.Result mResult;
 
     public static ComicDetailDialogFragment newInstance(@NonNull Bundle args) {
@@ -72,11 +78,13 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mResult = Parcels.unwrap(getArguments().getParcelable(ARG_COMIC_DETAILS));
+        ComicsViewerApplication.getAppComponent().plus(new ActivityModule()).inject(this);
     }
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
+        mPresenter.attachView(this);
         View contentView = View.inflate(getContext(), R.layout.fragment_comic_detail, null);
         dialog.setContentView(contentView);
         setupViews(contentView);
@@ -86,15 +94,16 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        resetAnimatedDrawables();
+        mPresenter.detachView();
     }
 
     /**
-     * AnimatedVectorDrawable behaves weird after being played once. It can be loaded into view in the final state,
+     * AnimatedVectorDrawable behaves weird after being played once. It can be loaded into the view in the final state,
      * instead of the starting state. {@link AnimatedVectorDrawable#reset()} solves this problem, but this method is
      * not available below 23 SDK Marshmallow.
      */
-    private void resetAnimatedDrawables() {
+    @Override
+    public void resetAnimatedDrawables() {
         if (isMarshmallow()) {
             ((AnimatedVectorDrawable) mAddToFavourites.getDrawable()).reset();
         }
@@ -110,40 +119,48 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
         mDescription.setText(getCorrectDescription(getContext(), mResult.description));
         mShortInfo.setText(getShortInfo(getContext(), mResult));
 
-        mAddToFavourites.setOnClickListener(v -> startAnimations());
-        mGotoComic.setOnClickListener(v -> {
-            // TODO: 1/23/2017 Open specific comic
-            Toast.makeText(getContext(), "Open comic", Toast.LENGTH_SHORT).show();
-        });
+        mAddToFavourites.setOnClickListener(v -> mPresenter.onAddToFavouritesClick());
+        mGotoComic.setOnClickListener(v -> mPresenter.onGotoComicClick());
 
-        updateAddToFavouritesButton();
+        mPresenter.updateCircleButton();
     }
 
-    private void updateAddToFavouritesButton() {
-        if (isFavourite()) {
-            mAddToFavourites.setVisibility(View.INVISIBLE);
-            mGotoComic.setVisibility(View.VISIBLE);
-        } else {
-            mAddToFavourites.setVisibility(View.VISIBLE);
-            mGotoComic.setVisibility(View.INVISIBLE);
-        }
+    @Override
+    public void openComic() {
+        // TODO: 1/23/2017 Open specific comic
+        Toast.makeText(getContext(), "Open comic", Toast.LENGTH_SHORT).show();
     }
 
-    private void startAnimations() {
+    @Override
+    public void showAddToFavouritesButton() {
+        mAddToFavourites.setVisibility(View.VISIBLE);
+        mGotoComic.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void hideAddToFavouritesButton() {
+        mAddToFavourites.setVisibility(View.INVISIBLE);
+        mGotoComic.setVisibility(View.VISIBLE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void startAnimationsAfterM() {
         mAddToFavourites.setClickable(false);
-        if (isMarshmallow()) {
-            AnimatedVectorDrawable animDrawable = (AnimatedVectorDrawable) mAddToFavourites.getDrawable();
-            animDrawable.start();
-            animDrawable.registerAnimationCallback(new Animatable2.AnimationCallback() {
-                @TargetApi(Build.VERSION_CODES.M)
-                @Override
-                public void onAnimationEnd(Drawable drawable) {
-                    mAddToFavourites.startAnimation(setupAndGetScaleDownAnimation());
-                }
-            });
-        } else {
-            mAddToFavourites.startAnimation(setupAndGetScaleDownAnimation());
-        }
+        AnimatedVectorDrawable animDrawable = (AnimatedVectorDrawable) mAddToFavourites.getDrawable();
+        animDrawable.start();
+        animDrawable.registerAnimationCallback(new Animatable2.AnimationCallback() {
+            @Override
+            public void onAnimationEnd(Drawable drawable) {
+                mAddToFavourites.startAnimation(setupAndGetScaleDownAnimation());
+            }
+        });
+    }
+
+    @Override
+    public void startAnimationsBeforeM() {
+        mAddToFavourites.setClickable(false);
+        mAddToFavourites.startAnimation(setupAndGetScaleDownAnimation());
     }
 
     private Animation setupAndGetScaleDownAnimation() {
@@ -157,11 +174,6 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment {
             }
         });
         return scaleDown;
-    }
-
-    //// TODO: 1/23/2017 Change to real request to database
-    private boolean isFavourite() {
-        return new Random().nextBoolean();
     }
 
     private void setBottomSheetCallback(View contentView) {

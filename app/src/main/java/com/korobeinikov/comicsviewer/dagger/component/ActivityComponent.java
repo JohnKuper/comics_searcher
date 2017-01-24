@@ -1,5 +1,8 @@
-package com.korobeinikov.comicsviewer.dagger;
+package com.korobeinikov.comicsviewer.dagger.component;
 
+import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
+import com.korobeinikov.comicsviewer.dagger.scope.PerActivity;
+import com.korobeinikov.comicsviewer.ui.ComicDetailDialogFragment;
 import com.korobeinikov.comicsviewer.ui.SearchActivity;
 
 import dagger.Subcomponent;
@@ -14,4 +17,6 @@ import dagger.Subcomponent;
 public interface ActivityComponent {
 
     void inject(SearchActivity searchActivity);
+
+    void inject(ComicDetailDialogFragment comicDetailDialogFragment);
 }

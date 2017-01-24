@@ -1,4 +1,8 @@
-package com.korobeinikov.comicsviewer.dagger;
+package com.korobeinikov.comicsviewer.dagger.component;
+
+import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
+import com.korobeinikov.comicsviewer.dagger.module.AppModule;
+import com.korobeinikov.comicsviewer.dagger.module.NetworkModule;
 
 import javax.inject.Singleton;
 

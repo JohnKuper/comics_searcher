@@ -1,7 +1,8 @@
-package com.korobeinikov.comicsviewer.mvp;
+package com.korobeinikov.comicsviewer.mvp.presenter;
 
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 
 import rx.Observable;
@@ -12,11 +13,10 @@ import rx.Subscription;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class SearchPresenter implements SearchContract.Presenter {
+public class SearchPresenter extends BasePresenter<SearchListView> {
 
     private static final String TAG = "SearchPresenter";
 
-    private SearchContract.View mView;
     private ComicsRequester mComicsRequester;
     private Observable<ComicsResponse> mCachedRequest;
     private Subscription mSubscription;
@@ -30,8 +30,8 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void attachView(SearchContract.View view) {
-        mView = view;
+    public void attachView(SearchListView view) {
+        super.attachView(view);
         if (mFetchedMarvelData.results.size() > 0) {
             mView.refreshResults(mFetchedMarvelData);
         }
@@ -42,7 +42,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void detachView() {
-        mView = null;
+        super.detachView();
         if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
@@ -55,10 +55,6 @@ public class SearchPresenter implements SearchContract.Presenter {
         mSubscription = mCachedRequest.subscribe(mComicsObserver);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Events from View
-    ///////////////////////////////////////////////////////////////////////////
-    @Override
     public void onSearchSubmit(String keyword) {
         mLastKeyword = keyword;
         mFetchedMarvelData.clear();
@@ -66,12 +62,10 @@ public class SearchPresenter implements SearchContract.Presenter {
         subscribeForComics();
     }
 
-    @Override
     public void onListItemClick(MarvelData.Result result) {
         mView.openDetailedInformation(result);
     }
 
-    @Override
     public void onListBottomReached() {
         if (!mComicsRequester.isLoading() && mFetchedMarvelData.hasMoreData()) {
             mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword, mFetchedMarvelData.getNextOffset()).cache();

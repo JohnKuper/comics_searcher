@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.dagger;
+package com.korobeinikov.comicsviewer.dagger.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

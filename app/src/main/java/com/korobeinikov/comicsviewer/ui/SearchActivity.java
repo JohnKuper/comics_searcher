@@ -10,11 +10,11 @@ import android.widget.ProgressBar;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
-import com.korobeinikov.comicsviewer.dagger.ActivityComponent;
-import com.korobeinikov.comicsviewer.dagger.ActivityModule;
+import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
+import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.mvp.SearchContract;
-import com.korobeinikov.comicsviewer.mvp.SearchPresenter;
+import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
+import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.lapism.searchview.SearchView;
 
 import org.parceler.Parcels;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 
-public class SearchActivity extends AppCompatActivity implements SearchContract.View, SearchAdapter.ClickListener {
+public class SearchActivity extends AppCompatActivity implements SearchListView, SearchAdapter.ClickListener {
 
     private static ActivityComponent sActivityComponent;
     private static final int LOADING_THRESHOLD = 5;
@@ -42,6 +42,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     @Inject
     protected SearchPresenter mPresenter;
+
     private SearchAdapter mSearchAdapter;
 
 

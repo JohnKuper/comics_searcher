@@ -24,6 +24,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class NetworkModule {
 
     @Provides
+    @Singleton
     public ObjectMapper provideObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -31,6 +32,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     public OkHttpClient providerOkHttpClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -40,6 +42,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     public Retrofit.Builder provideRetrofitBuilder(ObjectMapper mapper, OkHttpClient client) {
         return new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create(mapper))
@@ -48,6 +51,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     public MarvelService provideMarvelServiceService(Retrofit.Builder retrofitBuilder) {
         retrofitBuilder.baseUrl(BuildConfig.MARVEL_ENDPOINT);
         return retrofitBuilder.build().create(MarvelService.class);

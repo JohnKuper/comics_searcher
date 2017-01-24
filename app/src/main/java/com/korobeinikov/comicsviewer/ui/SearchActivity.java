@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
+import com.korobeinikov.comicsviewer.dagger.ComponentOwner;
 import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.model.MarvelData;
@@ -26,7 +27,8 @@ import butterknife.ButterKnife;
 
 import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 
-public class SearchActivity extends AppCompatActivity implements SearchListView, SearchAdapter.ClickListener {
+public class SearchActivity extends AppCompatActivity implements ComponentOwner<ActivityComponent>,
+        SearchListView, SearchAdapter.ClickListener {
 
     private static ActivityComponent sActivityComponent;
     private static final int LOADING_THRESHOLD = 5;
@@ -44,7 +46,6 @@ public class SearchActivity extends AppCompatActivity implements SearchListView,
     protected SearchPresenter mPresenter;
 
     private SearchAdapter mSearchAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,11 @@ public class SearchActivity extends AppCompatActivity implements SearchListView,
             sActivityComponent = null;
         }
         mPresenter.detachView();
+    }
+
+    @Override
+    public ActivityComponent getComponent() {
+        return sActivityComponent;
     }
 
     private void setupRecyclerView() {
@@ -148,8 +154,8 @@ public class SearchActivity extends AppCompatActivity implements SearchListView,
     @Override
     public void openDetailedInformation(MarvelData.Result result) {
         Bundle args = new Bundle();
-        args.putParcelable(ComicDetailDialogFragment.ARG_COMIC_DETAILS, Parcels.wrap(result));
-        ComicDetailDialogFragment dialogFragment = ComicDetailDialogFragment.newInstance(args);
+        args.putParcelable(ComicDetailsFragment.ARG_COMIC_DETAILS, Parcels.wrap(result));
+        ComicDetailsFragment dialogFragment = ComicDetailsFragment.newInstance(args);
         dialogFragment.show(getSupportFragmentManager(), null);
     }
 

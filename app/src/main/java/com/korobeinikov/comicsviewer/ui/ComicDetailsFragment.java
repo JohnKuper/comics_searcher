@@ -20,9 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
-import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
+import com.korobeinikov.comicsviewer.dagger.ComponentOwner;
+import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
+import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
 import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
@@ -47,7 +48,7 @@ import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class ComicDetailDialogFragment extends BottomSheetDialogFragment implements ComicDetailView {
+public class ComicDetailsFragment extends BottomSheetDialogFragment implements ComicDetailView {
 
     public static final String ARG_COMIC_DETAILS = "ARG_COMIC_DETAILS";
 
@@ -68,8 +69,8 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment impleme
     protected ComicDetailsPresenter mPresenter;
     private MarvelData.Result mResult;
 
-    public static ComicDetailDialogFragment newInstance(@NonNull Bundle args) {
-        ComicDetailDialogFragment fragment = new ComicDetailDialogFragment();
+    public static ComicDetailsFragment newInstance(@NonNull Bundle args) {
+        ComicDetailsFragment fragment = new ComicDetailsFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,7 +79,7 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment impleme
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mResult = Parcels.unwrap(getArguments().getParcelable(ARG_COMIC_DETAILS));
-        ComicsViewerApplication.getAppComponent().plus(new ActivityModule()).inject(this);
+        getComponent(ActivityComponent.class).plus(new FragmentModule()).inject(this);
     }
 
     @Override
@@ -95,6 +96,11 @@ public class ComicDetailDialogFragment extends BottomSheetDialogFragment impleme
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <T> T getComponent(Class<T> componentType) {
+        return ((ComponentOwner<T>) getActivity()).getComponent();
     }
 
     /**

@@ -4,7 +4,7 @@ package com.korobeinikov.comicsviewer.mvp.presenter;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class BasePresenter<T> {
+public abstract class BasePresenter<T> {
 
     protected T mView;
 

@@ -2,6 +2,7 @@ package com.korobeinikov.comicsviewer.dagger.module;
 
 import com.korobeinikov.comicsviewer.dagger.scope.PerFragment;
 import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,7 +17,7 @@ public class FragmentModule {
 
     @Provides
     @PerFragment
-    public ComicDetailsPresenter providesComicDetailsPresenter() {
-        return new ComicDetailsPresenter();
+    public ComicDetailsPresenter providesComicDetailsPresenter(ComicRepository comicRepository) {
+        return new ComicDetailsPresenter(comicRepository);
     }
 }

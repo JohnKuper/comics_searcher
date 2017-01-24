@@ -32,14 +32,14 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int VIEW_TYPE_LOADING_ITEM = 2;
 
     private Context mContext;
-    private ArrayList<MarvelData.Result> mResultsList;
+    private ArrayList<MarvelData.ComicInfo> mResultsList;
     private ClickListener mClickListener;
 
     private boolean mDisplayLoadingRow = true;
 
     public interface ClickListener {
 
-        void onListItemClick(MarvelData.Result result);
+        void onListItemClick(MarvelData.ComicInfo comicInfo);
     }
 
     public SearchAdapter(Context context) {
@@ -84,13 +84,13 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof SearchItemVH) {
             SearchItemVH holder = (SearchItemVH) viewHolder;
-            MarvelData.Result result = mResultsList.get(position);
-            holder.tvTitle.setText(result.title);
-            holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, result));
+            MarvelData.ComicInfo comicInfo = mResultsList.get(position);
+            holder.tvTitle.setText(comicInfo.title);
+            holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, comicInfo));
             holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_plus));
 
             Picasso.with(mContext)
-                    .load(StringHelper.getFullPathToImage(result.thumbnail, STANDARD_MEDIUM))
+                    .load(StringHelper.getFullPathToImage(comicInfo.thumbnail, STANDARD_MEDIUM))
                     .into(holder.ivThumbnail);
         }
     }

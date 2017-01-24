@@ -1,5 +1,7 @@
 package com.korobeinikov.comicsviewer.mvp.view;
 
+import com.korobeinikov.comicsviewer.model.MarvelData;
+
 /**
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
@@ -7,7 +9,7 @@ package com.korobeinikov.comicsviewer.mvp.view;
 
 public interface ComicDetailView {
 
-    void openComic();
+    void openComic(MarvelData.ComicInfo comicInfo);
 
     void showAddToFavouritesButton();
 
@@ -18,4 +20,5 @@ public interface ComicDetailView {
     void startAnimationsAfterM();
 
     void startAnimationsBeforeM();
+
 }

@@ -62,8 +62,8 @@ public class SearchPresenter extends BasePresenter<SearchListView> {
         subscribeForComics();
     }
 
-    public void onListItemClick(MarvelData.Result result) {
-        mView.openDetailedInformation(result);
+    public void onListItemClick(MarvelData.ComicInfo comicInfo) {
+        mView.openDetailedInformation(comicInfo);
     }
 
     public void onListBottomReached() {

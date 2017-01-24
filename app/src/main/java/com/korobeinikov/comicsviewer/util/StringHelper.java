@@ -15,9 +15,9 @@ public final class StringHelper {
     private StringHelper() {
     }
 
-    public static String getShortInfo(Context context, MarvelData.Result result) {
-        String price = String.valueOf(result.getFirstPrice().price);
-        return (context.getString(R.string.short_comic_info, result.format, price));
+    public static String getShortInfo(Context context, MarvelData.ComicInfo comicInfo) {
+        String price = String.valueOf(comicInfo.getFirstPrice().price);
+        return (context.getString(R.string.short_comic_info, comicInfo.format, price));
     }
 
     public static String getFullPathToImage(MarvelData.Thumbnail thumbnail, ComicImageVariant variant) {

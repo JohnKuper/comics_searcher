@@ -58,5 +58,9 @@ dependencies {
     compile 'org.parceler:parceler-api:1.1.6'
     apt 'org.parceler:parceler:1.1.6'
 
+    //Database
+    compile 'io.realm:realm-android:0.87.5'
+
+    //TODO delete this
     compile 'com.github.markomilos:paginate:0.5.1'
 }

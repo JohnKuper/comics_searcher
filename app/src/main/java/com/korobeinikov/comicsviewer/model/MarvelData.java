@@ -15,10 +15,11 @@ public class MarvelData {
 
     public int offset;
     public int total;
-    public ArrayList<Result> results = new ArrayList<>();
+    public ArrayList<ComicInfo> results = new ArrayList<>();
 
     @Parcel
-    public static class Result {
+    public static class ComicInfo {
+
         public int id;
         public String title;
         public String description;

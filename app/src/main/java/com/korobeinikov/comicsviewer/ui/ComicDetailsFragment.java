@@ -67,7 +67,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
 
     @Inject
     protected ComicDetailsPresenter mPresenter;
-    private MarvelData.Result mResult;
+    private MarvelData.ComicInfo mComicInfo;
 
     public static ComicDetailsFragment newInstance(@NonNull Bundle args) {
         ComicDetailsFragment fragment = new ComicDetailsFragment();
@@ -78,7 +78,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mResult = Parcels.unwrap(getArguments().getParcelable(ARG_COMIC_DETAILS));
+        mComicInfo = Parcels.unwrap(getArguments().getParcelable(ARG_COMIC_DETAILS));
         getComponent(ActivityComponent.class).plus(new FragmentModule()).inject(this);
     }
 
@@ -118,23 +118,23 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     private void setupViews(View contentView) {
         ButterKnife.bind(this, contentView);
         Picasso.with(getContext())
-                .load(getFullPathToImage(mResult.thumbnail, ComicImageVariant.STANDARD_LARGE))
+                .load(getFullPathToImage(mComicInfo.thumbnail, ComicImageVariant.STANDARD_LARGE))
                 .into(mThumbnail);
 
-        mTitle.setText(mResult.title);
-        mDescription.setText(getCorrectDescription(getContext(), mResult.description));
-        mShortInfo.setText(getShortInfo(getContext(), mResult));
+        mTitle.setText(mComicInfo.title);
+        mDescription.setText(getCorrectDescription(getContext(), mComicInfo.description));
+        mShortInfo.setText(getShortInfo(getContext(), mComicInfo));
 
-        mAddToFavourites.setOnClickListener(v -> mPresenter.onAddToFavouritesClick());
-        mGotoComic.setOnClickListener(v -> mPresenter.onGotoComicClick());
+        mAddToFavourites.setOnClickListener(v -> mPresenter.onAddToFavouritesClick(mComicInfo));
+        mGotoComic.setOnClickListener(v -> mPresenter.onGotoComicClick(mComicInfo));
 
-        mPresenter.updateCircleButton();
+        mPresenter.updateCircleButton(mComicInfo.id);
     }
 
     @Override
-    public void openComic() {
+    public void openComic(MarvelData.ComicInfo comicInfo) {
         // TODO: 1/23/2017 Open specific comic
-        Toast.makeText(getContext(), "Open comic", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Comic with id=" + comicInfo.id + " has been clicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override

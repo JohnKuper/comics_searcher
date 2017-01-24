@@ -1,8 +1,8 @@
 package com.korobeinikov.comicsviewer.mvp.presenter;
 
+import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
-
-import java.util.Random;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
 
 import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
 
@@ -13,24 +13,10 @@ import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
 
 public class ComicDetailsPresenter extends BasePresenter<ComicDetailView> {
 
-    public void onAddToFavouritesClick() {
-        if (isMarshmallow()) {
-            mView.startAnimationsAfterM();
-        } else {
-            mView.startAnimationsBeforeM();
-        }
-    }
+    private ComicRepository mComicRepository;
 
-    public void onGotoComicClick() {
-        mView.openComic();
-    }
-
-    public void updateCircleButton() {
-        if (!isFavourite()) {
-            mView.showAddToFavouritesButton();
-        } else {
-            mView.hideAddToFavouritesButton();
-        }
+    public ComicDetailsPresenter(ComicRepository comicRepository) {
+        mComicRepository = comicRepository;
     }
 
     @Override
@@ -39,8 +25,32 @@ public class ComicDetailsPresenter extends BasePresenter<ComicDetailView> {
         super.detachView();
     }
 
-    //// TODO: 1/23/2017 Change to real request to database
-    private boolean isFavourite() {
-        return new Random().nextBoolean();
+    public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo) {
+        saveToFavourites(comicInfo);
+        startAnimations();
+    }
+
+    private void saveToFavourites(MarvelData.ComicInfo comicInfo) {
+        mComicRepository.addComic(comicInfo);
+    }
+
+    private void startAnimations() {
+        if (isMarshmallow()) {
+            mView.startAnimationsAfterM();
+        } else {
+            mView.startAnimationsBeforeM();
+        }
+    }
+
+    public void onGotoComicClick(MarvelData.ComicInfo comicInfo) {
+        mView.openComic(comicInfo);
+    }
+
+    public void updateCircleButton(int comicId) {
+        if (!mComicRepository.isAddedById(comicId)) {
+            mView.showAddToFavouritesButton();
+        } else {
+            mView.hideAddToFavouritesButton();
+        }
     }
 }

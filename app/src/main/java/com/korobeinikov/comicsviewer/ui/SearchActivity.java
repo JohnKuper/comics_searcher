@@ -134,8 +134,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     }
 
     @Override
-    public void onListItemClick(MarvelData.Result result) {
-        mPresenter.onListItemClick(result);
+    public void onListItemClick(MarvelData.ComicInfo comicInfo) {
+        mPresenter.onListItemClick(comicInfo);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -152,9 +152,9 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     }
 
     @Override
-    public void openDetailedInformation(MarvelData.Result result) {
+    public void openDetailedInformation(MarvelData.ComicInfo comicInfo) {
         Bundle args = new Bundle();
-        args.putParcelable(ComicDetailsFragment.ARG_COMIC_DETAILS, Parcels.wrap(result));
+        args.putParcelable(ComicDetailsFragment.ARG_COMIC_DETAILS, Parcels.wrap(comicInfo));
         ComicDetailsFragment dialogFragment = ComicDetailsFragment.newInstance(args);
         dialogFragment.show(getSupportFragmentManager(), null);
     }

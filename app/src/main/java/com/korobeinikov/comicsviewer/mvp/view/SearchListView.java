@@ -15,5 +15,5 @@ public interface SearchListView {
 
     void addResults(MarvelData marvelData);
 
-    void openDetailedInformation(MarvelData.Result result);
+    void openDetailedInformation(MarvelData.ComicInfo comicInfo);
 }

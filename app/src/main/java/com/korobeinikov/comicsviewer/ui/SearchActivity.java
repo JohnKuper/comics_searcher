@@ -29,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 import static com.korobeinikov.comicsviewer.ui.ComicDetailsFragment.ARG_ADAPTER_POSITION;
@@ -51,6 +52,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     protected SearchPresenter mPresenter;
     @Inject
     protected ComicRepository mComicRepository;
+    @Inject
+    protected Realm mRealm;
 
     private SearchAdapter mSearchAdapter;
 
@@ -94,6 +97,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
         super.onDestroy();
         if (isFinishing()) {
             sActivityComponent = null;
+            mRealm.close();
         }
         mPresenter.detachView();
     }

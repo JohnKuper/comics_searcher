@@ -6,6 +6,7 @@ import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
+import com.korobeinikov.comicsviewer.ui.PagingController;
 import com.korobeinikov.comicsviewer.ui.SearchAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,7 +19,7 @@ import rx.Subscription;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class SearchPresenter extends BasePresenter<SearchListView> implements SearchAdapter.ClickListener {
+public class SearchPresenter extends BasePresenter<SearchListView> implements SearchAdapter.ClickListener, PagingController.Callbacks {
 
     private static final String TAG = "SearchPresenter";
 
@@ -86,13 +87,6 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         EventBus.getDefault().post(new AddToFavouritesEvent(position));
     }
 
-    public void onListBottomReached() {
-        if (!mComicsRequester.isLoading() && mFetchedMarvelData.hasMoreData()) {
-            mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword, mFetchedMarvelData.getNextOffset()).cache();
-            mSubscription = mCachedRequest.subscribe(mComicsObserver);
-        }
-    }
-
     private final Observer<ComicsResponse> mComicsObserver = new Observer<ComicsResponse>() {
         @Override
         public void onCompleted() {
@@ -116,4 +110,20 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
             }
         }
     };
+
+    @Override
+    public void onLoadMore() {
+        mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword, mFetchedMarvelData.getNextOffset()).cache();
+        mSubscription = mCachedRequest.subscribe(mComicsObserver);
+    }
+
+    @Override
+    public boolean isLoading() {
+        return mComicsRequester.isLoading();
+    }
+
+    @Override
+    public boolean hasMoreData() {
+        return mFetchedMarvelData.hasMoreData();
+    }
 }

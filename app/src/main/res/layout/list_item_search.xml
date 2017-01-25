@@ -4,7 +4,7 @@
                 android:id="@+id/rlSearchListItem"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
-                android:background="@drawable/list_item_ripple"
+                android:background="@drawable/default_ripple"
                 android:paddingLeft="16dp">
 
     <ImageButton

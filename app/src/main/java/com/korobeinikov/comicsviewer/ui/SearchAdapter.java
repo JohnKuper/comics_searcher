@@ -68,7 +68,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 viewHolder = new EmptyVH(view);
                 break;
             case VIEW_TYPE_LIST_ITEM:
-                view = inflater.inflate(R.layout.search_list_item, parent, false);
+                view = inflater.inflate(R.layout.list_item_search, parent, false);
                 viewHolder = new SearchItemVH(view);
                 break;
             case VIEW_TYPE_LOADING_ITEM:
@@ -140,7 +140,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         mClickListener = clickListener;
     }
 
-    class SearchItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SearchItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.ivThumbnail)
         ImageView ivThumbnail;
@@ -178,15 +178,13 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    class EmptyVH extends RecyclerView.ViewHolder {
-
+    private class EmptyVH extends RecyclerView.ViewHolder {
         public EmptyVH(View itemView) {
             super(itemView);
         }
     }
 
-    class LoadingVH extends RecyclerView.ViewHolder {
-
+    private class LoadingVH extends RecyclerView.ViewHolder {
         public LoadingVH(View itemView) {
             super(itemView);
         }

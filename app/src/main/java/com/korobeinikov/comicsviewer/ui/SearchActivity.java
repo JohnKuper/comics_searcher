@@ -37,7 +37,6 @@ import static com.korobeinikov.comicsviewer.ui.ComicDetailsFragment.ARG_COMIC_DE
 public class SearchActivity extends AppCompatActivity implements ComponentOwner<ActivityComponent>, SearchListView {
 
     private static ActivityComponent sActivityComponent;
-    private static final int LOADING_THRESHOLD = 5;
 
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
@@ -114,21 +113,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
         mSearchAdapter.setClickListener(mPresenter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mSearchAdapter);
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int visibleItemCount = recyclerView.getChildCount();
-                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
-
-                int firstVisibleItemPosition;
-                firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-
-                if ((totalItemCount - visibleItemCount) <= (firstVisibleItemPosition + LOADING_THRESHOLD)) {
-                    mPresenter.onListBottomReached();
-                }
-            }
-        });
+        PagingController.connectTo(mRecyclerView, mPresenter);
     }
 
     private void setupSearchView() {

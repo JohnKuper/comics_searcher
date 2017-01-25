@@ -1,6 +1,7 @@
 package com.korobeinikov.comicsviewer.ui;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.korobeinikov.comicsviewer.util.StringHelper;
 import com.squareup.picasso.Picasso;
 
@@ -32,18 +34,15 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int VIEW_TYPE_LOADING_ITEM = 2;
 
     private Context mContext;
+    private ComicRepository mComicRepository;
     private ArrayList<MarvelData.ComicInfo> mResultsList;
     private ClickListener mClickListener;
 
     private boolean mDisplayLoadingRow = true;
 
-    public interface ClickListener {
-
-        void onListItemClick(MarvelData.ComicInfo comicInfo);
-    }
-
-    public SearchAdapter(Context context) {
+    public SearchAdapter(Context context, ComicRepository repository) {
         mContext = context;
+        mComicRepository = repository;
         mResultsList = new ArrayList<>();
     }
 
@@ -87,7 +86,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             MarvelData.ComicInfo comicInfo = mResultsList.get(position);
             holder.tvTitle.setText(comicInfo.title);
             holder.tvShortInfo.setText(StringHelper.getShortInfo(mContext, comicInfo));
-            holder.ibToFavourites.setImageDrawable(mContext.getDrawable(R.drawable.ic_plus));
+            holder.ibToFavourites.setImageDrawable(getSecondaryActionIcon(comicInfo.id));
 
             Picasso.with(mContext)
                     .load(StringHelper.getFullPathToImage(comicInfo.thumbnail, STANDARD_MEDIUM))
@@ -104,6 +103,16 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    private Drawable getSecondaryActionIcon(int comicID) {
+        Drawable drawable;
+        if (mComicRepository.isAddedById(comicID)) {
+            drawable = mContext.getDrawable(R.drawable.ic_favorite);
+        } else {
+            drawable = mContext.getDrawable(R.drawable.ic_plus);
+        }
+        return drawable;
+    }
+
     private boolean isLoadingRow(int position) {
         return mDisplayLoadingRow && position == getLoadingRowPosition();
     }
@@ -114,14 +123,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void swapResults(MarvelData marvelData) {
         mResultsList.clear();
-        updateResultsAndNotify(marvelData);
+        addResults(marvelData);
     }
 
     public void addResults(MarvelData marvelData) {
-        updateResultsAndNotify(marvelData);
-    }
-
-    private void updateResultsAndNotify(MarvelData marvelData) {
         mResultsList.addAll(marvelData.results);
         adjustLoadingItem(marvelData);
         notifyDataSetChanged();
@@ -139,6 +144,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @BindView(R.id.ivThumbnail)
         ImageView ivThumbnail;
+
         @BindView(R.id.tvComicTitle)
         TextView tvTitle;
         @BindView(R.id.tvShortInfo)
@@ -150,16 +156,27 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            ibToFavourites.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            int position = getAdapterPosition();
+            MarvelData.ComicInfo comicInfo = mResultsList.get(position);
             switch (v.getId()) {
                 case R.id.rlSearchListItem:
-                    mClickListener.onListItemClick(mResultsList.get(getAdapterPosition()));
+                    mClickListener.onListItemClick(comicInfo);
+                    break;
+                case R.id.ibAddToFavourites:
+                    if (mComicRepository.isAddedById(comicInfo.id)) {
+                        mClickListener.onDeleteFromFavouritesClick(position, comicInfo.id);
+                    } else {
+                        mClickListener.onAddToFavouritesClick(position, comicInfo);
+                    }
                     break;
             }
         }
+
     }
 
     class EmptyVH extends RecyclerView.ViewHolder {
@@ -167,6 +184,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public EmptyVH(View itemView) {
             super(itemView);
         }
+
     }
 
     class LoadingVH extends RecyclerView.ViewHolder {
@@ -174,5 +192,15 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public LoadingVH(View itemView) {
             super(itemView);
         }
+
+    }
+
+    public interface ClickListener {
+
+        void onDeleteFromFavouritesClick(int position, int comicID);
+
+        void onAddToFavouritesClick(int position, MarvelData.ComicInfo comicInfo);
+
+        void onListItemClick(MarvelData.ComicInfo comicInfo);
     }
 }

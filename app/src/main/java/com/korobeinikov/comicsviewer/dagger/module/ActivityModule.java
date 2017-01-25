@@ -4,6 +4,7 @@ import com.korobeinikov.comicsviewer.dagger.scope.PerActivity;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,7 +23,7 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    public SearchPresenter providesSearchPresenter(ComicsRequester requester, MarvelData marvelData) {
-        return new SearchPresenter(requester, marvelData);
+    public SearchPresenter providesSearchPresenter(ComicsRequester requester, ComicRepository repository, MarvelData marvelData) {
+        return new SearchPresenter(requester, repository, marvelData);
     }
 }

@@ -5,19 +5,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:background="@drawable/list_item_ripple"
-                android:clickable="true"
                 android:paddingLeft="16dp">
 
     <ImageButton
         android:id="@+id/ibAddToFavourites"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         android:background="@null"
-        tools:src="@drawable/ic_plus" />
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_favorite" />
 
     <ImageView
         android:id="@+id/ivThumbnail"

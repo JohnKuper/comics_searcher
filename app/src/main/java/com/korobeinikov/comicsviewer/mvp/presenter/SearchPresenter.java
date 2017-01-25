@@ -4,6 +4,8 @@ import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
+import com.korobeinikov.comicsviewer.ui.SearchAdapter;
 
 import rx.Observable;
 import rx.Observer;
@@ -13,19 +15,21 @@ import rx.Subscription;
  * Created by Dmitriy_Korobeinikov.
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
-public class SearchPresenter extends BasePresenter<SearchListView> {
+public class SearchPresenter extends BasePresenter<SearchListView> implements SearchAdapter.ClickListener {
 
     private static final String TAG = "SearchPresenter";
 
     private ComicsRequester mComicsRequester;
+    private ComicRepository mComicRepository;
     private Observable<ComicsResponse> mCachedRequest;
     private Subscription mSubscription;
 
     private MarvelData mFetchedMarvelData;
     private String mLastKeyword;
 
-    public SearchPresenter(ComicsRequester requester, MarvelData marvelData) {
+    public SearchPresenter(ComicsRequester requester, ComicRepository repository, MarvelData marvelData) {
         mComicsRequester = requester;
+        mComicRepository = repository;
         mFetchedMarvelData = marvelData;
     }
 
@@ -64,6 +68,18 @@ public class SearchPresenter extends BasePresenter<SearchListView> {
 
     public void onListItemClick(MarvelData.ComicInfo comicInfo) {
         mView.openDetailedInformation(comicInfo);
+    }
+
+    @Override
+    public void onAddToFavouritesClick(int position, MarvelData.ComicInfo comicInfo) {
+        mComicRepository.addComic(comicInfo);
+        mView.getSearchAdapter().notifyItemChanged(position);
+    }
+
+    @Override
+    public void onDeleteFromFavouritesClick(int position, int comicID) {
+        mComicRepository.deleteComicById(comicID);
+        mView.getSearchAdapter().notifyItemChanged(position);
     }
 
     public void onListBottomReached() {

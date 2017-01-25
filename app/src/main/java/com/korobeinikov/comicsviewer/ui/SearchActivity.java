@@ -16,6 +16,7 @@ import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.lapism.searchview.SearchView;
 
 import org.parceler.Parcels;
@@ -27,8 +28,7 @@ import butterknife.ButterKnife;
 
 import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 
-public class SearchActivity extends AppCompatActivity implements ComponentOwner<ActivityComponent>,
-        SearchListView, SearchAdapter.ClickListener {
+public class SearchActivity extends AppCompatActivity implements ComponentOwner<ActivityComponent>, SearchListView {
 
     private static ActivityComponent sActivityComponent;
     private static final int LOADING_THRESHOLD = 5;
@@ -44,6 +44,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
 
     @Inject
     protected SearchPresenter mPresenter;
+    @Inject
+    protected ComicRepository mComicRepository;
 
     private SearchAdapter mSearchAdapter;
 
@@ -90,8 +92,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     }
 
     private void setupRecyclerView() {
-        mSearchAdapter = new SearchAdapter(this);
-        mSearchAdapter.setClickListener(this);
+        mSearchAdapter = new SearchAdapter(this, mComicRepository);
+        mSearchAdapter.setClickListener(mPresenter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mSearchAdapter);
 
@@ -133,13 +135,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
         });
     }
 
-    @Override
-    public void onListItemClick(MarvelData.ComicInfo comicInfo) {
-        mPresenter.onListItemClick(comicInfo);
-    }
-
     ///////////////////////////////////////////////////////////////////////////
-    // Commands from Presenter
+    // BEGIN: Commands from Presenter
     ///////////////////////////////////////////////////////////////////////////
     @Override
     public void refreshResults(MarvelData marvelData) {
@@ -164,4 +161,12 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
         mProgressBar.setVisibility(isShown ? View.VISIBLE : View.GONE);
         mRecyclerView.setVisibility(isShown ? View.GONE : View.VISIBLE);
     }
+
+    @Override
+    public SearchAdapter getSearchAdapter() {
+        return mSearchAdapter;
+    }
+    ///////////////////////////////////////////////////////////////////////////
+    // END: Commands from Presenter
+    ///////////////////////////////////////////////////////////////////////////
 }

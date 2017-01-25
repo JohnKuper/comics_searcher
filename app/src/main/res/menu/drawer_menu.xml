@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/group_actions"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_search"
+            android:checked="true"
+            android:icon="@drawable/ic_drawer_search"
+            android:title="@string/search_menu_action" />
+
+        <item
+            android:id="@+id/action_favourites"
+            android:checked="false"
+            android:icon="@drawable/ic_drawer_favourite"
+            android:title="@string/favourites_menu_action"
+            app:actionLayout="@layout/drawer_item_counter" />
+
+    </group>
+
+    <group
+        android:id="@+id/group_about"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_about"
+            android:checked="false"
+            android:icon="@drawable/ic_drawer_about"
+            android:title="@string/about_menu_action" />
+
+    </group>
+
+</menu>

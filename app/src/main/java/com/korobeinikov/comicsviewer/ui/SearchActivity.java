@@ -1,6 +1,8 @@
 package com.korobeinikov.comicsviewer.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +49,10 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     protected RecyclerView mRecyclerView;
     @BindView(R.id.progressBar)
     protected ProgressBar mProgressBar;
+    @BindView(R.id.navigationView)
+    protected NavigationView mDrawer;
+    @BindView(R.id.drawer)
+    protected DrawerLayout mDrawerLayout;
 
     @Inject
     protected SearchPresenter mPresenter;
@@ -77,6 +83,23 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
         setSupportActionBar(mToolbar);
         setupSearchView();
         setupRecyclerView();
+        setupDrawer();
+    }
+
+    private void setupDrawer() {
+        mDrawer.setNavigationItemSelectedListener(item -> {
+            mDrawerLayout.closeDrawers();
+            switch (item.getItemId()) {
+                case R.id.action_search:
+                    return true;
+                case R.id.action_favourites:
+                    return true;
+                case R.id.action_about:
+                    return true;
+                default:
+                    return true;
+            }
+        });
     }
 
     @Override

@@ -7,5 +7,10 @@
     <string name="list_is_empty">List is empty</string>
     <string name="use_more_general_keyword">Try to search or use more general keyword</string>
     <string name="no_description">This comic doesn\'t have description</string>
+    <string name="drawer_header_greeting">Welcome to Comics Searcher</string>
+    <string name="have_a_nice_search">Have a nice search…</string>
+    <string name="search_menu_action">Search</string>
+    <string name="favourites_menu_action">Favourites</string>
+    <string name="about_menu_action">About</string>
 
 </resources>

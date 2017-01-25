@@ -140,11 +140,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         mClickListener = clickListener;
     }
 
-    private class SearchItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected class SearchItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.ivThumbnail)
         ImageView ivThumbnail;
-
         @BindView(R.id.tvComicTitle)
         TextView tvTitle;
         @BindView(R.id.tvShortInfo)

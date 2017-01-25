@@ -2,7 +2,7 @@
 <resources>
 
     <color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#C62828</color>
+    <color name="colorPrimaryDark">#D32f2f</color>
     <color name="colorAccent">#F44336</color>
     <color name="blueAccent">#29B6F6</color>
     <color name="colorRipple">#E0E0E0</color>
@@ -10,5 +10,6 @@
     <color name="colorPrimaryText">#616161</color>
     <color name="colorSecondaryText">#9E9E9E</color>
     <color name="colorDetailsHeader">#424242</color>
+    <color name="colorDrawerItemChecked">#EEEEEE</color>
 
 </resources>

@@ -28,6 +28,7 @@ import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
+import com.korobeinikov.comicsviewer.util.AnimationUtils.AnimationListenerAdapter;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -51,6 +52,7 @@ import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
 public class ComicDetailsFragment extends BottomSheetDialogFragment implements ComicDetailView {
 
     public static final String ARG_COMIC_DETAILS = "ARG_COMIC_DETAILS";
+    public static final String ARG_ADAPTER_POSITION = "ARG_ADAPTER_POSITION";
 
     @BindView(R.id.ivThumbnail)
     protected ImageView mThumbnail;
@@ -69,6 +71,8 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     protected ComicDetailsPresenter mPresenter;
     private MarvelData.ComicInfo mComicInfo;
 
+    private int mAdapterPosition;
+
     public static ComicDetailsFragment newInstance(@NonNull Bundle args) {
         ComicDetailsFragment fragment = new ComicDetailsFragment();
         fragment.setArguments(args);
@@ -78,7 +82,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mComicInfo = Parcels.unwrap(getArguments().getParcelable(ARG_COMIC_DETAILS));
+        parseArguments();
         getComponent(ActivityComponent.class).plus(new FragmentModule()).inject(this);
     }
 
@@ -90,6 +94,11 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
         dialog.setContentView(contentView);
         setupViews(contentView);
         setBottomSheetCallback(contentView);
+    }
+
+    private void parseArguments() {
+        mComicInfo = Parcels.unwrap(getArguments().getParcelable(ARG_COMIC_DETAILS));
+        mAdapterPosition = getArguments().getInt(ARG_ADAPTER_POSITION);
     }
 
     @Override
@@ -125,7 +134,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
         mDescription.setText(getCorrectDescription(getContext(), mComicInfo.description));
         mShortInfo.setText(getShortInfo(getContext(), mComicInfo));
 
-        mAddToFavourites.setOnClickListener(v -> mPresenter.onAddToFavouritesClick(mComicInfo));
+        mAddToFavourites.setOnClickListener(v -> mPresenter.onAddToFavouritesClick(mComicInfo, mAdapterPosition));
         mGotoComic.setOnClickListener(v -> mPresenter.onGotoComicClick(mComicInfo));
 
         mPresenter.updateCircleButton(mComicInfo.id);

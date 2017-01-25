@@ -1,11 +1,14 @@
 package com.korobeinikov.comicsviewer.mvp.presenter;
 
+import com.korobeinikov.comicsviewer.model.AddToFavouritesEvent;
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.korobeinikov.comicsviewer.ui.SearchAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import rx.Observable;
 import rx.Observer;
@@ -66,20 +69,21 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         subscribeForComics();
     }
 
-    public void onListItemClick(MarvelData.ComicInfo comicInfo) {
-        mView.openDetailedInformation(comicInfo);
+    @Override
+    public void onListItemClick(MarvelData.ComicInfo comicInfo, int position) {
+        mView.openDetailedInformation(comicInfo, position);
     }
 
     @Override
-    public void onAddToFavouritesClick(int position, MarvelData.ComicInfo comicInfo) {
+    public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo, int position) {
         mComicRepository.addComic(comicInfo);
-        mView.getSearchAdapter().notifyItemChanged(position);
+        EventBus.getDefault().post(new AddToFavouritesEvent(position));
     }
 
     @Override
-    public void onDeleteFromFavouritesClick(int position, int comicID) {
+    public void onDeleteFromFavouritesClick(int comicID, int position) {
         mComicRepository.deleteComicById(comicID);
-        mView.getSearchAdapter().notifyItemChanged(position);
+        EventBus.getDefault().post(new AddToFavouritesEvent(position));
     }
 
     public void onListBottomReached() {

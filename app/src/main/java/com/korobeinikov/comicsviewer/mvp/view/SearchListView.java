@@ -1,7 +1,6 @@
 package com.korobeinikov.comicsviewer.mvp.view;
 
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.ui.SearchAdapter;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -16,7 +15,6 @@ public interface SearchListView {
 
     void addResults(MarvelData marvelData);
 
-    void openDetailedInformation(MarvelData.ComicInfo comicInfo);
+    void openDetailedInformation(MarvelData.ComicInfo comicInfo, int position);
 
-    SearchAdapter getSearchAdapter();
 }

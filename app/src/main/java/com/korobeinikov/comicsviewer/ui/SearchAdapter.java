@@ -165,18 +165,17 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             MarvelData.ComicInfo comicInfo = mResultsList.get(position);
             switch (v.getId()) {
                 case R.id.rlSearchListItem:
-                    mClickListener.onListItemClick(comicInfo);
+                    mClickListener.onListItemClick(comicInfo, position);
                     break;
                 case R.id.ibAddToFavourites:
                     if (mComicRepository.isAddedById(comicInfo.id)) {
-                        mClickListener.onDeleteFromFavouritesClick(position, comicInfo.id);
+                        mClickListener.onDeleteFromFavouritesClick(comicInfo.id, position);
                     } else {
-                        mClickListener.onAddToFavouritesClick(position, comicInfo);
+                        mClickListener.onAddToFavouritesClick(comicInfo, position);
                     }
                     break;
             }
         }
-
     }
 
     class EmptyVH extends RecyclerView.ViewHolder {
@@ -184,7 +183,6 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public EmptyVH(View itemView) {
             super(itemView);
         }
-
     }
 
     class LoadingVH extends RecyclerView.ViewHolder {
@@ -192,15 +190,14 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public LoadingVH(View itemView) {
             super(itemView);
         }
-
     }
 
     public interface ClickListener {
 
-        void onDeleteFromFavouritesClick(int position, int comicID);
+        void onDeleteFromFavouritesClick(int comicID, int position);
 
-        void onAddToFavouritesClick(int position, MarvelData.ComicInfo comicInfo);
+        void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo, int position);
 
-        void onListItemClick(MarvelData.ComicInfo comicInfo);
+        void onListItemClick(MarvelData.ComicInfo comicInfo, int position);
     }
 }

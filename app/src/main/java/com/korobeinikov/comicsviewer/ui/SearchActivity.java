@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
@@ -50,7 +51,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     @BindView(R.id.progressBar)
     protected ProgressBar mProgressBar;
     @BindView(R.id.navigationView)
-    protected NavigationView mDrawer;
+    protected NavigationView mNavigationView;
     @BindView(R.id.drawer)
     protected DrawerLayout mDrawerLayout;
 
@@ -62,6 +63,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     protected Realm mRealm;
 
     private SearchAdapter mSearchAdapter;
+    private TextView mFavouritesCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +89,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     }
 
     private void setupDrawer() {
-        mDrawer.setNavigationItemSelectedListener(item -> {
+        mFavouritesCounter = (TextView) mNavigationView.getMenu().findItem(R.id.action_favourites).getActionView();
+        mNavigationView.setNavigationItemSelectedListener(item -> {
             mDrawerLayout.closeDrawers();
             switch (item.getItemId()) {
                 case R.id.action_search:
@@ -100,6 +103,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
                     return true;
             }
         });
+        updateFavouritesCount();
     }
 
     @Override
@@ -128,6 +132,12 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addedToFavouritesEvent(AddToFavouritesEvent event) {
         mSearchAdapter.notifyItemChanged(event.getPosition());
+        updateFavouritesCount();
+    }
+
+    private void updateFavouritesCount() {
+        int count = mComicRepository.getAllComics().size();
+        mFavouritesCounter.setText(count > 0 ? String.valueOf(count) : null);
     }
 
     @Override

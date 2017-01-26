@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.ui;
+package com.korobeinikov.comicsviewer.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

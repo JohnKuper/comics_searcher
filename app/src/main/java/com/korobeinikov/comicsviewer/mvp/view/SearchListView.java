@@ -1,5 +1,6 @@
 package com.korobeinikov.comicsviewer.mvp.view;
 
+import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 
 /**
@@ -9,9 +10,13 @@ import com.korobeinikov.comicsviewer.model.MarvelData;
 
 public interface SearchListView {
 
+    SearchAdapter getSearchAdapter();
+
+    void updateFavouritesCount(int count);
+
     void showProgress(boolean isShown);
 
-    void refreshResults(MarvelData marvelData);
+    void updateResults(MarvelData marvelData);
 
     void addResults(MarvelData marvelData);
 

@@ -1,11 +1,8 @@
 package com.korobeinikov.comicsviewer.mvp.presenter;
 
-import com.korobeinikov.comicsviewer.model.AddToFavouritesEvent;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
-
-import org.greenrobot.eventbus.EventBus;
 
 import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
 
@@ -28,14 +25,9 @@ public class ComicDetailsPresenter extends BasePresenter<ComicDetailView> {
         super.detachView();
     }
 
-    public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo, int position) {
-        saveToFavourites(comicInfo, position);
-        startAnimations();
-    }
-
-    private void saveToFavourites(MarvelData.ComicInfo comicInfo, int position) {
+    public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo) {
         mComicRepository.addComic(comicInfo);
-        EventBus.getDefault().post(new AddToFavouritesEvent(position));
+        startAnimations();
     }
 
     private void startAnimations() {

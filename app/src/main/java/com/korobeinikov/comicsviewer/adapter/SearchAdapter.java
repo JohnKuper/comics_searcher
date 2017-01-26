@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.ui;
+package com.korobeinikov.comicsviewer.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -121,7 +121,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mDisplayLoadingRow ? getItemCount() - 1 : -1;
     }
 
-    public void swapResults(MarvelData marvelData) {
+    public void updateResults(MarvelData marvelData) {
         mResultsList.clear();
         addResults(marvelData);
     }

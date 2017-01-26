@@ -1,16 +1,15 @@
 package com.korobeinikov.comicsviewer.mvp.presenter;
 
-import com.korobeinikov.comicsviewer.model.AddToFavouritesEvent;
+import com.korobeinikov.comicsviewer.adapter.PagingController;
+import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.model.RealmComicData;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
-import com.korobeinikov.comicsviewer.ui.PagingController;
-import com.korobeinikov.comicsviewer.ui.SearchAdapter;
 
-import org.greenrobot.eventbus.EventBus;
-
+import io.realm.RealmResults;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -24,12 +23,15 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     private static final String TAG = "SearchPresenter";
 
     private ComicsRequester mComicsRequester;
-    private ComicRepository mComicRepository;
     private Observable<ComicsResponse> mCachedRequest;
     private Subscription mSubscription;
-
     private MarvelData mFetchedMarvelData;
     private String mLastKeyword;
+
+    private ComicRepository mComicRepository;
+    private RealmResults<RealmComicData> mRealmComics;
+
+    private int mLastClickedPosition;
 
     public SearchPresenter(ComicsRequester requester, ComicRepository repository, MarvelData marvelData) {
         mComicsRequester = requester;
@@ -41,11 +43,21 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     public void attachView(SearchListView view) {
         super.attachView(view);
         if (mFetchedMarvelData.results.size() > 0) {
-            mView.refreshResults(mFetchedMarvelData);
+            mView.updateResults(mFetchedMarvelData);
         }
         if (mComicsRequester.isLoading()) {
             subscribeForComics();
         }
+        bindToRealmComics();
+    }
+
+    private void bindToRealmComics() {
+        mRealmComics = mComicRepository.getAllComics();
+        mRealmComics.addChangeListener(() -> {
+            mView.getSearchAdapter().notifyItemChanged(mLastClickedPosition);
+            mView.updateFavouritesCount(mRealmComics.size());
+        });
+        mView.updateFavouritesCount(mRealmComics.size());
     }
 
     @Override
@@ -72,19 +84,20 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
 
     @Override
     public void onListItemClick(MarvelData.ComicInfo comicInfo, int position) {
+        mLastClickedPosition = position;
         mView.openDetailedInformation(comicInfo, position);
     }
 
     @Override
     public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo, int position) {
+        mLastClickedPosition = position;
         mComicRepository.addComic(comicInfo);
-        EventBus.getDefault().post(new AddToFavouritesEvent(position));
     }
 
     @Override
     public void onDeleteFromFavouritesClick(int comicID, int position) {
+        mLastClickedPosition = position;
         mComicRepository.deleteComicById(comicID);
-        EventBus.getDefault().post(new AddToFavouritesEvent(position));
     }
 
     private final Observer<ComicsResponse> mComicsObserver = new Observer<ComicsResponse>() {
@@ -103,7 +116,7 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
             MarvelData freshData = response.data;
             if (response.data.offset == 0) {
                 mFetchedMarvelData.swapResults(freshData);
-                mView.refreshResults(freshData);
+                mView.updateResults(freshData);
             } else {
                 mFetchedMarvelData.merge(freshData);
                 mView.addResults(freshData);

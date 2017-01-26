@@ -22,8 +22,8 @@ public class RealmModule {
     @Provides
     @Singleton
     public Realm providesRealm(Context context) {
-        RealmConfiguration config = new RealmConfiguration.Builder(context)
-                .deleteRealmIfMigrationNeeded().build();
+        Realm.init(context);
+        RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
         return Realm.getDefaultInstance();
     }

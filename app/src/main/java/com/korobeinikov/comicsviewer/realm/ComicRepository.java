@@ -1,7 +1,7 @@
 package com.korobeinikov.comicsviewer.realm;
 
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.model.RealmComicData;
+import com.korobeinikov.comicsviewer.model.RealmComicInfo;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,30 +20,20 @@ public class ComicRepository {
     }
 
     public void addComic(MarvelData.ComicInfo comicInfo) {
-        mRealm.beginTransaction();
-        RealmComicData realmResult = mRealm.createObject(RealmComicData.class);
-        realmResult.setId(comicInfo.id);
-        realmResult.setPath(comicInfo.thumbnail.path);
-        realmResult.setExtension(comicInfo.thumbnail.extension);
-        mRealm.commitTransaction();
+        RealmComicInfo info = RealmComicInfo.from(comicInfo);
+        mRealm.executeTransaction(realm -> realm.copyToRealm(info));
     }
 
     public void deleteComicById(int id) {
-        mRealm.beginTransaction();
-        RealmComicData comicData = mRealm.where(RealmComicData.class).equalTo(RealmComicData.ID, id).findFirst();
-        comicData.removeFromRealm();
-        mRealm.commitTransaction();
+        mRealm.executeTransaction(realm -> realm.where(RealmComicInfo.class).equalTo(RealmComicInfo.ID, id).findFirst().deleteFromRealm());
     }
 
-    public RealmComicData getComicById(int id) {
-        mRealm.beginTransaction();
-        RealmComicData comicData = mRealm.where(RealmComicData.class).equalTo(RealmComicData.ID, id).findFirst();
-        mRealm.commitTransaction();
-        return comicData;
+    public RealmComicInfo getComicById(int id) {
+        return mRealm.where(RealmComicInfo.class).equalTo(RealmComicInfo.ID, id).findFirst();
     }
 
-    public RealmResults<RealmComicData> getAllComics() {
-        return mRealm.where(RealmComicData.class).findAll();
+    public RealmResults<RealmComicInfo> getAllComics() {
+        return mRealm.where(RealmComicInfo.class).findAll();
     }
 
     public boolean isAddedById(int id) {

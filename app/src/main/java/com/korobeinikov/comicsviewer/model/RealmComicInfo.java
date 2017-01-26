@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey;
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
-public class RealmComicData extends RealmObject {
+public class RealmComicInfo extends RealmObject {
 
     public static final String ID = "id";
 
@@ -16,6 +16,14 @@ public class RealmComicData extends RealmObject {
     private int id;
     private String path;
     private String extension;
+
+    public static RealmComicInfo from(MarvelData.ComicInfo comicInfo) {
+        RealmComicInfo realmInfo = new RealmComicInfo();
+        realmInfo.setId(comicInfo.id);
+        realmInfo.setPath(comicInfo.thumbnail.path);
+        realmInfo.setExtension(comicInfo.thumbnail.extension);
+        return realmInfo;
+    }
 
     public int getId() {
         return id;

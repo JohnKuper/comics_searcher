@@ -4,7 +4,7 @@ import com.korobeinikov.comicsviewer.adapter.PagingController;
 import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.model.RealmComicData;
+import com.korobeinikov.comicsviewer.model.RealmComicInfo;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
@@ -29,7 +29,7 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     private String mLastKeyword;
 
     private ComicRepository mComicRepository;
-    private RealmResults<RealmComicData> mRealmComics;
+    private RealmResults<RealmComicInfo> mRealmComics;
 
     private int mLastClickedPosition;
 
@@ -53,7 +53,7 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
 
     private void bindToRealmComics() {
         mRealmComics = mComicRepository.getAllComics();
-        mRealmComics.addChangeListener(() -> {
+        mRealmComics.addChangeListener(element -> {
             mView.getSearchAdapter().notifyItemChanged(mLastClickedPosition);
             mView.updateFavouritesCount(mRealmComics.size());
         });

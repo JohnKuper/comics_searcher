@@ -14,14 +14,12 @@ public class RealmComicInfo extends RealmObject {
 
     @PrimaryKey
     private int id;
-    private String path;
-    private String extension;
+    private Thumbnail thumbnail;
 
     public static RealmComicInfo from(MarvelData.ComicInfo comicInfo) {
         RealmComicInfo realmInfo = new RealmComicInfo();
         realmInfo.setId(comicInfo.id);
-        realmInfo.setPath(comicInfo.thumbnail.path);
-        realmInfo.setExtension(comicInfo.thumbnail.extension);
+        realmInfo.setThumbnail(comicInfo.thumbnail);
         return realmInfo;
     }
 
@@ -33,19 +31,11 @@ public class RealmComicInfo extends RealmObject {
         this.id = id;
     }
 
-    public String getPath() {
-        return path;
+    public Thumbnail getThumbnail() {
+        return thumbnail;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setThumbnail(Thumbnail thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

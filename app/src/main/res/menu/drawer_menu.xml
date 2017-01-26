@@ -9,13 +9,13 @@
             android:id="@+id/action_search"
             android:checked="true"
             android:icon="@drawable/ic_drawer_search"
-            android:title="@string/search_menu_action" />
+            android:title="@string/search" />
 
         <item
             android:id="@+id/action_favourites"
             android:checked="false"
             android:icon="@drawable/ic_drawer_favourite"
-            android:title="@string/favourites_menu_action"
+            android:title="@string/favourites"
             app:actionLayout="@layout/drawer_item_counter" />
 
     </group>
@@ -27,7 +27,7 @@
             android:id="@+id/action_about"
             android:checked="false"
             android:icon="@drawable/ic_drawer_about"
-            android:title="@string/about_menu_action" />
+            android:title="@string/about" />
 
     </group>
 

@@ -38,12 +38,6 @@ public class MarvelData {
     }
 
     @Parcel
-    public static class Thumbnail {
-        public String path;
-        public String extension;
-    }
-
-    @Parcel
     public static class Price {
         public double price;
     }

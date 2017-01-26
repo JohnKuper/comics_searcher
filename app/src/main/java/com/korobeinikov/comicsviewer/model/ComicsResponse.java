@@ -5,6 +5,6 @@ package com.korobeinikov.comicsviewer.model;
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public class ComicsResponse {
-
+    
     public MarvelData data;
 }

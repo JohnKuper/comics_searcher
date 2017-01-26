@@ -1,5 +1,6 @@
 package com.korobeinikov.comicsviewer.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -65,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         injectSelf();
         initViews();
@@ -93,6 +94,8 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
                 case R.id.action_search:
                     return true;
                 case R.id.action_favourites:
+                    Intent intent = new Intent(this, FavouritesActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.action_about:
                     return true;

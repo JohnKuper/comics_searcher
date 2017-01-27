@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_FANTASTIC;
+import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_FANTASTIC;
 import static com.korobeinikov.comicsviewer.ui.FullPosterActivity.EXTRA_POSTER_URL;
 import static com.korobeinikov.comicsviewer.ui.FullPosterActivity.THUMBNAIL_TRANSITION_NAME;
 

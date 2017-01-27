@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_MEDIUM;
+import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_MEDIUM;
 
 /**
  * Created by Dmitriy_Korobeinikov.

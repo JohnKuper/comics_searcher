@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN;
 import static android.view.animation.AnimationUtils.loadAnimation;
-import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_LARGE;
+import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_LARGE;
 import static com.korobeinikov.comicsviewer.util.StringHelper.getCorrectDescription;
 import static com.korobeinikov.comicsviewer.util.StringHelper.getShortInfo;
 import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;

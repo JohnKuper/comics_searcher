@@ -18,7 +18,8 @@ import butterknife.ButterKnife;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
-import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_FANTASTIC;
+import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_FANTASTIC;
+
 
 /**
  * Created by Dmitriy_Korobeinikov.

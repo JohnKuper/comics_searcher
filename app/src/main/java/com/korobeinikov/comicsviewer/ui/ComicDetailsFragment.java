@@ -24,7 +24,6 @@ import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.dagger.ComponentOwner;
 import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
-import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
@@ -40,8 +39,8 @@ import butterknife.ButterKnife;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN;
 import static android.view.animation.AnimationUtils.loadAnimation;
+import static com.korobeinikov.comicsviewer.model.ComicImageVariant.STANDARD_LARGE;
 import static com.korobeinikov.comicsviewer.util.StringHelper.getCorrectDescription;
-import static com.korobeinikov.comicsviewer.util.StringHelper.getFullPathToImage;
 import static com.korobeinikov.comicsviewer.util.StringHelper.getShortInfo;
 import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
 
@@ -123,7 +122,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     private void setupViews(View contentView) {
         ButterKnife.bind(this, contentView);
         Picasso.with(getContext())
-                .load(getFullPathToImage(mComicInfo.thumbnail, ComicImageVariant.STANDARD_LARGE))
+                .load(mComicInfo.thumbnail.getFullPath(STANDARD_LARGE))
                 .into(mThumbnail);
 
         mTitle.setText(mComicInfo.title);

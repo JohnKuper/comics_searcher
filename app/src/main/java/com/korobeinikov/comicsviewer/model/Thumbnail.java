@@ -14,6 +14,11 @@ import io.realm.ThumbnailRealmProxy;
         value = Parcel.Serialization.BEAN,
         analyze = Thumbnail.class)
 public class Thumbnail extends RealmObject {
+
     public String path;
     public String extension;
+
+    public String getFullPath(ComicImageVariant variant) {
+        return path + "/" + variant.toString().toLowerCase() + "." + extension;
+    }
 }

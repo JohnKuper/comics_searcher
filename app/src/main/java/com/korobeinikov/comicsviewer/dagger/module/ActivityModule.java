@@ -2,6 +2,7 @@ package com.korobeinikov.comicsviewer.dagger.module;
 
 import com.korobeinikov.comicsviewer.dagger.scope.PerActivity;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.mvp.presenter.FavouritesPresenter;
 import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
@@ -25,5 +26,11 @@ public class ActivityModule {
     @PerActivity
     public SearchPresenter providesSearchPresenter(ComicsRequester requester, ComicRepository repository, MarvelData marvelData) {
         return new SearchPresenter(requester, repository, marvelData);
+    }
+
+    @Provides
+    @PerActivity
+    public FavouritesPresenter providesFavouritesPresenter() {
+        return new FavouritesPresenter();
     }
 }

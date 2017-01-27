@@ -89,7 +89,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.ibToFavourites.setImageDrawable(getSecondaryActionIcon(comicInfo.id));
 
             Picasso.with(mContext)
-                    .load(StringHelper.getFullPathToImage(comicInfo.thumbnail, STANDARD_MEDIUM))
+                    .load(comicInfo.thumbnail.getFullPath(STANDARD_MEDIUM))
                     .into(holder.ivThumbnail);
         }
     }

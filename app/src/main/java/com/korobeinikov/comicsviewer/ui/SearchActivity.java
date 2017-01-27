@@ -36,6 +36,7 @@ import io.realm.Realm;
 import static com.korobeinikov.comicsviewer.R.id.recyclerView;
 import static com.korobeinikov.comicsviewer.ui.ComicDetailsFragment.ARG_COMIC_DETAILS;
 
+// TODO: 1/26/2017 Extract common logic to base class
 public class SearchActivity extends AppCompatActivity implements ComponentOwner<ActivityComponent>, SearchListView {
 
     private static ActivityComponent sActivityComponent;
@@ -94,6 +95,7 @@ public class SearchActivity extends AppCompatActivity implements ComponentOwner<
                 case R.id.action_search:
                     return true;
                 case R.id.action_favourites:
+                    // TODO: 1/26/2017 To Presenter
                     Intent intent = new Intent(this, FavouritesActivity.class);
                     startActivity(intent);
                     return true;

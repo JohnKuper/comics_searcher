@@ -3,9 +3,7 @@ package com.korobeinikov.comicsviewer.util;
 import android.content.Context;
 
 import com.korobeinikov.comicsviewer.R;
-import com.korobeinikov.comicsviewer.model.ComicImageVariant;
 import com.korobeinikov.comicsviewer.model.MarvelData;
-import com.korobeinikov.comicsviewer.model.Thumbnail;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -19,10 +17,6 @@ public final class StringHelper {
     public static String getShortInfo(Context context, MarvelData.ComicInfo comicInfo) {
         String price = String.valueOf(comicInfo.getFirstPrice().price);
         return (context.getString(R.string.short_comic_info, comicInfo.format, price));
-    }
-
-    public static String getFullPathToImage(Thumbnail thumbnail, ComicImageVariant variant) {
-        return thumbnail.path + "/" + variant.toString().toLowerCase() + "." + thumbnail.extension;
     }
 
     public static String getCorrectDescription(Context context, String description) {

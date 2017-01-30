@@ -12,8 +12,6 @@ public interface SearchListView {
 
     SearchAdapter getSearchAdapter();
 
-    void updateFavouritesCount(int count);
-
     void showProgress(boolean isShown);
 
     void updateResults(MarvelData marvelData);

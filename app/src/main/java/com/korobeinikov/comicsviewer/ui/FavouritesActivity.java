@@ -39,7 +39,7 @@ public class FavouritesActivity extends AppCompatActivity implements FavouritesV
 
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
-    @BindView(R.id.recyclerView)
+    @BindView(R.id.recycler_view)
     protected RecyclerView mRecyclerView;
 
     @Inject

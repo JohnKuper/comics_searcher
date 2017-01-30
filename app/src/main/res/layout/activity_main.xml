@@ -21,28 +21,16 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways" />
-
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/recyclerView"
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:theme="@style/BlueAccent"
-            android:visibility="gone" />
-
         <com.lapism.searchview.SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.lapism.searchview.SearchBehavior" />
@@ -50,11 +38,10 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/navigationView"
+        android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         app:headerLayout="@layout/drawer_header"
         app:itemBackground="@drawable/drawer_item_background"
         app:menu="@menu/drawer_menu" />

@@ -19,7 +19,6 @@ import rx.Subscription;
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public class SearchPresenter extends BasePresenter<SearchListView> implements SearchAdapter.ClickListener, PagingController.Callbacks {
-
     private static final String TAG = "SearchPresenter";
 
     private ComicsRequester mComicsRequester;
@@ -48,16 +47,12 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         if (mComicsRequester.isLoading()) {
             subscribeForComics();
         }
-        bindToRealmComics();
+        listenForRealmComicsUpdates();
     }
 
-    private void bindToRealmComics() {
+    private void listenForRealmComicsUpdates() {
         mRealmComics = mComicRepository.getAllComics();
-        mRealmComics.addChangeListener(element -> {
-            mView.getSearchAdapter().notifyItemChanged(mLastClickedPosition);
-            mView.updateFavouritesCount(mRealmComics.size());
-        });
-        mView.updateFavouritesCount(mRealmComics.size());
+        mRealmComics.addChangeListener(element -> mView.getSearchAdapter().notifyItemChanged(mLastClickedPosition));
     }
 
     @Override
@@ -114,8 +109,8 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         public void onNext(ComicsResponse response) {
             mView.showProgress(false);
             MarvelData freshData = response.data;
-            if (response.data.offset == 0) {
-                mFetchedMarvelData.swapResults(freshData);
+            if (freshData.offset == 0) {
+                mFetchedMarvelData.updateResults(freshData);
                 mView.updateResults(freshData);
             } else {
                 mFetchedMarvelData.merge(freshData);

@@ -4,7 +4,7 @@ import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
 import com.korobeinikov.comicsviewer.dagger.scope.PerActivity;
 import com.korobeinikov.comicsviewer.ui.FavouritesActivity;
-import com.korobeinikov.comicsviewer.ui.SearchActivity;
+import com.korobeinikov.comicsviewer.ui.MainActivity;
 
 import dagger.Subcomponent;
 
@@ -17,7 +17,7 @@ import dagger.Subcomponent;
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent {
 
-    void inject(SearchActivity searchActivity);
+    void inject(MainActivity mainActivity);
 
     void inject(FavouritesActivity favouritesActivity);
 

@@ -42,7 +42,7 @@ public class MarvelData {
         public double price;
     }
 
-    public void swapResults(MarvelData marvelData) {
+    public void updateResults(MarvelData marvelData) {
         results.clear();
         merge(marvelData);
     }

@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.ui;
+package com.korobeinikov.comicsviewer.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.korobeinikov.comicsviewer.R.id.recycler_view;
-import static com.korobeinikov.comicsviewer.ui.ComicDetailsFragment.ARG_COMIC_DETAILS;
+import static com.korobeinikov.comicsviewer.ui.fragment.ComicDetailsFragment.ARG_COMIC_DETAILS;
 
 /**
  * Created by Dmitriy_Korobeinikov.

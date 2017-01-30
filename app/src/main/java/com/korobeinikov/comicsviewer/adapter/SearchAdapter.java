@@ -64,7 +64,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         LayoutInflater inflater = LayoutInflater.from(mContext);
         switch (viewType) {
             case VIEW_TYPE_EMPTY:
-                view = inflater.inflate(R.layout.search_empty_view, parent, false);
+                view = inflater.inflate(R.layout.list_item_search_empty, parent, false);
                 viewHolder = new EmptyVH(view);
                 break;
             case VIEW_TYPE_LIST_ITEM:

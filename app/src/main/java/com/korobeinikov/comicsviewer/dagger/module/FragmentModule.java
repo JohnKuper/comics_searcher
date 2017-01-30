@@ -3,6 +3,7 @@ package com.korobeinikov.comicsviewer.dagger.module;
 import com.korobeinikov.comicsviewer.dagger.scope.PerFragment;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
+import com.korobeinikov.comicsviewer.mvp.presenter.FavouritesPresenter;
 import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
@@ -28,6 +29,12 @@ public class FragmentModule {
     @PerFragment
     public ComicDetailsPresenter providesComicDetailsPresenter(ComicRepository comicRepository) {
         return new ComicDetailsPresenter(comicRepository);
+    }
+
+    @Provides
+    @PerFragment
+    public FavouritesPresenter providesFavouritesPresenter() {
+        return new FavouritesPresenter();
     }
 
     @Provides

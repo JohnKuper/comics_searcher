@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.ui;
+package com.korobeinikov.comicsviewer.ui.fragment;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;

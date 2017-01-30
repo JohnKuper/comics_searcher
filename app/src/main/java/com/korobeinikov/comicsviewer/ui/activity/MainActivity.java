@@ -1,12 +1,11 @@
-package com.korobeinikov.comicsviewer.ui;
+package com.korobeinikov.comicsviewer.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
@@ -16,6 +15,9 @@ import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.model.RealmComicInfo;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
+import com.korobeinikov.comicsviewer.ui.UINavigator;
+import com.korobeinikov.comicsviewer.ui.fragment.FavouritesFragment;
+import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
 import com.lapism.searchview.SearchView;
 
 import javax.inject.Inject;
@@ -39,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
     protected DrawerLayout mDrawerLayout;
 
     @Inject
+    protected UINavigator mUINavigator;
+    @Inject
     protected ComicRepository mComicRepository;
 
-    private FragmentManager mFragmentManager;
     private TextView mFavouritesCounter;
     private RealmResults<RealmComicInfo> mRealmComics;
 
@@ -50,24 +53,13 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        openSearchFragment();
         injectSelf();
         initViews();
     }
 
-    private void openSearchFragment() {
-        mFragmentManager = getSupportFragmentManager();
-        if (mFragmentManager.findFragmentById(R.id.container) == null) {
-            SearchFragment fragment = SearchFragment.newInstance();
-            mFragmentManager.beginTransaction().add(R.id.container, fragment, SearchFragment.TAG).commit();
-        }
-    }
-
     // TODO: 1/30/2017 Implement via Injector
     private void injectSelf() {
-        if (sActivityComponent == null) {
-            sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule());
-        }
+        sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule(this));
         sActivityComponent.inject(this);
     }
 
@@ -75,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
         setSupportActionBar(mToolbar);
         setupSearchView();
         setupDrawer();
+        mUINavigator.start();
     }
 
     private void setupSearchView() {
@@ -87,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                ((SearchFragment) mFragmentManager.findFragmentByTag(SearchFragment.TAG)).onSearchSubmit(query);
+                mUINavigator.getSearchFragment().onSearchSubmit(query);
                 mSearchView.close(true);
                 return true;
             }
@@ -105,13 +98,16 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
             mDrawerLayout.closeDrawers();
             switch (item.getItemId()) {
                 case R.id.action_search:
+                    mSearchView.setVisibility(View.VISIBLE);
+                    mUINavigator.openFragment(SearchFragment.TAG);
                     return true;
                 case R.id.action_favourites:
                     // TODO: 1/26/2017 To Presenter
-                    Intent intent = new Intent(this, FavouritesActivity.class);
-                    startActivity(intent);
+                    mSearchView.setVisibility(View.GONE);
+                    mUINavigator.openFragment(FavouritesFragment.TAG);
                     return true;
                 case R.id.action_about:
+//                    mUINavigator.openAboutFragment();
                     return true;
                 default:
                     return true;
@@ -131,14 +127,6 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
     private void updateFavouritesCount() {
         int count = mRealmComics.size();
         mFavouritesCounter.setText(count > 0 ? String.valueOf(count) : null);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (isFinishing()) {
-            sActivityComponent = null;
-        }
     }
 
     @Override

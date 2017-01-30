@@ -1,4 +1,4 @@
-package com.korobeinikov.comicsviewer.ui;
+package com.korobeinikov.comicsviewer.ui.fragment;
 
 import android.support.v4.app.Fragment;
 

@@ -1,7 +1,8 @@
 package com.korobeinikov.comicsviewer.dagger.module;
 
-import com.korobeinikov.comicsviewer.dagger.scope.PerActivity;
-import com.korobeinikov.comicsviewer.mvp.presenter.FavouritesPresenter;
+import android.support.v7.app.AppCompatActivity;
+
+import com.korobeinikov.comicsviewer.ui.UINavigator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,9 +14,19 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
+    public AppCompatActivity mActivity;
+
+    public ActivityModule(AppCompatActivity activity) {
+        mActivity = activity;
+    }
+
     @Provides
-    @PerActivity
-    public FavouritesPresenter providesFavouritesPresenter() {
-        return new FavouritesPresenter();
+    public AppCompatActivity providesActivity() {
+        return mActivity;
+    }
+
+    @Provides
+    public UINavigator providesUINavigator(AppCompatActivity activity) {
+        return new UINavigator(activity.getSupportFragmentManager());
     }
 }

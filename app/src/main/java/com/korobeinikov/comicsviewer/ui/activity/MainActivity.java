@@ -16,6 +16,7 @@ import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.model.RealmComicInfo;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.korobeinikov.comicsviewer.ui.UINavigator;
+import com.korobeinikov.comicsviewer.ui.fragment.AboutFragment;
 import com.korobeinikov.comicsviewer.ui.fragment.FavouritesFragment;
 import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
 import com.lapism.searchview.SearchView;
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
         });
     }
 
+    // TODO: 1/26/2017 To Presenter
     private void setupDrawer() {
         mFavouritesCounter = (TextView) mNavigationView.getMenu().findItem(R.id.action_favourites).getActionView();
         mNavigationView.setNavigationItemSelectedListener(item -> {
@@ -102,12 +104,12 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
                     mUINavigator.openFragment(SearchFragment.TAG);
                     return true;
                 case R.id.action_favourites:
-                    // TODO: 1/26/2017 To Presenter
                     mSearchView.setVisibility(View.GONE);
                     mUINavigator.openFragment(FavouritesFragment.TAG);
                     return true;
                 case R.id.action_about:
-//                    mUINavigator.openAboutFragment();
+                    mSearchView.setVisibility(View.GONE);
+                    mUINavigator.openFragment(AboutFragment.TAG);
                     return true;
                 default:
                     return true;
@@ -118,9 +120,7 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
 
     public void listenForRealmComicsUpdates() {
         mRealmComics = mComicRepository.getAllComics();
-        mRealmComics.addChangeListener(result -> {
-            updateFavouritesCount();
-        });
+        mRealmComics.addChangeListener(result -> updateFavouritesCount());
         updateFavouritesCount();
     }
 

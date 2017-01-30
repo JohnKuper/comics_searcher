@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.korobeinikov.comicsviewer.R;
+import com.korobeinikov.comicsviewer.ui.fragment.AboutFragment;
 import com.korobeinikov.comicsviewer.ui.fragment.FavouritesFragment;
 import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
 
@@ -16,7 +17,7 @@ import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
 // TODO: 1/30/2017 Change fragments in a more beautiful way according to the state of NavigationView
 public class UINavigator {
 
-    @StringDef({SearchFragment.TAG, FavouritesFragment.TAG})
+    @StringDef({SearchFragment.TAG, FavouritesFragment.TAG, AboutFragment.TAG})
     public @interface Tag {
     }
 
@@ -40,6 +41,9 @@ public class UINavigator {
                 break;
             case FavouritesFragment.TAG:
                 fragment = FavouritesFragment.newInstance();
+                break;
+            case AboutFragment.TAG:
+                fragment = AboutFragment.newInstance();
                 break;
         }
         mFragmentManager.beginTransaction().replace(R.id.container, fragment, fragmentTag).commit();

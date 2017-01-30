@@ -2,6 +2,8 @@ package com.korobeinikov.comicsviewer.dagger.module;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.korobeinikov.comicsviewer.mvp.presenter.MainContainerPresenter;
+import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.korobeinikov.comicsviewer.ui.UINavigator;
 
 import dagger.Module;
@@ -23,6 +25,11 @@ public class ActivityModule {
     @Provides
     public AppCompatActivity providesActivity() {
         return mActivity;
+    }
+
+    @Provides
+    public MainContainerPresenter providesMainContainerPresenter(ComicRepository repository) {
+        return new MainContainerPresenter(repository);
     }
 
     @Provides

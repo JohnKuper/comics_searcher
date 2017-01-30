@@ -109,8 +109,8 @@ public class SearchFragment extends BaseFragment implements SearchListView {
         PagingController.connectTo(mRecyclerView, mPresenter);
     }
 
-    public void onSearchSubmit(String keyword) {
-        mPresenter.onSearchSubmit(keyword);
+    public void onSearchSubmit(String query) {
+        mPresenter.onSearchSubmit(query);
     }
 
     ///////////////////////////////////////////////////////////////////////////

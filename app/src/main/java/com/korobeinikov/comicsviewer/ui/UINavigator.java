@@ -14,12 +14,10 @@ import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
  * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
-// TODO: 1/30/2017 Change fragments in a more beautiful way according to the state of NavigationView
 public class UINavigator {
 
     @StringDef({SearchFragment.TAG, FavouritesFragment.TAG, AboutFragment.TAG})
-    public @interface Tag {
-    }
+    public @interface FragmentTag {}
 
     private FragmentManager mFragmentManager;
 
@@ -33,9 +31,9 @@ public class UINavigator {
         }
     }
 
-    public void openFragment(@Tag String fragmentTag) {
+    public void openFragment(@FragmentTag String tag) {
         Fragment fragment = null;
-        switch (fragmentTag) {
+        switch (tag) {
             case SearchFragment.TAG:
                 fragment = SearchFragment.newInstance();
                 break;
@@ -46,7 +44,7 @@ public class UINavigator {
                 fragment = AboutFragment.newInstance();
                 break;
         }
-        mFragmentManager.beginTransaction().replace(R.id.container, fragment, fragmentTag).commit();
+        mFragmentManager.beginTransaction().replace(R.id.container, fragment, tag).commit();
     }
 
     public SearchFragment getSearchFragment() {

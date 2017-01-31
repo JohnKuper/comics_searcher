@@ -1,6 +1,9 @@
 package com.korobeinikov.comicsviewer.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +25,12 @@ public class FullPosterActivity extends AppCompatActivity {
     protected LinearLayout mRoot;
     @BindView(R.id.ivFullPoster)
     protected ImageView mFullPoster;
+
+    public static void start(Context context, String posterURL, @Nullable Bundle bundle) {
+        Intent intent = new Intent(context, FullPosterActivity.class);
+        intent.putExtra(EXTRA_POSTER_URL, posterURL);
+        context.startActivity(intent, bundle);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

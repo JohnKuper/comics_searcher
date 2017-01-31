@@ -18,15 +18,17 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.dagger.ComponentOwner;
 import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
 import com.korobeinikov.comicsviewer.model.MarvelData;
+import com.korobeinikov.comicsviewer.model.Thumbnail;
 import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
+import com.korobeinikov.comicsviewer.ui.UINavigator;
+import com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity;
 import com.korobeinikov.comicsviewer.util.AnimationUtils.AnimationListenerAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -67,6 +69,8 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
 
     @Inject
     protected ComicDetailsPresenter mPresenter;
+    @Inject
+    protected UINavigator mUINavigator;
     private MarvelData.ComicInfo mComicInfo;
 
     public static ComicDetailsFragment newInstance(@NonNull Bundle args) {
@@ -137,8 +141,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
 
     @Override
     public void openComic(MarvelData.ComicInfo comicInfo) {
-        // TODO: 1/23/2017 Open specific comic
-        Toast.makeText(getContext(), "Comic with id=" + comicInfo.id + " has been clicked", Toast.LENGTH_SHORT).show();
+        FullPosterActivity.start(getContext(), comicInfo.thumbnail.getFullPath(Thumbnail.STANDARD_FANTASTIC), null);
     }
 
     @Override

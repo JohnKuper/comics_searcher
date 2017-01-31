@@ -23,9 +23,7 @@ public class MarvelData {
         public int id;
         public String title;
         public String description;
-        public String modified;
         public String format;
-        public int pageCount;
         public Thumbnail thumbnail;
         public ArrayList<Price> prices;
 

@@ -1,7 +1,6 @@
 package com.korobeinikov.comicsviewer.ui.fragment;
 
 import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_FANTASTIC;
-import static com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity.EXTRA_POSTER_URL;
 import static com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity.THUMBNAIL_TRANSITION_NAME;
 
 /**
@@ -103,9 +101,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesView {
 
     @Override
     public void openFullPosterActivity(ImageView thumbnail, RealmComicInfo comicInfo) {
-        Intent intent = new Intent(getContext(), FullPosterActivity.class);
-        intent.putExtra(EXTRA_POSTER_URL, comicInfo.getThumbnail().getFullPath(STANDARD_FANTASTIC));
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), thumbnail, THUMBNAIL_TRANSITION_NAME);
-        startActivity(intent, options.toBundle());
+        FullPosterActivity.start(getContext(), comicInfo.getThumbnail().getFullPath(STANDARD_FANTASTIC), options.toBundle());
     }
 }

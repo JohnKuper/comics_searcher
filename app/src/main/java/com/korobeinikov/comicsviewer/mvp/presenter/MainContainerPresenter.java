@@ -44,7 +44,7 @@ public class MainContainerPresenter extends BasePresenter<MainContainerView> {
         mView.getSearchView().setVisibility(isShown ? View.VISIBLE : GONE);
     }
 
-    public void onNavMenuFragmentSelected(@FragmentTag String tag) {
+    public void onNavMenuItemClicked(@FragmentTag String tag) {
         toggleSearchViewVisibility(tag.equals(SearchFragment.TAG));
         mView.getUINavigator().openFragment(tag);
     }

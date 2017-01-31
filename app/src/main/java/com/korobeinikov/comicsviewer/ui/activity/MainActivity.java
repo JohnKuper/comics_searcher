@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
             mDrawerLayout.closeDrawers();
             switch (item.getItemId()) {
                 case R.id.action_search:
-                    mPresenter.onNavMenuFragmentSelected(SearchFragment.TAG);
+                    mPresenter.onNavMenuItemClicked(SearchFragment.TAG);
                     return true;
                 case R.id.action_favourites:
-                    mPresenter.onNavMenuFragmentSelected(FavouritesFragment.TAG);
+                    mPresenter.onNavMenuItemClicked(FavouritesFragment.TAG);
                     return true;
                 case R.id.action_about:
-                    mPresenter.onNavMenuFragmentSelected(AboutFragment.TAG);
+                    mPresenter.onNavMenuItemClicked(AboutFragment.TAG);
                     return true;
                 default:
                     return true;

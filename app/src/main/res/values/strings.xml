@@ -11,8 +11,6 @@
     <string name="have_a_nice_search">Have a nice search…</string>
     <string name="search">Search</string>
     <string name="favourites">Favourites</string>
-    <string name="about">About</string>
-    <string name="about_description">Sample app for practicing most common patterns and technologies such: \n • MVP \n • Dagger 2 \n • RxJava \n • Realm \n • Retrofit 2 \n • ButterKnife \n • Material Design \n • Animations</string>
     <string name="copyright">© Dmitriy Korobeinikov</string>
 
 </resources>

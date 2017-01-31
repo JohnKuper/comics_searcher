@@ -18,7 +18,6 @@ import com.korobeinikov.comicsviewer.mvp.presenter.MainContainerPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.MainContainerView;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.korobeinikov.comicsviewer.ui.UINavigator;
-import com.korobeinikov.comicsviewer.ui.fragment.AboutFragment;
 import com.korobeinikov.comicsviewer.ui.fragment.FavouritesFragment;
 import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
 import com.lapism.searchview.SearchView;
@@ -67,6 +66,14 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isFinishing()) {
+            sActivityComponent = null;
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -76,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO: 1/30/2017 Implement via Injector
     private void injectSelf() {
         sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule(this));
         sActivityComponent.inject(this);
@@ -131,9 +137,6 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
                     return true;
                 case R.id.action_favourites:
                     mPresenter.onNavMenuItemClicked(FavouritesFragment.TAG);
-                    return true;
-                case R.id.action_about:
-                    mPresenter.onNavMenuItemClicked(AboutFragment.TAG);
                     return true;
                 default:
                     return true;

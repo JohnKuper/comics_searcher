@@ -3,7 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group
-        android:id="@+id/group_actions"
         android:checkableBehavior="single">
         <item
             android:id="@+id/action_search"
@@ -17,18 +16,6 @@
             android:icon="@drawable/ic_drawer_favourite"
             android:title="@string/favourites"
             app:actionLayout="@layout/drawer_item_counter" />
-
-    </group>
-
-    <group
-        android:id="@+id/group_about"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/action_about"
-            android:checked="false"
-            android:icon="@drawable/ic_drawer_about"
-            android:title="@string/about" />
-
     </group>
 
 </menu>

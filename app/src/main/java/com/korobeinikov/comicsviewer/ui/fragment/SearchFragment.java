@@ -62,13 +62,6 @@ public class SearchFragment extends BaseFragment implements SearchListView {
         injectSelf();
     }
 
-    private void injectSelf() {
-        if (sFragmentComponent == null) {
-            sFragmentComponent = getComponent(ActivityComponent.class).plus(new FragmentModule());
-        }
-        sFragmentComponent.inject(this);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,6 +89,13 @@ public class SearchFragment extends BaseFragment implements SearchListView {
             sFragmentComponent = null;
         }
         mPresenter.detachView();
+    }
+
+    private void injectSelf() {
+        if (sFragmentComponent == null) {
+            sFragmentComponent = getComponent(ActivityComponent.class).plus(new FragmentModule());
+        }
+        sFragmentComponent.inject(this);
     }
 
     private void initViews() {

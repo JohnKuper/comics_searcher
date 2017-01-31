@@ -79,20 +79,24 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
 
     @Override
     public void onListItemClick(MarvelData.ComicInfo comicInfo, int position) {
-        mLastClickedPosition = position;
+        setLastClickedPosition(position);
         mView.openDetailedInformation(comicInfo, position);
     }
 
     @Override
     public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo, int position) {
-        mLastClickedPosition = position;
+        setLastClickedPosition(position);
         mComicRepository.addComic(comicInfo);
     }
 
     @Override
     public void onDeleteFromFavouritesClick(int comicID, int position) {
-        mLastClickedPosition = position;
+        setLastClickedPosition(position);
         mComicRepository.deleteComicById(comicID);
+    }
+
+    private void setLastClickedPosition(int position) {
+        mLastClickedPosition = position;
     }
 
     private final Observer<ComicsResponse> mComicsObserver = new Observer<ComicsResponse>() {

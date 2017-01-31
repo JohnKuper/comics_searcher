@@ -85,6 +85,7 @@ public class SearchFragment extends BaseFragment implements SearchListView {
     @Override
     public void onResume() {
         super.onResume();
+        getActionBar().setTitle(R.string.search);
         mPresenter.attachView(this);
     }
 

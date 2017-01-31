@@ -71,6 +71,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesView {
     @Override
     public void onResume() {
         super.onResume();
+        getActionBar().setTitle(R.string.favourites);
         mPresenter.attachView(this);
     }
 

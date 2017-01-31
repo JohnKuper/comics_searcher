@@ -2,9 +2,11 @@ package com.korobeinikov.comicsviewer.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
@@ -64,6 +66,16 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
         mPresenter.attachView(this);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                openDrawer();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     // TODO: 1/30/2017 Implement via Injector
     private void injectSelf() {
         sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule(this));
@@ -71,9 +83,16 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
     }
 
     private void initViews() {
-        setSupportActionBar(mToolbar);
+        setupToolbar();
         setupSearchView();
         setupDrawer();
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void setupToolbar() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupSearchView() {
@@ -95,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
                 return false;
             }
         });
+        mSearchView.setOnMenuClickListener(this::openDrawer);
+    }
+
+    private void openDrawer() {
+        mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     private void setupDrawer() {

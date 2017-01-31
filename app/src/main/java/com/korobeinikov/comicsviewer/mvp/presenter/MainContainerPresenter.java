@@ -30,6 +30,7 @@ public class MainContainerPresenter extends BasePresenter<MainContainerView> {
     public void attachView(MainContainerView view) {
         super.attachView(view);
         mView.getUINavigator().start();
+        toggleSearchViewVisibility(mView.getUINavigator().isSearchFragmentOnTop());
         listenForRealmComicsUpdates();
     }
 
@@ -39,17 +40,13 @@ public class MainContainerPresenter extends BasePresenter<MainContainerView> {
         mView.updateFavouritesCount(mRealmComics.size());
     }
 
-    private void toggleSearchViewVisibility(@FragmentTag String tag) {
-        if (!tag.equals(SearchFragment.TAG)) {
-            mView.getSearchView().setVisibility(GONE);
-        } else {
-            mView.getSearchView().setVisibility(View.VISIBLE);
-        }
+    private void toggleSearchViewVisibility(boolean isShown) {
+        mView.getSearchView().setVisibility(isShown ? View.VISIBLE : GONE);
     }
 
-    public void onNavMenuFragmentSelected(@FragmentTag String fragmentTag) {
-        toggleSearchViewVisibility(fragmentTag);
-        mView.getUINavigator().openFragment(fragmentTag);
+    public void onNavMenuFragmentSelected(@FragmentTag String tag) {
+        toggleSearchViewVisibility(tag.equals(SearchFragment.TAG));
+        mView.getUINavigator().openFragment(tag);
     }
 
     public void onSearchSubmit(String query) {

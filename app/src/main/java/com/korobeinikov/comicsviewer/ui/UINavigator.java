@@ -27,7 +27,7 @@ public class UINavigator {
 
     public void start() {
         if (mFragmentManager.findFragmentById(R.id.container) == null) {
-            mFragmentManager.beginTransaction().add(R.id.container, SearchFragment.newInstance(), SearchFragment.TAG).commit();
+            mFragmentManager.beginTransaction().add(R.id.container, SearchFragment.newInstance(), SearchFragment.TAG).commitNow();
         }
     }
 
@@ -49,5 +49,9 @@ public class UINavigator {
 
     public SearchFragment getSearchFragment() {
         return (SearchFragment) mFragmentManager.findFragmentByTag(SearchFragment.TAG);
+    }
+
+    public boolean isSearchFragmentOnTop() {
+        return getSearchFragment() != null;
     }
 }

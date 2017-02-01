@@ -7,7 +7,6 @@ import javax.inject.Scope;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 @Scope

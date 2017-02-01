@@ -32,7 +32,6 @@ import static com.korobeinikov.comicsviewer.ui.fragment.ComicDetailsFragment.ARG
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class SearchFragment extends BaseFragment implements SearchListView {

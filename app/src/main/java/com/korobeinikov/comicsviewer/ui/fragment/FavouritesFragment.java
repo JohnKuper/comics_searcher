@@ -30,7 +30,6 @@ import static com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity.THUMB
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class FavouritesFragment extends BaseFragment implements FavouritesView {

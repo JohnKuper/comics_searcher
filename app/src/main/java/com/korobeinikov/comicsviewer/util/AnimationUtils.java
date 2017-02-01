@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public final class AnimationUtils {

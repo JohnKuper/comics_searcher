@@ -8,7 +8,6 @@ import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class ComicDetailsPresenter extends BasePresenter<ComicDetailView> {

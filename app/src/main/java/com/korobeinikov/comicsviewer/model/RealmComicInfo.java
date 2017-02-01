@@ -5,7 +5,6 @@ import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class RealmComicInfo extends RealmObject {

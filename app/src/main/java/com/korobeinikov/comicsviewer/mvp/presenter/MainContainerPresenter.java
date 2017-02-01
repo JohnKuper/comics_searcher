@@ -14,7 +14,6 @@ import static android.view.View.GONE;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class MainContainerPresenter extends BasePresenter<MainContainerView> {

@@ -9,7 +9,6 @@ import dagger.Provides;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 @Module
 public class AppModule {

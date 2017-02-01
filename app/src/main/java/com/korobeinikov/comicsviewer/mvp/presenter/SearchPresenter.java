@@ -16,7 +16,6 @@ import rx.Subscription;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public class SearchPresenter extends BasePresenter<SearchListView> implements SearchAdapter.ClickListener, PagingController.Callbacks {
     private static final String TAG = "SearchPresenter";

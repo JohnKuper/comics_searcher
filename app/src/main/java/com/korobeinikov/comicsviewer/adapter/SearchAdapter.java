@@ -25,7 +25,6 @@ import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_MEDIUM;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

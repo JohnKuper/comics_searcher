@@ -8,7 +8,6 @@ import com.korobeinikov.comicsviewer.dagger.ComponentOwner;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class BaseFragment extends Fragment {

@@ -13,7 +13,6 @@ import io.realm.RealmConfiguration;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 @Module

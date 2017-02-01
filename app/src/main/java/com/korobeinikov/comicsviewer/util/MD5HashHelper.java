@@ -11,7 +11,6 @@ import static com.korobeinikov.comicsviewer.model.Constants.PUBLIC_MARVEL_KEY;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public final class MD5HashHelper {
 

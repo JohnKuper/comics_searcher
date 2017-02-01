@@ -8,7 +8,6 @@ import com.korobeinikov.comicsviewer.mvp.view.FavouritesView;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class FavouritesPresenter extends BasePresenter<FavouritesView> implements FavouritesAdapter.ClickListener {

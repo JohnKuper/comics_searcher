@@ -2,7 +2,6 @@ package com.korobeinikov.comicsviewer.mvp.presenter;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 public abstract class BasePresenter<T> {
 

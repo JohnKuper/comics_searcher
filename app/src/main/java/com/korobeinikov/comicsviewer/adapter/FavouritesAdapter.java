@@ -23,7 +23,6 @@ import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_FANTASTIC;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class FavouritesAdapter extends RealmRecyclerViewAdapter<RealmComicInfo, FavouritesAdapter.FavouriteItemVH> {

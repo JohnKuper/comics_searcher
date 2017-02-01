@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements NetworkAvailabilityMonitor.OnNetworkAvailabilityListener {

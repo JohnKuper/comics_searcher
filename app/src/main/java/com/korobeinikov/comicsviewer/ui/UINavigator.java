@@ -10,7 +10,6 @@ import com.korobeinikov.comicsviewer.ui.fragment.SearchFragment;
 
 /**
  * Created by Dmitriy_Korobeinikov.
- * Copyright (C) 2017 SportingBet. All rights reserved.
  */
 
 public class UINavigator {

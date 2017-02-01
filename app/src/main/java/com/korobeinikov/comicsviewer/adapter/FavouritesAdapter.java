@@ -29,6 +29,7 @@ import static com.korobeinikov.comicsviewer.model.Thumbnail.STANDARD_FANTASTIC;
 public class FavouritesAdapter extends RealmRecyclerViewAdapter<RealmComicInfo, FavouritesAdapter.FavouriteItemVH> {
 
     private ClickListener mClickListener;
+    private RecyclerView mRecyclerView;
 
     public FavouritesAdapter(@NonNull Context context, @Nullable OrderedRealmCollection<RealmComicInfo> data) {
         super(context, data, true);
@@ -37,7 +38,17 @@ public class FavouritesAdapter extends RealmRecyclerViewAdapter<RealmComicInfo, 
     @Override
     public FavouriteItemVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item_favourites, parent, false);
-        return new FavouriteItemVH(view);
+        FavouriteItemVH itemVH = new FavouriteItemVH(view);
+        setThumbnailSize(itemVH.thumbnail);
+        return itemVH;
+    }
+
+    private void setThumbnailSize(View view) {
+        int spanCount = context.getResources().getInteger(R.integer.grid_layout_manager_span);
+        int recyclerWidth = mRecyclerView.getWidth();
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = recyclerWidth / spanCount;
+        layoutParams.height = recyclerWidth / spanCount;
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -47,6 +58,12 @@ public class FavouritesAdapter extends RealmRecyclerViewAdapter<RealmComicInfo, 
         String fullPath = comicInfo.getThumbnail().getFullPath(STANDARD_FANTASTIC);
         ViewCompat.setTransitionName(holder.thumbnail, String.valueOf(position) + "_image");
         Picasso.with(context).load(fullPath).into(holder.thumbnail);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
     }
 
     public void setClickListener(ClickListener clickListener) {

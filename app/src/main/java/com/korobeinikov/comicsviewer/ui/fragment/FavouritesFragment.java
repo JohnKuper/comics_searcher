@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.korobeinikov.comicsviewer.R;
@@ -84,20 +83,10 @@ public class FavouritesFragment extends BaseFragment implements FavouritesView {
     private void setupRecyclerView() {
         FavouritesAdapter adapter = new FavouritesAdapter(getContext(), mComicRepository.getAllComics());
         adapter.setClickListener(mPresenter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), null, 0, 0);
+        int spanCount = getResources().getInteger(R.integer.grid_layout_manager_span);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int recyclerWidth = mRecyclerView.getMeasuredWidth();
-                float thumbnailWidth = getResources().getDimension(R.dimen.favourites_thumbnail_width);
-                int newSpanCount = (int) Math.floor(recyclerWidth / thumbnailWidth);
-                gridLayoutManager.setSpanCount(newSpanCount);
-                gridLayoutManager.requestLayout();
-            }
-        });
     }
 
     @Override

@@ -16,8 +16,5 @@ public interface ComicDetailView {
 
     void resetAnimatedDrawables();
 
-    void startAnimationsAfterM();
-
-    void startAnimationsBeforeM();
-
+    void startAnimations();
 }

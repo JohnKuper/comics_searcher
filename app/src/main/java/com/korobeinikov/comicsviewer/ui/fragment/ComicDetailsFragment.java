@@ -29,6 +29,7 @@ import com.korobeinikov.comicsviewer.ui.UINavigator;
 import com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity;
 import com.korobeinikov.comicsviewer.ui.activity.MainActivity;
 import com.korobeinikov.comicsviewer.util.AnimationUtils.AnimationListenerAdapter;
+import com.korobeinikov.comicsviewer.util.VersionHelper;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -149,9 +150,17 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
         mGotoComic.setVisibility(View.VISIBLE);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
-    public void startAnimationsAfterM() {
+    public void startAnimations() {
+        if (VersionHelper.isMarshmallow()) {
+            startAnimationsAfterM();
+        } else {
+            startAnimationsBeforeM();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void startAnimationsAfterM() {
         mAddToFavourites.setClickable(false);
         AnimatedVectorDrawable animDrawable = (AnimatedVectorDrawable) mAddToFavourites.getDrawable();
         animDrawable.start();
@@ -163,8 +172,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
         });
     }
 
-    @Override
-    public void startAnimationsBeforeM() {
+    private void startAnimationsBeforeM() {
         mAddToFavourites.setClickable(false);
         mAddToFavourites.startAnimation(setupAndGetScaleDownAnimation());
     }

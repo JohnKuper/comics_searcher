@@ -4,8 +4,6 @@ import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
 
-import static com.korobeinikov.comicsviewer.util.VersionHelper.isMarshmallow;
-
 /**
  * Created by Dmitriy_Korobeinikov.
  */
@@ -26,15 +24,7 @@ public class ComicDetailsPresenter extends BasePresenter<ComicDetailView> {
 
     public void onAddToFavouritesClick(MarvelData.ComicInfo comicInfo) {
         mComicRepository.addComic(comicInfo);
-        startAnimations();
-    }
-
-    private void startAnimations() {
-        if (isMarshmallow()) {
-            mView.startAnimationsAfterM();
-        } else {
-            mView.startAnimationsBeforeM();
-        }
+        mView.startAnimations();
     }
 
     public void onGotoComicClick(MarvelData.ComicInfo comicInfo) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ComicsViewer</string>
+    <string name="app_name">Comics Searcher</string>
 
     <string name="search_hint">Enter keyword</string>
     <string name="short_comic_info">%1$s / &#36;%2$s</string>

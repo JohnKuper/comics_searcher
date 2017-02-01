@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.korobeinikov.reposviewer"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

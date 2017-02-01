@@ -111,17 +111,23 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
 
         @Override
         public void onNext(ComicsResponse response) {
-            mView.showProgress(false);
-            MarvelData freshData = response.data;
-            if (freshData.offset == 0) {
-                mFetchedMarvelData.updateResults(freshData);
-                mView.updateResults(freshData);
-            } else {
-                mFetchedMarvelData.merge(freshData);
-                mView.addResults(freshData);
+            if (mView != null) {
+                onResponseReceived(response);
             }
         }
     };
+
+    private void onResponseReceived(ComicsResponse response) {
+        mView.showProgress(false);
+        MarvelData freshData = response.data;
+        if (freshData.offset == 0) {
+            mFetchedMarvelData.updateResults(freshData);
+            mView.updateResults(freshData);
+        } else {
+            mFetchedMarvelData.merge(freshData);
+            mView.addResults(freshData);
+        }
+    }
 
     @Override
     public void onLoadMore() {

@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.R;
-import com.korobeinikov.comicsviewer.dagger.ComponentOwner;
-import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.model.Thumbnail;
@@ -29,6 +27,7 @@ import com.korobeinikov.comicsviewer.mvp.presenter.ComicDetailsPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.ComicDetailView;
 import com.korobeinikov.comicsviewer.ui.UINavigator;
 import com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity;
+import com.korobeinikov.comicsviewer.ui.activity.MainActivity;
 import com.korobeinikov.comicsviewer.util.AnimationUtils.AnimationListenerAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -82,8 +81,8 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).getComponent().plus(new FragmentModule()).inject(this);
         parseArguments();
-        getComponent(ActivityComponent.class).plus(new FragmentModule()).inject(this);
     }
 
     @Override
@@ -104,11 +103,6 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
-    }
-
-    @SuppressWarnings("unchecked")
-    protected <T> T getComponent(Class<T> componentType) {
-        return ((ComponentOwner<T>) getActivity()).getComponent();
     }
 
     /**

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fullPosterRoot"
+    android:id="@+id/full_poster_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/ivFullPoster"
+        android:id="@+id/iv_full_poster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:transitionName="thumbnail" />

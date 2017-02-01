@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.korobeinikov.comicsviewer.ComicsViewerApplication;
@@ -27,8 +27,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-// TODO: 1/26/2017 Extract common logic to base class
-public class MainActivity extends AppCompatActivity implements ComponentOwner<ActivityComponent>, MainContainerView {
+public class MainActivity extends BaseActivity implements ComponentOwner<ActivityComponent>, MainContainerView {
 
     private static ActivityComponent sActivityComponent;
 
@@ -81,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements ComponentOwner<Ac
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected View getRootView() {
+        return mDrawerLayout;
     }
 
     private void injectSelf() {

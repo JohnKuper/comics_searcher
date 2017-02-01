@@ -34,11 +34,11 @@ public class NetworkModule {
     @Provides
     @Singleton
     public OkHttpClient providerOkHttpClient() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         }
-        return new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        return new OkHttpClient.Builder().addInterceptor(logInterceptor).build();
     }
 
     @Provides

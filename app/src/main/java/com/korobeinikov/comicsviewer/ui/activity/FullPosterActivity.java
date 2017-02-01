@@ -4,26 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
+import com.korobeinikov.comicsviewer.dagger.module.ActivityModule;
 import com.korobeinikov.comicsviewer.util.AnimationUtils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FullPosterActivity extends AppCompatActivity {
+public class FullPosterActivity extends BaseActivity {
 
     public static final String EXTRA_POSTER_URL = "EXTRA_POSTER_URL";
     public static final String THUMBNAIL_TRANSITION_NAME = "thumbnail";
 
-    @BindView(R.id.fullPosterRoot)
+    @BindView(R.id.full_poster_root)
     protected LinearLayout mRoot;
-    @BindView(R.id.ivFullPoster)
+    @BindView(R.id.iv_full_poster)
     protected ImageView mFullPoster;
 
     public static void start(Context context, String posterURL, @Nullable Bundle bundle) {
@@ -37,8 +38,16 @@ public class FullPosterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_poster);
         ButterKnife.bind(this);
-        startRevealAnimation();
-        loadFullPoster();
+        ComicsViewerApplication.getAppComponent().plus(new ActivityModule(this)).inject(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mNetworkMonitor.isNetworkAvailable()) {
+            startRevealAnimation();
+            loadFullPoster();
+        }
     }
 
     private void startRevealAnimation() {
@@ -60,5 +69,10 @@ public class FullPosterActivity extends AppCompatActivity {
     public void onBackPressed() {
         supportFinishAfterTransition();
         super.onBackPressed();
+    }
+
+    @Override
+    protected View getRootView() {
+        return mRoot;
     }
 }

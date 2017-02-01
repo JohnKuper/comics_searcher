@@ -11,6 +11,6 @@
     <string name="have_a_nice_search">Have a nice search…</string>
     <string name="search">Search</string>
     <string name="favourites">Favourites</string>
-    <string name="copyright">© Dmitriy Korobeinikov</string>
+    <string name="no_network_connection">No network connection</string>
 
 </resources>

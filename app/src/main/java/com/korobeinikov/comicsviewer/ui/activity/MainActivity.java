@@ -29,8 +29,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements ComponentOwner<ActivityComponent>, MainContainerView {
 
-    private static ActivityComponent sActivityComponent;
-
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
     @BindView(R.id.search_view)
@@ -47,14 +45,15 @@ public class MainActivity extends BaseActivity implements ComponentOwner<Activit
     @Inject
     protected ComicRepository mComicRepository;
 
+    private ActivityComponent mActivityComponent;
     private TextView mFavouritesCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        injectSelf();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        injectSelf();
         initViews();
     }
 
@@ -67,9 +66,7 @@ public class MainActivity extends BaseActivity implements ComponentOwner<Activit
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (isFinishing()) {
-            sActivityComponent = null;
-        }
+        mPresenter.detachView();
     }
 
     @Override
@@ -88,8 +85,8 @@ public class MainActivity extends BaseActivity implements ComponentOwner<Activit
     }
 
     private void injectSelf() {
-        sActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule(this));
-        sActivityComponent.inject(this);
+        mActivityComponent = ComicsViewerApplication.getAppComponent().plus(new ActivityModule(this));
+        mActivityComponent.inject(this);
     }
 
     private void initViews() {
@@ -150,7 +147,7 @@ public class MainActivity extends BaseActivity implements ComponentOwner<Activit
 
     @Override
     public ActivityComponent getComponent() {
-        return sActivityComponent;
+        return mActivityComponent;
     }
 
     @Override

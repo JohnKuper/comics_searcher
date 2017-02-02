@@ -33,9 +33,15 @@ public class MainContainerPresenter extends BasePresenter<MainContainerView> {
         listenForRealmComicsUpdates();
     }
 
+    @Override
+    public void detachView() {
+        super.detachView();
+        mRealmComics.removeChangeListeners();
+    }
+
     private void listenForRealmComicsUpdates() {
         mRealmComics = mComicRepository.getAllComics();
-        mRealmComics.addChangeListener(result -> mView.updateFavouritesCount(mRealmComics.size()));
+        mRealmComics.addChangeListener(element -> mView.updateFavouritesCount(mRealmComics.size()));
         mView.updateFavouritesCount(mRealmComics.size());
     }
 

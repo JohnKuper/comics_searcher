@@ -11,8 +11,8 @@ import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 
 /**
  * Created by Dmitriy Korobeinikov.
- * Copyright (C) 2016 SportingBet. All rights reserved.
  */
+
 public class NetworkAvailabilityMonitor {
 
     private OnNetworkAvailabilityListener mListener;

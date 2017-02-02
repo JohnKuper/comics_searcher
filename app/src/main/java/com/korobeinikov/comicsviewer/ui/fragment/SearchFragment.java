@@ -84,10 +84,14 @@ public class SearchFragment extends BaseFragment implements SearchListView {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
+        releaseSelf();
+    }
+
+    private void releaseSelf() {
         if (getActivity().isFinishing()) {
             sFragmentComponent = null;
         }
-        mPresenter.detachView();
     }
 
     private void injectSelf() {

@@ -60,6 +60,7 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
+        mRealmComics.removeChangeListeners();
     }
 
     private void subscribeForComics() {

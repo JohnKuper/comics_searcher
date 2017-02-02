@@ -1,6 +1,5 @@
 package com.korobeinikov.comicsviewer.mvp.view;
 
-import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 
 /**
@@ -8,8 +7,6 @@ import com.korobeinikov.comicsviewer.model.MarvelData;
  */
 
 public interface SearchListView {
-
-    SearchAdapter getSearchAdapter();
 
     void showProgress(boolean isShown);
 
@@ -19,4 +16,5 @@ public interface SearchListView {
 
     void openDetailedInformation(MarvelData.ComicInfo comicInfo, int position);
 
+    void notifyItemChanged(int position);
 }

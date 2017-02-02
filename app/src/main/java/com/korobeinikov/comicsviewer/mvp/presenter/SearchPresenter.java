@@ -40,18 +40,26 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     @Override
     public void attachView(SearchListView view) {
         super.attachView(view);
+        restorePreviousData();
+        continueLoading();
+        listenForRealmComicsUpdates();
+    }
+
+    private void restorePreviousData() {
         if (mFetchedMarvelData.results.size() > 0) {
             mView.updateResults(mFetchedMarvelData);
         }
+    }
+
+    private void continueLoading() {
         if (mComicsRequester.isLoading()) {
             subscribeForComics();
         }
-        listenForRealmComicsUpdates();
     }
 
     private void listenForRealmComicsUpdates() {
         mRealmComics = mComicRepository.getAllComics();
-        mRealmComics.addChangeListener(element -> mView.getSearchAdapter().notifyItemChanged(mLastClickedPosition));
+        mRealmComics.addChangeListener(element -> mView.notifyItemChanged(mLastClickedPosition));
     }
 
     @Override

@@ -139,8 +139,8 @@ public class SearchFragment extends BaseFragment implements SearchListView {
     }
 
     @Override
-    public SearchAdapter getSearchAdapter() {
-        return mSearchAdapter;
+    public void notifyItemChanged(int position) {
+        mSearchAdapter.notifyItemChanged(position);
     }
 
     @Override

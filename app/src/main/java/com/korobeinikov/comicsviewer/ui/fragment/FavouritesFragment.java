@@ -15,7 +15,7 @@ import com.korobeinikov.comicsviewer.adapter.FavouritesAdapter;
 import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
 import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
 import com.korobeinikov.comicsviewer.model.RealmComicInfo;
-import com.korobeinikov.comicsviewer.mvp.presenter.FavouritesPresenter;
+import com.korobeinikov.comicsviewer.mvp.presenter.FavoritesPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.FavouritesView;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
 import com.korobeinikov.comicsviewer.ui.activity.FullPosterActivity;
@@ -41,7 +41,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesView {
     @Inject
     protected ComicRepository mComicRepository;
     @Inject
-    protected FavouritesPresenter mPresenter;
+    protected FavoritesPresenter mPresenter;
 
     public static FavouritesFragment newInstance() {
         return new FavouritesFragment();

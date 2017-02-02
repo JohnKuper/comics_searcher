@@ -10,7 +10,7 @@ import com.korobeinikov.comicsviewer.mvp.view.FavouritesView;
  * Created by Dmitriy_Korobeinikov.
  */
 
-public class FavouritesPresenter extends BasePresenter<FavouritesView> implements FavouritesAdapter.ClickListener {
+public class FavoritesPresenter extends BasePresenter<FavouritesView> implements FavouritesAdapter.ClickListener {
 
     @Override
     public void onListItemClick(ImageView thumbnail, RealmComicInfo comicInfo) {

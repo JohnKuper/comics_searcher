@@ -66,6 +66,12 @@ public class FullPosterActivity extends BaseActivity {
     }
 
     @Override
+    public void networkAvailable() {
+        super.networkAvailable();
+        loadFullPoster();
+    }
+
+    @Override
     public void onBackPressed() {
         supportFinishAfterTransition();
         super.onBackPressed();

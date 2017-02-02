@@ -1,7 +1,6 @@
 package com.korobeinikov.comicsviewer.mvp.view;
 
-import com.korobeinikov.comicsviewer.ui.UINavigator;
-import com.lapism.searchview.SearchView;
+import com.korobeinikov.comicsviewer.ui.UINavigator.FragmentTag;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -9,9 +8,15 @@ import com.lapism.searchview.SearchView;
 
 public interface MainContainerView {
 
-    SearchView getSearchView();
-
-    UINavigator getUINavigator();
+    void loadMainScreen();
 
     void updateFavouritesCount(int count);
+
+    void toggleSearchViewVisibility(boolean isShown);
+
+    void openFragment(@FragmentTag String tag);
+
+    void closeSearchView();
+
+    void handleQuery(String query);
 }

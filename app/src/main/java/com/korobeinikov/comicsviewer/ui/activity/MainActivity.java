@@ -151,18 +151,34 @@ public class MainActivity extends BaseActivity implements ComponentOwner<Activit
     }
 
     @Override
-    public SearchView getSearchView() {
-        return mSearchView;
-    }
-
-    @Override
-    public UINavigator getUINavigator() {
-        return mUINavigator;
-    }
-
-    @Override
     public void updateFavouritesCount(int count) {
         mFavouritesCounter.setText(count > 0 ? String.valueOf(count) : null);
     }
 
+    @Override
+    public void toggleSearchViewVisibility(boolean isShown) {
+        mSearchView.setVisibility(isShown ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void loadMainScreen() {
+        mUINavigator.start();
+        toggleSearchViewVisibility(mUINavigator.isSearchFragmentOnTop());
+    }
+
+    @Override
+    public void openFragment(@UINavigator.FragmentTag String tag) {
+        toggleSearchViewVisibility(tag.equals(SearchFragment.TAG));
+        mUINavigator.openFragment(tag);
+    }
+
+    @Override
+    public void closeSearchView() {
+        mSearchView.close(true);
+    }
+
+    @Override
+    public void handleQuery(String query) {
+        mUINavigator.getSearchFragment().onSearchSubmit(query);
+    }
 }

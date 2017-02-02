@@ -70,7 +70,7 @@ public class SearchFragment extends BaseFragment implements SearchListView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         initViews();
     }
 

@@ -38,6 +38,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN;
 import static android.view.animation.AnimationUtils.loadAnimation;
@@ -70,7 +71,9 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     protected ComicDetailsPresenter mPresenter;
     @Inject
     protected UINavigator mUINavigator;
+
     private MarvelData.ComicInfo mComicInfo;
+    private Unbinder mUnbinder;
 
     public static ComicDetailsFragment newInstance(@NonNull Bundle args) {
         ComicDetailsFragment fragment = new ComicDetailsFragment();
@@ -100,9 +103,10 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         mPresenter.detachView();
+        mUnbinder.unbind();
     }
 
     /**
@@ -118,7 +122,7 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     }
 
     private void setupViews(View contentView) {
-        ButterKnife.bind(this, contentView);
+        mUnbinder = ButterKnife.bind(this, contentView);
         Picasso.with(getContext())
                 .load(mComicInfo.thumbnail.getFullPath(STANDARD_LARGE))
                 .into(mThumbnail);

@@ -75,7 +75,9 @@ public class ComicDetailsFragment extends BottomSheetDialogFragment implements C
     private MarvelData.ComicInfo mComicInfo;
     private Unbinder mUnbinder;
 
-    public static ComicDetailsFragment newInstance(@NonNull Bundle args) {
+    public static ComicDetailsFragment newInstance(@NonNull MarvelData.ComicInfo comicInfo) {
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_COMIC_DETAILS, Parcels.wrap(comicInfo));
         ComicDetailsFragment fragment = new ComicDetailsFragment();
         fragment.setArguments(args);
         return fragment;

@@ -20,15 +20,12 @@ import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
 
-import org.parceler.Parcels;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.korobeinikov.comicsviewer.R.id.recycler_view;
-import static com.korobeinikov.comicsviewer.ui.fragment.ComicDetailsFragment.ARG_COMIC_DETAILS;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -132,9 +129,7 @@ public class SearchFragment extends BaseFragment implements SearchListView {
 
     @Override
     public void openDetailedInformation(MarvelData.ComicInfo comicInfo, int position) {
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_COMIC_DETAILS, Parcels.wrap(comicInfo));
-        ComicDetailsFragment dialogFragment = ComicDetailsFragment.newInstance(args);
+        ComicDetailsFragment dialogFragment = ComicDetailsFragment.newInstance(comicInfo);
         dialogFragment.show(getActivity().getSupportFragmentManager(), null);
     }
 

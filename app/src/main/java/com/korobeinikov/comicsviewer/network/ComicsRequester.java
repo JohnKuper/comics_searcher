@@ -1,11 +1,10 @@
 package com.korobeinikov.comicsviewer.network;
 
-import android.os.SystemClock;
-
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 
+import java.util.Random;
+
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.korobeinikov.comicsviewer.util.MD5HashHelper.computeMarvelMD5hash;
@@ -24,11 +23,10 @@ public class ComicsRequester {
     }
 
     public Observable<ComicsResponse> findComicsByKeyword(String keyword, int offset) {
-        long timeStamp = SystemClock.elapsedRealtime();
+        long timeStamp = new Random().nextInt(1000);
         return mMarvelService.findComics(keyword, timeStamp, computeMarvelMD5hash(timeStamp), offset)
                 .subscribeOn(Schedulers.io())
                 .retry(3)
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(() -> mIsLoading = true)
                 .doOnTerminate(() -> mIsLoading = false);
     }

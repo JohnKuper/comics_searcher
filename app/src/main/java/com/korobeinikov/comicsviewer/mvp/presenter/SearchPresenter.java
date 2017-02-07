@@ -1,5 +1,7 @@
 package com.korobeinikov.comicsviewer.mvp.presenter;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.korobeinikov.comicsviewer.adapter.PagingController;
 import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
@@ -13,6 +15,7 @@ import io.realm.RealmResults;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -21,14 +24,14 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     private static final String TAG = "SearchPresenter";
 
     private ComicsRequester mComicsRequester;
-    private Observable<ComicsResponse> mCachedRequest;
+    private Observable<ComicsResponse> mComicRequest;
     private Subscription mSubscription;
     private MarvelData mFetchedMarvelData;
-    private String mLastKeyword;
 
     private ComicRepository mComicRepository;
     private RealmResults<RealmComicInfo> mRealmComics;
 
+    private String mLastKeyword;
     private int mLastClickedPosition;
 
     public SearchPresenter(ComicsRequester requester, ComicRepository repository, MarvelData marvelData) {
@@ -75,13 +78,15 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         if (mFetchedMarvelData.offset == 0) {
             mView.showProgress(true);
         }
-        mSubscription = mCachedRequest.subscribe(mComicsObserver);
+        mSubscription = mComicRequest
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mComicsObserver);
     }
 
     public void onSearchSubmit(String keyword) {
         mLastKeyword = keyword;
         mFetchedMarvelData.clear();
-        mCachedRequest = mComicsRequester.findComicsByKeyword(keyword, 0).cache();
+        mComicRequest = mComicsRequester.findComicsByKeyword(keyword, 0).cache();
         subscribeForComics();
     }
 
@@ -125,7 +130,8 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
         }
     };
 
-    private void onResponseReceived(ComicsResponse response) {
+    @VisibleForTesting
+    protected void onResponseReceived(ComicsResponse response) {
         mView.showProgress(false);
         MarvelData freshData = response.data;
         if (freshData.offset == 0) {
@@ -139,8 +145,8 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
 
     @Override
     public void onLoadMore() {
-        mCachedRequest = mComicsRequester.findComicsByKeyword(mLastKeyword, mFetchedMarvelData.getNextOffset()).cache();
-        mSubscription = mCachedRequest.subscribe(mComicsObserver);
+        mComicRequest = mComicsRequester.findComicsByKeyword(mLastKeyword, mFetchedMarvelData.getNextOffset()).cache();
+        mSubscription = mComicRequest.subscribe(mComicsObserver);
     }
 
     @Override

@@ -1,0 +1,660 @@
+{
+  "code": 200,
+  "status": "Ok",
+  "copyright": "© 2017 MARVEL",
+  "attributionText": "Data provided by Marvel. © 2017 MARVEL",
+  "attributionHTML": "<a href=\"http://marvel.com\">Data provided by Marvel. © 2017 MARVEL</a>",
+  "etag": "14cf4751ae59c6dd60b056f873f7bf1542117c9c",
+  "data": {
+    "offset": 5,
+    "limit": 5,
+    "total": 1259,
+    "count": 5,
+    "results": [
+      {
+        "id": 60472,
+        "digitalId": 0,
+        "title": "Spider-Gwen Vol. 1 (Hardcover)",
+        "issueNumber": 0,
+        "variantDescription": "",
+        "description": "Gwen Stacy is the Spider-Woman of her world, but you knew that already. What you don’t know is what’s waiting for her on the other side of the SPIDER-VERSE! On the most tragic day of her life, Gwen was convinced that the Lizard died in her arms along with Peter Parker. But a new reptilian rampage leaves her in doubt — not only about Peter’s life, but also his death. And Gwen’s troubles pile up as the Osborns of her world make their debut, and she finds herself on S.H.I.E.L.D.’s most wanted list! Perhaps another Spider-Woman, Jessica Drew, could share some lessons about power and responsibility! Collecting EDGE OF SPIDER-VERSE #2, SPIDER-GWEN (2015A) #1-5 and SPIDER-GWEN (2015B) #1-6.",
+        "modified": "2017-01-27T18:45:27-0500",
+        "isbn": "978-1-302-90371-8",
+        "upc": "",
+        "diamondCode": "",
+        "ean": "9781302 903718 53499",
+        "issn": "",
+        "format": "Hardcover",
+        "pageCount": 272,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "Gwen Stacy is the Spider-Woman of her world, but you knew that already. What you don’t know is what’s waiting for her on the other side of the SPIDER-VERSE! On the most tragic day of her life, Gwen was convinced that the Lizard died in her arms along with Peter Parker. But a new reptilian rampage leaves her in doubt — not only about Peter’s life, but also his death. And Gwen’s troubles pile up as the Osborns of her world make their debut, and she finds herself on S.H.I.E.L.D.’s most wanted list! Perhaps another Spider-Woman, Jessica Drew, could share some lessons about power and responsibility! Collecting EDGE OF SPIDER-VERSE #2, SPIDER-GWEN (2015A) #1-5 and SPIDER-GWEN (2015B) #1-6."
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/60472",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/collection/60472/spider-gwen_vol_1_hardcover?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/22351",
+          "name": "Spider-Gwen Vol. 1 (2017)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2017-02-01T00:00:00-0500"
+          },
+          {
+            "type": "focDate",
+            "date": "2016-12-13T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 34.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/7/c0/588bdb397e697",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/7/c0/588bdb397e697",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/8/d0/57a0bd3031f6f",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 4,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60472/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11306",
+              "name": "Jason Latour",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12399",
+              "name": "Robbi Rodriguez",
+              "role": "penciller (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12848",
+              "name": "Chris Visions",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 4
+        },
+        "characters": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60472/characters",
+          "items": [],
+          "returned": 0
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60472/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/131413",
+              "name": "cover from Spider-Gwen (2017)",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/131414",
+              "name": "story from Spider-Gwen (2017)",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60472/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 56178,
+        "digitalId": 0,
+        "title": "Spider-Woman (2015) #15",
+        "issueNumber": 15,
+        "variantDescription": "",
+        "description": "After a deadly confrontation with THE HOBGOBLIN, Jessica Drew is going to be saying R.I.P.P.…(Hint: the extra P stands for PORCUPINE!)",
+        "modified": "2017-01-19T11:17:28-0500",
+        "isbn": "",
+        "upc": "75960608338101511",
+        "diamondCode": "",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "After a deadly confrontation with THE HOBGOBLIN, Jessica Drew is going to be saying R.I.P.P.…(Hint: the extra P stands for PORCUPINE!)"
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/56178",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/56178/spider-woman_2015_15?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Spider-Woman-15/digital-comic/43844?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/20618",
+          "name": "Spider-Woman (2015 - Present)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2017-01-25T00:00:00-0500"
+          },
+          {
+            "type": "focDate",
+            "date": "2016-12-19T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 3.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/7/30/5880e46da4f78",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/7/30/5880e46da4f78",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 4,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/56178/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12782",
+              "name": "Veronica Fish",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11901",
+              "name": "Dennis Hopeless",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12457",
+              "name": "Edward Devin Lewis",
+              "role": "editor"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/1117",
+              "name": "Javier Rodriguez",
+              "role": "penciller (cover)"
+            }
+          ],
+          "returned": 4
+        },
+        "characters": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/56178/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009347",
+              "name": "Hobgoblin (Roderick Kingsley)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009608",
+              "name": "Spider-Woman (Jessica Drew)"
+            }
+          ],
+          "returned": 2
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/56178/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/123319",
+              "name": "cover from Spider-Woman (2015) #15",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/123320",
+              "name": "story from Spider-Woman (2015) #15",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/56178/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 60462,
+        "digitalId": 0,
+        "title": "Spider-Man: The Complete Clone Saga Epic Book 2 (Trade Paperback)",
+        "issueNumber": 0,
+        "variantDescription": "",
+        "description": "Villains die and debut in the nineties' pivotal Spider-saga! Spider-Man and his clone the Scarlet Spider are both fighting crime, and there's plenty to go around when the Jackal arises - with more clones in the wings! But following a team-up with Daredevil, who's having an identity crisis of his own, Spidey faces a fate that could end his web-slinging days forever! The answer may come from one of Spider-Man's deadliest enemies -but what price will he pay for it, and what prize will he leave behind? COLLECTING: AMAZING SPIDER-MAN (1962) #395-399, SPECTACULAR SPIDER-MAN (1976) #218-221, SPIDER-MAN (1990) #54-56, SPIDER-MAN UNLIMITED (1993) #8, WEB OF SPIDER-MAN #120-122, SPIDER-MAN: FUNERAL FOR AN OCTOPUS #1-3.",
+        "modified": "2017-01-20T15:50:51-0500",
+        "isbn": "978-1-302-90366-4",
+        "upc": "",
+        "diamondCode": "",
+        "ean": "9781302 903664 53499",
+        "issn": "",
+        "format": "Trade Paperback",
+        "pageCount": 480,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "Villains die and debut in the nineties' pivotal Spider-saga! Spider-Man and his clone the Scarlet Spider are both fighting crime, and there's plenty to go around when the Jackal arises - with more clones in the wings! But following a team-up with Daredevil, who's having an identity crisis of his own, Spidey faces a fate that could end his web-slinging days forever! The answer may come from one of Spider-Man's deadliest enemies -but what price will he pay for it, and what prize will he leave behind? COLLECTING: AMAZING SPIDER-MAN (1962) #395-399, SPECTACULAR SPIDER-MAN (1976) #218-221, SPIDER-MAN (1990) #54-56, SPIDER-MAN UNLIMITED (1993) #8, WEB OF SPIDER-MAN #120-122, SPIDER-MAN: FUNERAL FOR AN OCTOPUS #1-3."
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/60462",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/collection/60462/spider-man_the_complete_clone_saga_epic_book_2_trade_paperback?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/22343",
+          "name": "Spider-Man: The Complete Clone Saga Epic Book 2 (2017)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2017-01-25T00:00:00-0500"
+          },
+          {
+            "type": "focDate",
+            "date": "2017-01-10T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 34.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/f0/5882753d4b19d",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/f0/5882753d4b19d",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 9,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60462/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/87",
+              "name": "Mark Bagley",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/105",
+              "name": "Sal Buscema",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/1163",
+              "name": "Tom Lyle",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/934",
+              "name": "Mike Manley",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/9565",
+              "name": "Tom DeFalco",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/6986",
+              "name": "J. M. DeMatteis",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/682",
+              "name": "Todd Dezago",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/1286",
+              "name": "Howard Mackie",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 9
+        },
+        "characters": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60462/characters",
+          "items": [],
+          "returned": 0
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60462/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/131393",
+              "name": "cover from Spider-Man: The Complete Clone Saga Epic (2017)",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/131394",
+              "name": "story from Spider-Man: The Complete Clone Saga Epic (2017)",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60462/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 62511,
+        "digitalId": 0,
+        "title": "Spider-Man/Deadpool (2016) #1.1",
+        "issueNumber": 1.1,
+        "variantDescription": "",
+        "description": "SPIDER-MAN/DEADPOOL (2016) #1.MU A MONSTERS UNLEASHED TIE-IN! Spider-Man and Deadpool find themselves face-to-face(-to-face?) with one of the dozens of monsters smashing and stomping their way through the Marvel Universe! Ever the stalwart hero, Spider-Man has to use his powers (and responsibilities) to fearlessly fight the freakish monsters, saving many civilians at great cost to himself! Meanwhile, Deadpool is about as helpful as he usually is.",
+        "modified": "2017-01-20T13:48:18-0500",
+        "isbn": "",
+        "upc": "",
+        "diamondCode": "",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 40,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "SPIDER-MAN/DEADPOOL (2016) #1.MU A MONSTERS UNLEASHED TIE-IN! Spider-Man and Deadpool find themselves face-to-face(-to-face?) with one of the dozens of monsters smashing and stomping their way through the Marvel Universe! Ever the stalwart hero, Spider-Man has to use his powers (and responsibilities) to fearlessly fight the freakish monsters, saving many civilians at great cost to himself! Meanwhile, Deadpool is about as helpful as he usually is."
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/62511",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/62511/spider-mandeadpool_2016_1.1?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Spider-Man-Deadpool-1-1/digital-comic/43893?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/19679",
+          "name": "Spider-Man/Deadpool (2016 - Present)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2017-01-25T00:00:00-0500"
+          },
+          {
+            "type": "focDate",
+            "date": "2017-01-04T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 4.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/a0/58825b1cab96e",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/a0/58825b1cab96e",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/20/5880eb042faa7",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/62511/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/10432",
+              "name": "Dave Johnson",
+              "role": "penciller (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12491",
+              "name": "Tigh Walker",
+              "role": "penciller"
+            }
+          ],
+          "returned": 2
+        },
+        "characters": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/62511/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009268",
+              "name": "Deadpool"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009610",
+              "name": "Spider-Man"
+            }
+          ],
+          "returned": 2
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/62511/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/136200",
+              "name": "cover to Spider-Man/Deadpool (2016) #1.MU",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/136201",
+              "name": "interior to Spider-Man/Deadpool (2016) #1.MU",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/62511/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 60177,
+        "digitalId": 0,
+        "title": "Spider-Man 2099 Vol. 5: Civil War II (Trade Paperback)",
+        "issueNumber": 0,
+        "variantDescription": "",
+        "description": "Miguel is back in 2099 - but it's a world he doesn't recognize. One that is altogether more...sinister. He wakes to find himself held captive by six villains. But how is it that his native timeline is so different from the one he left behind? Can Spidey escape his tormentors, find a way back to the past and fix the future? Or will the Sinister Six reign supreme in 2099? Meanwhile, Roberta Mendez, aka Captain America 2099, returns to her own time in a bid to find her family. But little does she know that the heroes of this era are being hunted. Will this be the end of 2099 as we know it? And what does it all have to do with Civil War II? \nCOLLECTING: SPIDER-MAN 2099 #11-16.",
+        "modified": "2017-01-13T12:56:27-0500",
+        "isbn": "978-1-302-90281-0",
+        "upc": "",
+        "diamondCode": "",
+        "ean": "9781302 902810 51799",
+        "issn": "",
+        "format": "Trade Paperback",
+        "pageCount": 136,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "Miguel is back in 2099 - but it's a world he doesn't recognize. One that is altogether more...sinister. He wakes to find himself held captive by six villains. But how is it that his native timeline is so different from the one he left behind? Can Spidey escape his tormentors, find a way back to the past and fix the future? Or will the Sinister Six reign supreme in 2099? Meanwhile, Roberta Mendez, aka Captain America 2099, returns to her own time in a bid to find her family. But little does she know that the heroes of this era are being hunted. Will this be the end of 2099 as we know it? And what does it all have to do with Civil War II? \nCOLLECTING: SPIDER-MAN 2099 #11-16."
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/60177",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/collection/60177/spider-man_2099_vol_5_civil_war_ii_trade_paperback?utm_campaign=apiRef&utm_source=46876daf61600cab0a15f2481457a52e"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/22126",
+          "name": "Spider-Man 2099 Vol. 5: Civil War II (2017)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2017-01-18T00:00:00-0500"
+          },
+          {
+            "type": "focDate",
+            "date": "2017-01-03T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 17.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/f0/587913e5a646b",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/f0/587913e5a646b",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 4,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60177/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/121",
+              "name": "Peter David",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/8495",
+              "name": "Francesco Mattina",
+              "role": "artist"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11965",
+              "name": "William Sliney",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 4
+        },
+        "characters": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60177/characters",
+          "items": [],
+          "returned": 0
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60177/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/130851",
+              "name": "cover from Spider-Man 2099 Civil War (2017)",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/130852",
+              "name": "story from Spider-Man 2099 Civil War (2017)",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/60177/events",
+          "items": [],
+          "returned": 0
+        }
+      }
+    ]
+  }
+}

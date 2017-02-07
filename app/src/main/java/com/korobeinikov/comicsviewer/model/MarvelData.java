@@ -32,6 +32,22 @@ public class MarvelData {
             }
             return null;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof ComicInfo)) return false;
+
+            ComicInfo comicInfo = (ComicInfo) o;
+
+            return id == comicInfo.id;
+
+        }
+
+        @Override
+        public int hashCode() {
+            return id;
+        }
     }
 
     @Parcel

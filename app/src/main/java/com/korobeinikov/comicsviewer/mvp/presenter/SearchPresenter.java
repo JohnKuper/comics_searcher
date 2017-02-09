@@ -15,7 +15,6 @@ import io.realm.RealmResults;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by Dmitriy_Korobeinikov.
@@ -79,7 +78,6 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
             mView.showProgress(true);
         }
         mSubscription = mComicRequest
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mComicsObserver);
     }
 
@@ -119,7 +117,7 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
 
         @Override
         public void onError(Throwable e) {
-            mView.showProgress(false);
+            onRequestFailed();
         }
 
         @Override
@@ -129,6 +127,11 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
             }
         }
     };
+
+    private void onRequestFailed() {
+        mView.showProgress(false);
+        mView.showError();
+    }
 
     @VisibleForTesting
     protected void onResponseReceived(ComicsResponse response) {
@@ -157,5 +160,13 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     @Override
     public boolean hasMoreData() {
         return mFetchedMarvelData.hasMoreData();
+    }
+
+    public String getLastKeyword() {
+        return mLastKeyword;
+    }
+
+    public int getLastClickedPosition() {
+        return mLastClickedPosition;
     }
 }

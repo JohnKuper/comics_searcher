@@ -5,6 +5,7 @@ import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import java.util.Random;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.korobeinikov.comicsviewer.util.MD5HashHelper.computeMarvelMD5hash;
@@ -27,6 +28,7 @@ public class ComicsRequester {
         return mMarvelService.findComics(keyword, timeStamp, computeMarvelMD5hash(timeStamp), offset)
                 .subscribeOn(Schedulers.io())
                 .retry(3)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(() -> mIsLoading = true)
                 .doOnTerminate(() -> mIsLoading = false);
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.adapter.PagingController;
@@ -136,6 +137,11 @@ public class SearchFragment extends BaseFragment implements SearchListView {
     @Override
     public void notifyItemChanged(int position) {
         mSearchAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(getContext(), R.string.request_failed, Toast.LENGTH_SHORT).show();
     }
 
     @Override

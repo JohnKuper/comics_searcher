@@ -17,4 +17,6 @@ public interface SearchListView {
     void openDetailedInformation(MarvelData.ComicInfo comicInfo, int position);
 
     void notifyItemChanged(int position);
+
+    void showError();
 }

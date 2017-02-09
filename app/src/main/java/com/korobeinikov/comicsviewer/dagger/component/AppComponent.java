@@ -21,4 +21,6 @@ import dagger.Component;
 public interface AppComponent {
 
     ActivityComponent plus(ActivityModule activityModule);
+
+    SearchComponent plus();
 }

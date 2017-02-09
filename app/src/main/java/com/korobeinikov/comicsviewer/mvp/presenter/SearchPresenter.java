@@ -4,12 +4,15 @@ import android.support.annotation.VisibleForTesting;
 
 import com.korobeinikov.comicsviewer.adapter.PagingController;
 import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
+import com.korobeinikov.comicsviewer.dagger.scope.PerFragment;
 import com.korobeinikov.comicsviewer.model.ComicsResponse;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.model.RealmComicInfo;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
 import com.korobeinikov.comicsviewer.network.ComicsRequester;
 import com.korobeinikov.comicsviewer.realm.ComicRepository;
+
+import javax.inject.Inject;
 
 import io.realm.RealmResults;
 import rx.Observable;
@@ -19,6 +22,7 @@ import rx.Subscription;
 /**
  * Created by Dmitriy_Korobeinikov.
  */
+@PerFragment
 public class SearchPresenter extends BasePresenter<SearchListView> implements SearchAdapter.ClickListener, PagingController.Callbacks {
     private static final String TAG = "SearchPresenter";
 
@@ -33,6 +37,7 @@ public class SearchPresenter extends BasePresenter<SearchListView> implements Se
     private String mLastKeyword;
     private int mLastClickedPosition;
 
+    @Inject
     public SearchPresenter(ComicsRequester requester, ComicRepository repository, MarvelData marvelData) {
         mComicsRequester = requester;
         mComicRepository = repository;

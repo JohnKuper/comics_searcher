@@ -4,6 +4,8 @@ import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 /**
  * Created by Dmitriy_Korobeinikov.
  */
@@ -15,6 +17,10 @@ public class MarvelData {
     public int offset;
     public int total;
     public ArrayList<ComicInfo> results = new ArrayList<>();
+
+    @Inject
+    public MarvelData() {
+    }
 
     @Parcel
     public static class ComicInfo {

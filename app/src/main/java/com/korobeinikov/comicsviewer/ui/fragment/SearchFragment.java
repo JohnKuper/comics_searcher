@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.korobeinikov.comicsviewer.ComicsViewerApplication;
 import com.korobeinikov.comicsviewer.R;
 import com.korobeinikov.comicsviewer.adapter.PagingController;
 import com.korobeinikov.comicsviewer.adapter.SearchAdapter;
-import com.korobeinikov.comicsviewer.dagger.component.ActivityComponent;
-import com.korobeinikov.comicsviewer.dagger.component.FragmentComponent;
-import com.korobeinikov.comicsviewer.dagger.module.FragmentModule;
+import com.korobeinikov.comicsviewer.dagger.component.SearchComponent;
 import com.korobeinikov.comicsviewer.model.MarvelData;
 import com.korobeinikov.comicsviewer.mvp.presenter.SearchPresenter;
 import com.korobeinikov.comicsviewer.mvp.view.SearchListView;
@@ -35,7 +34,7 @@ import static com.korobeinikov.comicsviewer.R.id.recycler_view;
 public class SearchFragment extends BaseFragment implements SearchListView {
     public static final String TAG = "SearchFragment";
 
-    private static FragmentComponent sFragmentComponent;
+    private static SearchComponent sFragmentComponent;
 
     @BindView(recycler_view)
     protected RecyclerView mRecyclerView;
@@ -94,7 +93,7 @@ public class SearchFragment extends BaseFragment implements SearchListView {
 
     private void injectSelf() {
         if (sFragmentComponent == null) {
-            sFragmentComponent = getComponent(ActivityComponent.class).plus(new FragmentModule());
+            sFragmentComponent = ComicsViewerApplication.getAppComponent().plus();
         }
         sFragmentComponent.inject(this);
     }
